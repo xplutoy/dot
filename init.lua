@@ -150,7 +150,7 @@ require('lualine').setup{
 -- nvim-treesitter -----
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
-    ensure_installed = { "python", "lua"},
+    ensure_installed = { 'python', 'lua', 'c', 'bash', 'latex'},
     sync_install = false,
     auto_install = true,
 
