@@ -22,8 +22,8 @@ vim.opt.undofile = true                         -- enable persistent undo
 vim.opt.updatetime = 300                        -- faster completion (4000ms default)
 vim.opt.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 vim.opt.expandtab = true                        -- convert tabs to spaces
-vim.opt.shiftwidth = 2                          -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 2                             -- insert 2 spaces for a tab
+vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
 vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.number = true                           -- set numbered lines
 vim.opt.laststatus = 3
@@ -47,8 +47,8 @@ vim.o.wildmenu = true
 require "paq" {
     'savq/paq-nvim';                  -- Let Paq manage itself
 
-    -- colorscheme
-    {'nvim-treesitter/nvim-treesitter'};
+    -- edit & ui
+    'nvim-treesitter/nvim-treesitter';
     'glepnir/zephyr-nvim';
     'ellisonleao/gruvbox.nvim';
     'folke/tokyonight.nvim';
@@ -59,6 +59,9 @@ require "paq" {
     'akinsho/bufferline.nvim';
     'nvim-lualine/lualine.nvim';
     'pocco81/auto-save.nvim';
+
+    -- programing
+    'nvim-treesitter/nvim-treesitter';
 }
 
 -- themescheme ----------
@@ -77,7 +80,7 @@ pcall(vim.cmd, "colorscheme " .. colorscheme)
 require'nvim-web-devicons'.setup {
     -- globally enable default icons (default to false)
     -- will get overriden by `get_icons` option
-    default = true;
+    default = true,
 }
 
 -- auto-save ----------------
@@ -88,56 +91,74 @@ require'auto-save'.setup{}
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup({
-  disable_netrw = true,
-  hijack_cursor = false,
-  sort_by = "case_sensitive",
-  view = {
-    side = "left",
-    adaptive_size = false,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
+    disable_netrw = true,
+    hijack_cursor = false,
+    sort_by = "case_sensitive",
+    view = {
+        side = "left",
+        adaptive_size = false,
+        mappings = {
+            list = {
+                { key = "u", action = "dir_up" },
+            },
+        },
     },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
 })
 
 
 -- bufferline ----------------
 require'bufferline'.setup({
     options = {
-      number = "buffer_id",
-      close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-      right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-      left_mouse_command = "buffer %d",
-      mode = 'buffers',
-      -- 使用 nvim 内置lsp
-      diagnostics = "nvim_lsp",
-      -- 左侧让出 nvim-tree 的位置
-      offsets = {{
-        filetype = 'NvimTree',
-        text_align = "left",
-        separator = true
-      }},
-      separator_style = "thin",
+        number = "buffer_id",
+        close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+        right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+        left_mouse_command = "buffer %d",
+        mode = 'buffers',
+        -- 使用 nvim 内置lsp
+        diagnostics = "nvim_lsp",
+        -- 左侧让出 nvim-tree 的位置
+        offsets = {{
+            filetype = 'NvimTree',
+            text_align = "left",
+            separator = true
+        }},
+        separator_style = "thin",
     },
     highlights = {
-      buffer_selected = {
-        italic = false
-      },
-      indicator_selected = {
-        fg = {attribute = 'fg', highlight = 'Function'},
-        italic = false
-      },
+        buffer_selected = {
+            italic = false
+        },
+        indicator_selected = {
+            fg = {attribute = 'fg', highlight = 'Function'},
+            italic = false
+        },
     },
-  })
+})
 
+
+-- lualine -------------
+require('lualine').setup{
+}
+
+
+-- nvim-treesitter -----
+require'nvim-treesitter.configs'.setup {
+    -- A list of parser names, or "all"
+    ensure_installed = { "python", "lua"},
+    sync_install = false,
+    auto_install = true,
+
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+}
 --------------------------- plugin -------------------------
 
 
@@ -186,6 +207,3 @@ keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opt)
 --"moll/vim-bbye"
 keymap("n", "<S-w>", ":Bdelete!<CR>", opt)
 --------------------------- key-bindings -------------------
-
-
-
