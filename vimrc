@@ -10,18 +10,12 @@ syntax on                                                   " enable syntax high
 "--------
 set background=dark
 " set background=light
-
-" highlight current line
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline cursorcolumn
-set cursorline cursorcolumn
-highlight clear SignColumn                                  " SignColumn should match background
-highlight clear LineNr                                      " Current line number row will have same background color in relative mode
+set cursorline                                                  " 高亮当前行        
 
 " search
 set incsearch
 set hlsearch 
-"set highlight 	                                            " conflict with highlight current line
+" set highlight 	                                            " conflict with highlight current line
 set ignorecase
 set smartcase
 set wildmenu " Show list instead of just completing
@@ -53,7 +47,7 @@ set showcmd                                                   " show typed comma
 set title                                                     " show file in titlebar
 set matchtime=2                                               " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                                           " specially for html
-set relativenumber
+" set relativenumber
 set autoread
 set autowrite                                                 " 切换buffer时自动write  
 set t_ti= t_te=                                               " 退出vim后，内容显示在终端屏幕，方便复制
@@ -89,10 +83,6 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 20
 
 " ------------------FileType------------------------
-autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
-autocmd FileType coffee,javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
 
 "-----------------
