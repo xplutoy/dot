@@ -14,10 +14,6 @@
 
 --   end)
 
-local function setup_wraper(name)
-    require(name).setup{}
-end
-
 require "paq" {
     'savq/paq-nvim';                  -- Let Paq manage itself
 
@@ -27,6 +23,6 @@ require "paq" {
     {'kyazdani42/nvim-web-devicons', opt=true};
     'kyazdani42/nvim-tree.lua';
     'akinsho/bufferline.nvim';
-
-    {'pocco81/auto-save.nvim', run=setup_wraper('auto-save')};
+    {'pocco81/auto-save.nvim', run=(function()require('auto-save').setup{}end)};
+    -- {'pocco81/auto-save.nvim', run=setup_wraper('auto-save')};
 }
