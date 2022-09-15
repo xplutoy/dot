@@ -9,7 +9,7 @@ vim.opt.hlsearch = true                         -- highlight all matches on prev
 vim.opt.ignorecase = true                       -- ignore case in search patterns
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10                          -- pop up menu height
-vim.opt.showmode = true                        -- we don't need to see things like -- INSERT -- anymore
+vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 2                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
 vim.opt.smartindent = true                      -- make indenting smarter again
@@ -108,9 +108,6 @@ telescope_keybindings = {
         ["<C-d>"] = "preview_scrolling_down",
     },
 }
--- Comment ----------
-keymap('n', '<C-_>', require("Comment.api").toggle.linewise.current,opts)
-keymap('x', '<C-_>', require("Comment.api").toggle.blockwise.current,opts)
 --------------------------- key-bindings -------------------
 
 
@@ -138,10 +135,12 @@ require "paq" {
 
     -- programing
     'nvim-treesitter/nvim-treesitter';
-    'windwp/nvim-autopairs';
+    -- 'windwp/nvim-autopairs';
+    -- "m4xshen/autoclose.nvim";
     'lewis6991/gitsigns.nvim';
     'akinsho/toggleterm.nvim';
     'numToStr/Comment.nvim';
+    'ahmedkhalf/project.nvim';
 }
 
 -- themescheme ----------
@@ -259,13 +258,6 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99      -- 默认不要折叠
 
--- autopairs -----------
-require("nvim-autopairs").setup {
-    check_ts = true, -- treesitter integration
-    disable_filetype = { "TelescopePrompt" , "vim" },
-    enable_check_bracket_line = false,
-    ignored_next_char = "[]"
-}
 
 -- telescope -----------
 require('telescope').setup{
@@ -282,26 +274,26 @@ require('telescope').setup{
 require('gitsigns').setup {
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
-    
+
         local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
         end
-    
+
         -- Navigation
         map('n', ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
-          return '<Ignore>'
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
         end, {expr=true})
-    
+
         map('n', '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
-          return '<Ignore>'
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
         end, {expr=true})
-    
+
         -- Actions
         map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
         map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
@@ -314,7 +306,7 @@ require('gitsigns').setup {
         map('n', '<leader>gd', gs.diffthis)
         map('n', '<leader>gD', function() gs.diffthis('~') end)
         map('n', '<leader>gtd', gs.toggle_deleted)
-    
+
         -- Text object
         map({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
     end
@@ -323,16 +315,16 @@ require('gitsigns').setup {
 -- toggleterm -----------
 require'toggleterm'.setup({
     size = function(term)
-      if term.direction == "horizontal" then
-        return 15
-      elseif term.direction == "vertical" then
-        return vim.o.columns * 0.3
-      end
+        if term.direction == "horizontal" then
+            return 15
+        elseif term.direction == "vertical" then
+            return vim.o.columns * 0.3
+        end
     end,
     start_in_insert = true,
-  })
+})
 
-  function _G.set_terminal_keymaps()
+function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
     vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
@@ -340,15 +332,15 @@ require'toggleterm'.setup({
     vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
     vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
     vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-  end
-  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-  vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+end
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 
 function _lazygit_toggle()
-  lazygit:toggle()
+    lazygit:toggle()
 end
 vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 
@@ -360,5 +352,20 @@ require'Comment'.setup{
         extended = false,   ---Extended mapping; `g>` `g<` `g>[count]{motion}` `g<[count]{motion}`
     },
 }
+-- Comment ----------
+keymap('n', '<C-_>', require("Comment.api").toggle.linewise.current,opts)
+keymap('x', '<C-_>', require("Comment.api").toggle.blockwise.current,opts)
 
+
+-- project
+vim.g.nvim_tree_respect_buf_cwd = 1
+require'project_nvim'.setup({
+    detection_methods = { "pattern" },
+    patterns = {
+        "README.md",
+        ".git",
+        ".venv",
+    },
+})
+require('telescope').load_extension('projects')
 --------------------------- plugin -------------------------
