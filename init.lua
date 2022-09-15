@@ -24,7 +24,7 @@ vim.opt.writebackup = false                     -- if a file is being edited by 
 vim.opt.expandtab = true                        -- convert tabs to spaces
 vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
-vim.opt.cursorline = true                       -- highlight the current line
+vim.opt.cursorline = false                      -- highlight the current line
 vim.opt.number = true                           -- set numbered lines
 vim.opt.laststatus = 3
 vim.opt.showcmd = false
@@ -42,6 +42,79 @@ vim.opt.iskeyword:append("-")
 vim.o.wildmenu = true
 --------------------------- basic --------------------------
 
+
+--------------------------- key-bindings -------------------
+local keymap = vim.keymap.set       -- Shorten function name
+local opts = { silent = true }      -- Silent keymap option
+
+--Remap space as leader key
+keymap("", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
+
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
+-- Better window navigation
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+-- Resize with arrows
+keymap("n", "<C-Up>", ":resize -10<CR>", opts)
+keymap("n", "<C-Down>", ":resize +10<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -5<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +5<CR>", opts)
+-- Clear highlights
+keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
+-- 在visual mode 里粘贴不要复制
+keymap("v", "p", '"_dP', opts)
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+
+-- 插件的一些快捷键映射-----------------------------------------
+-- nvimTree
+keymap('n', '<leader>e', ':NvimTreeToggle<cr>', opts)
+keymap('n', '<leader>ef', ':NvimTreeFindFileToggle<cr>', opts)
+-- buffer & bufferline
+keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<S-l>", ":bnext<CR>", opts)
+keymap("n", "<S-w>", ":Bdelete!<CR>", opts)
+keymap("n", "<leader>bh", ":BufferLineCyclePrev<CR>", opts)
+keymap("n", "<leader>bl", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "<leader>bo", ":BufferLineCloseRight<CR>:BufferLineCloseLeft<CR>", opts)
+keymap("n", "<leader>bc", ":BufferLinePickClose<CR>", opts)
+-- treesitter 折叠
+keymap("n", "z", ":foldclose<CR>", opts)
+keymap("n", "Z", ":foldopen<CR>", opts)
+
+-- telescope
+keymap('n', '<leader>ff', ':Telescope find_files<cr>', opts)
+keymap('n', '<leader>fg', ':Telescope live_grep<cr>', opts)
+keymap('n', '<leader>fb', ':Telescope buffers<cr>', opts)
+keymap('n', '<leader>fp', ':Telescope projects<cr>', opts)
+telescope_keybindings = {
+    i = {
+        -- 历史记录
+        ["<Down>"] = "cycle_history_next",
+        ["<Up>"] = "cycle_history_prev",
+        -- 预览窗口上下滚动
+        ["<C-u>"] = "preview_scrolling_up",
+        ["<C-d>"] = "preview_scrolling_down",
+    },
+}
+-- Comment ----------
+keymap('n', '<C-_>', require("Comment.api").toggle.linewise.current,opts)
+keymap('x', '<C-_>', require("Comment.api").toggle.blockwise.current,opts)
+--------------------------- key-bindings -------------------
+
+
+
 --------------------------- plugin -------------------------
 --paq need bootstrap
 require "paq" {
@@ -52,6 +125,9 @@ require "paq" {
     'glepnir/zephyr-nvim';
     'ellisonleao/gruvbox.nvim';
     'folke/tokyonight.nvim';
+    "goolord/alpha-nvim";
+    'nvim-lua/plenary.nvim';
+    'nvim-telescope/telescope.nvim';
 
     'kyazdani42/nvim-web-devicons';
     'moll/vim-bbye';
@@ -62,11 +138,15 @@ require "paq" {
 
     -- programing
     'nvim-treesitter/nvim-treesitter';
+    'windwp/nvim-autopairs';
+    'lewis6991/gitsigns.nvim';
+    'akinsho/toggleterm.nvim';
+    'numToStr/Comment.nvim';
 }
 
 -- themescheme ----------
-vim.o.background = "dark"
-local colorscheme = "zephyr"
+vim.o.background = 'light'
+local colorscheme = 'gruvbox'
 -- tokyonight
 -- gruvbox
 -- zephyr
@@ -75,6 +155,8 @@ local colorscheme = "zephyr"
 -- nightfox
 pcall(vim.cmd, "colorscheme " .. colorscheme)
 
+-- alpha --------
+require'alpha'.setup(require'alpha.themes.startify'.config)
 
 -- nvim-web-devicons --------
 require'nvim-web-devicons'.setup {
@@ -107,6 +189,7 @@ require("nvim-tree").setup({
         group_empty = true,
     },
     filters = {
+        custom = { "^.git$" },
         dotfiles = true,
     },
 })
@@ -144,6 +227,12 @@ require'bufferline'.setup({
 
 -- lualine -------------
 require('lualine').setup{
+    options = {
+        globalstatus = true,
+        icons_enabled = true,
+        theme = "auto",
+        always_divide_middle = true,
+    },
 }
 
 
@@ -153,57 +242,123 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = { 'python', 'lua', 'c', 'bash', 'latex'},
     sync_install = false,
     auto_install = true,
-
+    autopairs = {
+        enable = true,
+    },
+    indent = { 
+        enable = true, 
+        -- disable = { "python" } 
+    },
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
     },
 }
+-- 开启 Folding 模块
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99      -- 默认不要折叠
+
+-- autopairs -----------
+require("nvim-autopairs").setup {
+    check_ts = true, -- treesitter integration
+    disable_filetype = { "TelescopePrompt" , "vim" },
+    enable_check_bracket_line = false,
+    ignored_next_char = "[]"
+}
+
+-- telescope -----------
+require('telescope').setup{
+    defaults = {
+        initial_mode = 'insert',
+        layout_strategy = 'horizontal',
+        path_display = { 'smart' },
+        file_ignore_patterns = {'.git/'},
+        mappings = telescope_keybindings,
+    },
+}
+
+-- gitsigns -------------
+require('gitsigns').setup {
+    on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+    
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+    
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() gs.next_hunk() end)
+          return '<Ignore>'
+        end, {expr=true})
+    
+        map('n', '[c', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() gs.prev_hunk() end)
+          return '<Ignore>'
+        end, {expr=true})
+    
+        -- Actions
+        map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+        map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        map('n', '<leader>gS', gs.stage_buffer)
+        map('n', '<leader>gu', gs.undo_stage_hunk)
+        map('n', '<leader>gR', gs.reset_buffer)
+        map('n', '<leader>gp', gs.preview_hunk)
+        map('n', '<leader>gb', function() gs.blame_line{full=true} end)
+        map('n', '<leader>gtb', gs.toggle_current_line_blame)
+        map('n', '<leader>gd', gs.diffthis)
+        map('n', '<leader>gD', function() gs.diffthis('~') end)
+        map('n', '<leader>gtd', gs.toggle_deleted)
+    
+        -- Text object
+        map({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
+    end
+}
+
+-- toggleterm -----------
+require'toggleterm'.setup({
+    size = function(term)
+      if term.direction == "horizontal" then
+        return 15
+      elseif term.direction == "vertical" then
+        return vim.o.columns * 0.3
+      end
+    end,
+    start_in_insert = true,
+  })
+
+  function _G.set_terminal_keymaps()
+    local opts = {buffer = 0}
+    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  end
+  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+  vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+
+-- Comment --------------
+require'Comment'.setup{
+    mappings = {
+        basic = true, --- `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+        extra = false, ---Extra mapping; `gco`, `gcO`, `gcA`
+        extended = false,   ---Extended mapping; `g>` `g<` `g>[count]{motion}` `g<[count]{motion}`
+    },
+}
+
 --------------------------- plugin -------------------------
-
-
---------------------------- key-bindings -------------------
-local keymap = vim.keymap.set       -- Shorten function name
-local opts = { silent = true }      -- Silent keymap option
-
---Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
--- Resize with arrows
-keymap("n", "<C-Up>", ":resize -10<CR>", opts)
-keymap("n", "<C-Down>", ":resize +10<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -5<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +5<CR>", opts)
--- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
--- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
--- 在visual mode 里粘贴不要复制
-keymap("v", "p", '"_dP', opts)
--- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
-
-
--- nvimTree
-keymap('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', opt)
--- bufferline
-keymap("n", "<S-h>", ":BufferLineCyclePrev<CR>", opt)
-keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opt)
---"moll/vim-bbye"
-keymap("n", "<S-w>", ":Bdelete!<CR>", opt)
---------------------------- key-bindings -------------------
