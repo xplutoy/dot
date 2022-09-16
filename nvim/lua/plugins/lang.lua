@@ -46,3 +46,5 @@ require("indent_blankline").setup {
         "NvimTree",
       },
 }
+
+-- lsp ------------------------------

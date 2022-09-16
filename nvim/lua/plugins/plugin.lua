@@ -23,6 +23,9 @@ require'paq'{
 	'nvim-treesitter/nvim-treesitter';
 	'lukas-reineke/indent-blankline.nvim';
 	'numToStr/Comment.nvim';
+	-- lang(lsp)
+	'neovim/nvim-lspconfig';
+
 	-- workspace
 	'ahmedkhalf/project.nvim';
 	'lewis6991/gitsigns.nvim';
