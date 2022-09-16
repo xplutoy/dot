@@ -1,7 +1,4 @@
---------------------------- plugin -------------------------
---paq need bootstrap
-
-local PKGS = {
+require'paq'{
 	'savq/paq-nvim';
 
 	-- List your packages here!
@@ -31,36 +28,3 @@ local PKGS = {
 	'lewis6991/gitsigns.nvim';
 	'akinsho/toggleterm.nvim';
 }
-
-require'paq'(PKGS)
-
-local function clone_paq()
-	local path = vim.fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
-	if vim.fn.empty(vim.fn.glob(path)) > 0 then
-		vim.fn.system {
-			'git',
-			'clone',
-			'--depth=1',
-			'https://github.com/savq/paq-nvim.git',
-			path
-		}
-	end
-end
-
-local function bootstrap_paq(bootstrap)
-    if not bootstrap then
-        require'paq'(PKGS)
-    else
-        clone_paq()
-        -- Load Paq
-        vim.cmd('packadd paq-nvim')
-        local paq = require('paq')
-        -- Exit nvim after installing plugins
-        vim.cmd('autocmd User PaqDoneInstall quit')
-        -- Read and install packages
-        paq(PKGS)
-        paq.install()
-    end
-end
-
-return { bootstrap_paq = bootstrap_paq }

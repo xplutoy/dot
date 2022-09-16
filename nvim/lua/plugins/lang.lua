@@ -34,7 +34,8 @@ require'Comment'.setup{
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
 require("indent_blankline").setup {
-    show_first_indent_level = true,
+    char = '| ',
+    show_first_indent_level = false,
     show_end_of_line = true,
     use_treesitter = true,
     show_current_context = true,

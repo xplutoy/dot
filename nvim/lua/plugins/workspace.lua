@@ -12,6 +12,7 @@ require('telescope').load_extension('projects')
 
 -- toggleterm -----------
 require'toggleterm'.setup({
+    open_mapping = '<C-t>',
     size = function(term)
         if term.direction == "horizontal" then
             return 15
@@ -20,6 +21,7 @@ require'toggleterm'.setup({
         end
     end,
     start_in_insert = true,
+    shade_terminals = true,
 })
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}

@@ -1,9 +1,8 @@
 --------------------------- key-bindings -------------------
 local keymap = vim.keymap.set       -- Shorten function name
-local opts = { silent = true }      -- Silent keymap option
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+keymap("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
 -- Modes
@@ -14,45 +13,44 @@ vim.g.mapleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<C-w>h")
+keymap("n", "<C-j>", "<C-w>j")
+keymap("n", "<C-k>", "<C-w>k")
+keymap("n", "<C-l>", "<C-w>l")
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -10<CR>", opts)
-keymap("n", "<C-Down>", ":resize +10<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -5<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +5<CR>", opts)
--- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
--- 在visual mode 里粘贴不要复制
-keymap("v", "p", '"_dP', opts)
+keymap("n", "<C-Up>", ":resize -10<CR>")
+keymap("n", "<C-Down>", ":resize +10<CR>")
+keymap("n", "<C-Left>", ":vertical resize -5<CR>")
+keymap("n", "<C-Right>", ":vertical resize +5<CR>")
+
+keymap("v", "p", '"_dP')                    -- 在visual mode 里粘贴不要复制
+keymap({'n', 'x'}, 'x', '"_x')              -- x只删除一个字符，一般不用保存到寄存器
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
 
 
 -- 插件的一些快捷键映射-----------------------------------------
 -- nvimTree
-keymap('n', '<leader>e', ':NvimTreeToggle<cr>', opts)
-keymap('n', '<leader>ef', ':NvimTreeFindFileToggle<cr>', opts)
+keymap('n', '<leader>e', ':NvimTreeToggle<cr>')
+keymap('n', '<leader>ef', ':NvimTreeFindFileToggle<cr>')
 -- buffer & bufferline
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-w>", ":Bdelete!<CR>", opts)
-keymap("n", "<leader>bh", ":BufferLineCyclePrev<CR>", opts)
-keymap("n", "<leader>bl", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "<leader>bo", ":BufferLineCloseRight<CR>:BufferLineCloseLeft<CR>", opts)
-keymap("n", "<leader>bc", ":BufferLinePickClose<CR>", opts)
+keymap("n", "<S-h>", ":bprevious<CR>")
+keymap("n", "<S-l>", ":bnext<CR>")
+keymap("n", "<S-w>", ":Bdelete!<CR>")
+keymap("n", "<leader>bh", ":BufferLineCyclePrev<CR>")
+keymap("n", "<leader>bl", ":BufferLineCycleNext<CR>")
+keymap("n", "<leader>bo", ":BufferLineCloseRight<CR>:BufferLineCloseLeft<CR>")
+keymap("n", "<leader>bc", ":BufferLinePickClose<CR>")
 -- treesitter 折叠
-keymap("n", "z", ":foldclose<CR>", opts)
-keymap("n", "Z", ":foldopen<CR>", opts)
+keymap("n", "z", ":foldclose<CR>")
+keymap("n", "Z", ":foldopen<CR>")
 
 -- telescope
-keymap('n', '<leader>ff', ':Telescope find_files<cr>', opts)
-keymap('n', '<leader>fg', ':Telescope live_grep<cr>', opts)
-keymap('n', '<leader>fb', ':Telescope buffers<cr>', opts)
-keymap('n', '<leader>fp', ':Telescope projects<cr>', opts)
+keymap('n', '<leader>ff', ':Telescope find_files<cr>')
+keymap('n', '<leader>fg', ':Telescope live_grep<cr>')
+keymap('n', '<leader>fp', ':Telescope projects<cr>')
+keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<cr>')
 telescope_keybindings = {
     i = {
         -- 历史记录
@@ -65,8 +63,9 @@ telescope_keybindings = {
 }
 
 -- Comment ----------
-keymap('n', '<C-_>', require("Comment.api").toggle.linewise.current,opts)
-keymap('x', '<C-_>', require("Comment.api").toggle.blockwise.current,opts)
+keymap('n', '<C-_>', require("Comment.api").toggle.linewise.current)
+keymap('x', '<C-_>', require("Comment.api").toggle.blockwise.current)
 
 -- laygit term ------
 keymap("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+

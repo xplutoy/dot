@@ -39,11 +39,12 @@ vim.opt.fillchars.eob=" "
 vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
-vim.o.wildmenu = true
+vim.opt.wildmenu = true
+vim.opt.autowrite = true
+vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
+
 
 -- plugins -----------------
-local bootstrap = false
-require 'plugins.plugin'.bootstrap_paq(bootstrap)
 require 'plugins.plugin'
 require 'plugins.ui'
 require 'plugins.edit'
