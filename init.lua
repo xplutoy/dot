@@ -138,7 +138,7 @@ require "paq" {
 
     -- programing
     'nvim-treesitter/nvim-treesitter';
-    'windwp/nvim-autopairs';
+    -- 'windwp/nvim-autopairs';
     'lewis6991/gitsigns.nvim';
     'akinsho/toggleterm.nvim';
     'numToStr/Comment.nvim';
@@ -261,13 +261,6 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99      -- 默认不要折叠
 
--- autopairs -----------
-require("nvim-autopairs").setup {
-    check_ts = true, -- treesitter integration
-    disable_filetype = { "TelescopePrompt" , "vim" },
-    enable_check_bracket_line = false,
-    ignored_next_char = "[]"
-}
 
 -- telescope -----------
 require('telescope').setup{
