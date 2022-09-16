@@ -42,6 +42,8 @@ vim.opt.iskeyword:append("-")
 vim.o.wildmenu = true
 
 -- plugins -----------------
+local bootstrap = false
+require 'plugins.plugin'.bootstrap_paq(bootstrap)
 require 'plugins.plugin'
 require 'plugins.ui'
 require 'plugins.edit'
