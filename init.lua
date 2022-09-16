@@ -142,6 +142,8 @@ require "paq" {
     'lewis6991/gitsigns.nvim';
     'akinsho/toggleterm.nvim';
     'numToStr/Comment.nvim';
+    'lukas-reineke/indent-blankline.nvim';
+    'RRethy/vim-illuminate';
 }
 
 -- themescheme ----------
@@ -359,6 +361,23 @@ require'Comment'.setup{
         extra = false, ---Extra mapping; `gco`, `gcO`, `gcA`
         extended = false,   ---Extended mapping; `g>` `g<` `g>[count]{motion}` `g<[count]{motion}`
     },
+}
+
+-- indent_blankline -----
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    show_first_indent_level = true,
+    show_end_of_line = true,
+    use_treesitter = true,
+    show_current_context = true,
+    show_trailing_blankline_indent = false,
+    buftype_exclude = { "terminal", "nofile" },
+    filetype_exclude = {
+        "help",
+        "NvimTree",
+      },
 }
 
 --------------------------- plugin -------------------------
