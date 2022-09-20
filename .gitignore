@@ -1,0 +1,5 @@
+
+.DS_Store
+emacs.d/bookmarks
+emacs.d/backup/*
+emacs.d/auto-save-list/*
