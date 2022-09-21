@@ -4,6 +4,7 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export fpath=($ZDOTDIR/.zsh $fpath)         # add own functions folder to fpath 
 
+# line edit
 bindkey -e
 export KEYTIMEOUT=1
 
@@ -30,6 +31,22 @@ alias ls='ls --color=auto'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 alias vim='nvim'
+alias em='emacs -nw'
+
+# alias for git
+alias ga='git add'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gds='git diff --staged'
+alias gs='git status -sb'
 
 # 补全
 autoload -U compinit; compinit
@@ -38,29 +55,33 @@ setopt AUTO_MENU
 setopt ALWAYS_TO_END
 setopt COMPLETE_IN_WORD
 
-# 路径
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$ZDOTDIR/.zcompcache"
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' file-sort change
 
+# promt
+zstyle :prompt:pure:git:stash show yes
 
 # misc
 setopt CORRECT_ALL
 #
-# zstyle
-zstyle :prompt:pure:git:stash show yes
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # 插件管理器
 [ -f ~/.miniplug.zsh ] && source ~/.miniplug.zsh
 
-# plugin
+# plugin manager
 miniplug plugin 'zsh-users/zsh-syntax-highlighting'
 miniplug plugin 'zsh-users/zsh-autosuggestions'
 miniplug plugin 'zsh-users/zsh-completions'
 miniplug plugin 'agkozak/zsh-z'
 miniplug plugin 'Tarrasch/zsh-bd'
-
 # theme
-# miniplug plugin 'sindresorhus/pure'
+miniplug plugin 'sindresorhus/pure'
 miniplug load
 
 # 插件配置
