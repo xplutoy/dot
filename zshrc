@@ -38,10 +38,8 @@ setopt AUTO_MENU
 setopt ALWAYS_TO_END
 setopt COMPLETE_IN_WORD
 
-# 路径
-
-
 # misc
+setopt NOBEEP
 setopt CORRECT_ALL
 #
 # zstyle

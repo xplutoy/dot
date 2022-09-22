@@ -7,8 +7,11 @@
  '(auto-save-no-message t)
  '(backup-directory-alist '(("" . "~/.emacs.d/backup")))
  '(delete-selection-mode t)
+ '(horizontal-scroll-bar-mode nil)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil)
  '(word-wrap t)
  '(word-wrap-by-category t))
 (custom-set-faces
