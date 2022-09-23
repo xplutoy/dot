@@ -54,6 +54,8 @@ unsetopt MENU_COMPLETE
 setopt AUTO_MENU
 setopt ALWAYS_TO_END
 setopt COMPLETE_IN_WORD
+setopt NOBEEP
+setopt CORRECT_ALL
 
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' use-cache on
@@ -66,8 +68,6 @@ zstyle ':completion:*' file-sort change
 zstyle :prompt:pure:git:stash show yes
 
 # misc
-setopt CORRECT_ALL
-#
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
