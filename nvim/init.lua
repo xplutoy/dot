@@ -40,8 +40,10 @@ vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
 vim.opt.wildmenu = true
+vim.opt.autoread = true
 vim.opt.autowrite = true
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
+vim.opt.history = 1000
 
 
 -- plugins -----------------
