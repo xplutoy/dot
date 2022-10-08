@@ -8,7 +8,7 @@
  '(horizontal-scroll-bar-mode nil)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(gruvbox-theme which-key consult-yasnippet yasnippet-snippets pyvenv-auto pyvenv kind-icon eglot cape corfu-doc corfu consult-dir consult-project-extra consult ordeless orderless marginalia vertico company))
+   '(posframe embark-consult elfeed restart-emacs embark buffer-move vterm gruvbox-theme which-key consult-yasnippet yasnippet-snippets pyvenv-auto pyvenv kind-icon eglot cape corfu-doc corfu consult-dir consult-project-extra consult ordeless orderless marginalia vertico company))
  '(scroll-bar-mode nil)
  '(tab-bar-mode t)
  '(tab-bar-show 1)

@@ -8,6 +8,6 @@
 
 (yx-require-package 'pyvenv)
 (yx-require-package 'pyvenv-auto)
-(add-hook 'python-mode-hook (lambda () (pyvenv-auto-mode t)))
+(add-hook 'python-mode-hook #'pyvenv-auto-mode)
 
 (provide 'init-python)

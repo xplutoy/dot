@@ -6,32 +6,41 @@
 (defconst ON-BSD     (or ON-MAC (eq system-type 'berkeley-unix)))
 (defconst ON-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 
+;; in terminal, use basic mode
+(defvar yx-basic-mode-p t)
+(when (display-graphic-p)
+  (setq yx-basic-mode-p nil) ;; if t dont use other package unless inbuilt
+  )
+
 ;; Profile emacs startup
 (add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs loaded in %s."
-                     (emacs-init-time))))
+          #'(lambda ()
+              (message "Emacs loaded in %s."
+                       (emacs-init-time))))
 
-(defun yx-add-to-load-path-r (dirs)
-  (when dirs
-    (let ((default-directory  (car dirs)))
+(defun yx-add-to-load-path-r (dir)
+   (let ((default-directory  dir))
       (normal-top-level-add-to-load-path '("."))
       (normal-top-level-add-subdirs-to-load-path))
-    (yx-add-to-load-path-r (cdr dirs))))
+   )
 
-(yx-add-to-load-path-r (list
-			(concat user-emacs-directory "lisp")
-			(concat user-emacs-directory "nonelpa")))
+(defun yx-run-with-idle-timer (seconds func)
+  "After SECONDS, run function FUNC once."
+  (run-with-idle-timer seconds nil func))
+
+(yx-add-to-load-path-r (concat user-emacs-directory "lisp"))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
 
-(require 'init-default)
-(require 'init-elpa)
-(require 'init-misc)
-(require 'init-completion)
-(require 'init-ide)
-(require 'init-python)
+(require 'init-basic)
+(unless yx-basic-mode-p
+  (require 'init-elpa)
+  (require 'init-misc)
+  (require 'init-completion)
+  (require 'init-ide)
+  (require 'init-python)
+  (require 'init-elfeed))
 ;; (require 'init-company)
 

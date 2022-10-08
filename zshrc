@@ -94,3 +94,10 @@ miniplug load
 fpath+=($HOME/.local/share/miniplug/sindresorhus/pure)
 autoload -U promptinit; promptinit
 prompt pure
+
+# emacs vterm shell side configuration
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+fi
