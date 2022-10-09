@@ -2,7 +2,7 @@
 
 ;; minibuffer enhance
 ;; vertico ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'vertico)
+(yx/require-package 'vertico)
 (add-hook 'after-init-hook 'vertico-mode)
 
 (with-eval-after-load 'vertico
@@ -26,21 +26,21 @@
   )
 
 ;; orderless ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'orderless)
+(yx/require-package 'orderless)
 (with-eval-after-load 'vertico
   (setq completion-styles '(orderless basic)
 	    completion-category-overrides '((file (styles basic partial-completion))))
   )
 
 ;; marginalia ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (yx-require-package 'marginalia)
+;; (yx/require-package 'marginalia)
 ;; (with-eval-after-load 'vertico
 ;;   (define-key minibuffer-local-map "\M-A" #'marginalia-cycle)
 ;;   (marginalia-mode 1)
 ;;   )
 
 ;; embark ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'embark)
+(yx/require-package 'embark)
 (with-eval-after-load 'vertico
   (global-set-key (kbd "C-.") 'embark-act)
   (global-set-key (kbd "C-;") 'embark-dwim)
@@ -95,13 +95,13 @@
     ;; (embark-define-keymap embark-symbol-map ("D" sdcv-search-pointer+)))  dont work ?? maybe something wrong
   )
 
-(yx-require-package 'embark-consult)
+(yx/require-package 'embark-consult)
 (with-eval-after-load 'consult
   (with-eval-after-load 'embark
     (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode)))
 
 ;; consult ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'consult)
+(yx/require-package 'consult)
 (with-eval-after-load 'vertico
   (global-set-key (kbd "C-x b") 'consult-buffer)
   (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
@@ -171,7 +171,7 @@
   
 
 ;; consult-dir ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'consult-dir)
+(yx/require-package 'consult-dir)
 (with-eval-after-load 'consult
   (define-key global-map (kbd "C-x C-d") #'consult-dir)
   (define-key vertico-map (kbd "C-x C-d") #'consult-dir)
@@ -179,13 +179,13 @@
   )
 
 ;; consult-yac
-(yx-require-package 'consult-yasnippet)
+(yx/require-package 'consult-yasnippet)
 (with-eval-after-load 'consult
   (define-key global-map (kbd "M-s y") #'consult-yasnippet)
   )
 
 ;; corfu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx-require-package 'corfu)
+(yx/require-package 'corfu)
 (add-hook 'after-init-hook 'global-corfu-mode)
 (with-eval-after-load 'corfu
   (setq corfu-cycle t)
@@ -208,7 +208,7 @@
   )
 
 ;; corfu-doc
-(yx-require-package 'corfu-doc)
+(yx/require-package 'corfu-doc)
 (add-hook 'corfu-mode-hook #'corfu-doc-mode)
 (with-eval-after-load 'corfu-doc
   (setq corfu-doc-auto nil)
@@ -218,7 +218,7 @@
   )
 
 ;; kind-icon
-(yx-require-package 'kind-icon)
+(yx/require-package 'kind-icon)
 (with-eval-after-load 'corfu
   ;; (require 'kind-icon)
   (setq kind-icon-default-face 'corfu-default)
@@ -226,7 +226,7 @@
   )
 
 ;; cape
-(yx-require-package 'cape)
+(yx/require-package 'cape)
 (with-eval-after-load 'corfu
   (global-set-key (kbd "C-c p p") 'completion-at-point)
   

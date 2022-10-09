@@ -11,7 +11,7 @@
 (setq package-quickstart t)
 (add-hook 'kill-emacs-hook 'package-quickstart-refresh)
 
-(defmacro yx-require-package (package)
+(defmacro yx/require-package (package)
   "Only install the package if it is not already installed."
   `(progn
      (unless (package-installed-p ,package) (package-install ,package))

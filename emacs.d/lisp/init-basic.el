@@ -6,7 +6,7 @@
               fill-column 80
               tab-width 4
               indent-tabs-mode nil
-	      cursor-type 'box)
+	          cursor-type 'box)
 
 (setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash  t)  ; Deleting files go to OS's trash folder
@@ -22,21 +22,40 @@
 (setq auto-save-default t)
 (setq auto-save-no-message t)
 (setq backup-directory-alist
-          `(("." . ,(concat user-emacs-directory "backups"))))
+      `(("." . ,(concat user-emacs-directory "backups"))))
 (setq kill-do-not-save-duplicates t)
 (setq delete-auto-save-files t)  ;; when save or kill buffer
 (setq isearch-allow-motion t)
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
-
 (setq tab-bar-show t)
+(setq indent-tabs-mode nil)
+(setq create-lockfiles nil)
+(setq require-final-newline t)
+(setq frame-resize-pixelwise t)
+;; Better scroll behavior
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
+(setq mouse-yank-at-point t)
+
+;; ui
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (set-window-scroll-bars
+             (minibuffer-window frame) 0 nil 0 nil t)))
+
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-i") 'imenu)
 
-(defun yx-inbuilt-modes-global-toggle ()
+(defun yx/inbuilt-modes-global-toggle ()
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode 1)
-  (electric-pair-mode 1)
+  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+  (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+  ;; (electric-pair-mode 1)
   (windmove-default-keybindings)
   (recentf-mode 1)
   (setq recentf-max-saved-items 100)
@@ -57,7 +76,7 @@
   (tab-bar-history-mode 1)
 
   ;; 一些跟后面其他插件有冲突的基础配置
-  (when yx-basic-mode-p
+  (when yx/basic-mode-p
     (require 'ido)
     (setq ido-enable-flex-matching t)
     (setq ido-use-filename-at-point 'guess)
@@ -73,7 +92,7 @@
 
   )
 
-(add-hook 'after-init-hook 'yx-inbuilt-modes-global-toggle)
+(add-hook 'after-init-hook 'yx/inbuilt-modes-global-toggle)
 (add-hook 'prog-mode-hook #'show-paren-mode)
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 

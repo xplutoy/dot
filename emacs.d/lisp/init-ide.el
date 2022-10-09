@@ -1,9 +1,9 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(yx-require-package 'eglot)
+(yx/require-package 'eglot)
 (add-hook 'python-mode-hook 'eglot-ensure)
 
-(yx-require-package 'yasnippet-snippets)
-(yx-require-package 'yasnippet)
+(yx/require-package 'yasnippet-snippets)
+(yx/require-package 'yasnippet)
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 (with-eval-after-load 'yasnippet
   ;; unbind <TAB> completion
@@ -14,7 +14,8 @@
   (define-key yas-minor-mode-map (kbd "S-<tab>") 'yas-expand)
   )
 
-(yx-require-package 'vterm)
+;; vterm ;;;;;;;;;;;;;;;
+(yx/require-package 'vterm)
 (with-eval-after-load 'vterm
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
   (setq vterm-kill-buffer-on-exit t)
@@ -33,5 +34,30 @@
   (advice-add 'counsel-yank-pop-action :around #'vterm-counsel-yank-pop-action)
   
   )
+
+;; aweshell
+(defun yx/awesome-eshell-conf ()
+  (add-to-list 'load-path (concat user-emacs-directory "nonelpa/aweshell"))
+  (require 'aweshell)
+
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-dakrone)
+  (setq aweshell-dedicated-window-height 15
+        aweshell-auto-suggestion-p nil) ;;auto suggestion depend on company
+  (define-key eshell-mode-map (kbd "C-l") #'aweshell-clear-buffer )
+  (define-key eshell-mode-map (kbd "C-n") #'aweshell-next )
+  (define-key eshell-mode-map (kbd "C-p") #'aweshell-prev)
+  (define-key eshell-mode-map (kbd "C-t") #'aweshell-new)
+  (define-key eshell-mode-map (kbd "C-p") #'aweshell-prev)
+  (define-key eshell-mode-map (kbd "C-o") #'aweshell-switch-buffer)
+  (define-key eshell-mode-map (kbd "C-r") #'aweshell-search-history)
+  (global-set-key (kbd "C-,") #'aweshell-dedicated-toggle)
+  
+  )
+(add-hook 'after-init-hook #'yx/awesome-eshell-conf)
+
+;; project
+(with-eval-after-load "project"
+    (define-key project-prefix-map "m" 'magit))
 
 (provide 'init-ide)

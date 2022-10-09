@@ -1,8 +1,17 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 ;; ui theme
 ;; 1, monokai-theme
-(yx-require-package 'gruvbox-theme)
-(load-theme 'gruvbox-light-medium t)
+;; 2, ef-themes
+;; (yx/require-package 'gruvbox-theme)
+;; (load-theme 'gruvbox-light-medium t)
+(yx/require-package 'ef-themes)
+(setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
+(load-theme 'ef-duo-light :no-confirm)
+
+;;delete whitespace after line
+(add-hook 'prog-mode-hook
+          #'(lambda ()
+                (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
 ;; ui modeline
 (when (display-graphic-p)
@@ -18,29 +27,29 @@
     (awesome-tray-mode 1)
     ))
 
-(yx-require-package 'which-key)
+(yx/require-package 'which-key)
 (add-hook 'after-init-hook
-	  #'(lambda ()
-	      (setq which-key-idle-delay 1.5) ;; whick-key文挡上说必须在load之前设置
-	      (setq which-key-idle-secondary-delay 0.05)
-	      (setq which-key-popup-type 'minibuffer)
-	      (which-key-mode 1)
-	      ))
+          #'(lambda ()
+              (setq which-key-idle-delay 1.5) ;; whick-key文挡上说必须在load之前设置
+              (setq which-key-idle-secondary-delay 0.05)
+              (setq which-key-popup-type 'minibuffer)
+              (which-key-mode 1)
+              ))
 
 ;; buffer-move
-(yx-require-package 'buffer-move)
+(yx/require-package 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
 ;; restart-emacs
-(yx-require-package 'restart-emacs)
+(yx/require-package 'restart-emacs)
 
-(yx-require-package 'posframe)  ;; sdcv dep
+(yx/require-package 'posframe)  ;; sdcv dep
 
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx-run-with-idle-timer 2 #'(lambda ()
+(yx/run-with-idle-timer 2 #'(lambda ()
                               (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
                               (require 'sdcv)
                               (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")

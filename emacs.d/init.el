@@ -3,13 +3,12 @@
 ;; Check the system used
 (defconst ON-LINUX   (eq system-type 'gnu/linux))
 (defconst ON-MAC     (eq system-type 'darwin))
-(defconst ON-BSD     (or ON-MAC (eq system-type 'berkeley-unix)))
 (defconst ON-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 
 ;; in terminal, use basic mode
-(defvar yx-basic-mode-p t)
+(defvar yx/basic-mode-p t)
 (when (display-graphic-p)
-  (setq yx-basic-mode-p nil) ;; if t dont use other package unless inbuilt
+  (setq yx/basic-mode-p nil) ;; if t dont use other package unless inbuilt
   )
 
 ;; Profile emacs startup
@@ -18,24 +17,25 @@
               (message "Emacs loaded in %s."
                        (emacs-init-time))))
 
-(defun yx-add-to-load-path-r (dir)
+(defun yx/add-to-load-path-r (dir)
    (let ((default-directory  dir))
       (normal-top-level-add-to-load-path '("."))
       (normal-top-level-add-subdirs-to-load-path))
    )
 
-(defun yx-run-with-idle-timer (seconds func)
+(defun yx/run-with-idle-timer (seconds func)
   "After SECONDS, run function FUNC once."
   (run-with-idle-timer seconds nil func))
 
-(yx-add-to-load-path-r (concat user-emacs-directory "lisp"))
+(yx/add-to-load-path-r (concat user-emacs-directory "lisp"))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
 
 (require 'init-basic)
-(unless yx-basic-mode-p
+(require 'init-font)
+(unless yx/basic-mode-p
   (require 'init-elpa)
   (require 'init-misc)
   (require 'init-completion)
