@@ -31,6 +31,11 @@
              return (set-face-attribute 'fixed-pitch-serif nil
                                          :family font
                                          :height (font-height-ds)))
+=======
+                                        :height (cond (ON-MAC 150)
+                                                      (ON-WINDOWS 110)
+                                                      (t 100))))
+>>>>>>> 5fe76c6762d2f7a8bdcf9e02294a7e2e576db3a1
 
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
