@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 ;; ui theme
 ;; 1, monokai-theme
-(yx-require-package 'gruvbox-theme)
+(yx/require-package 'gruvbox-theme)
 (load-theme 'gruvbox-light-medium t)
 
 ;; ui modeline
@@ -18,7 +18,7 @@
     (awesome-tray-mode 1)
     ))
 
-(yx-require-package 'which-key)
+(yx/require-package 'which-key)
 (add-hook 'after-init-hook
 	  #'(lambda ()
 	      (setq which-key-idle-delay 1.5) ;; whick-key文挡上说必须在load之前设置
@@ -28,19 +28,19 @@
 	      ))
 
 ;; buffer-move
-(yx-require-package 'buffer-move)
+(yx/require-package 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
 ;; restart-emacs
-(yx-require-package 'restart-emacs)
+(yx/require-package 'restart-emacs)
 
-(yx-require-package 'posframe)  ;; sdcv dep
+(yx/require-package 'posframe)  ;; sdcv dep
 
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx-run-with-idle-timer 2 #'(lambda ()
+(yx/run-with-idle-timer 2 #'(lambda ()
                               (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
                               (require 'sdcv)
                               (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")

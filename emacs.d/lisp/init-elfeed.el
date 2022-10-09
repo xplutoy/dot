@@ -1,6 +1,6 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(yx-require-package 'elfeed)
+(yx/require-package 'elfeed)
 (with-eval-after-load 'elfeed
   (setq-default elfeed-search-filter "@1-year-ago +unread ")
   (define-key elfeed-search-mode-map (kbd "j") #'next-line)
@@ -12,6 +12,8 @@
   
   (setq elfeed-feeds
         '(
+          ("https://liujiacai.net/atom.xml" emacs)
+          ("https://protesilaos.com/codelog.xml" emacs)
           ("http://pragmaticemacs.com/feed/" emacs)
           ("https://karthinks.com/index.xml" hack tool)
           ("zhihu.com/rss" zhihu)

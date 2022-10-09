@@ -1,9 +1,9 @@
 [submodule "emacs.d/nonelpa/awesome-tray"]
 	path = emacs.d/nonelpa/awesome-tray
 	url = https://github.com/manateelazycat/awesome-tray.git
-[submodule "emacs.d/nonelpa/awesome-tab"]
-	path = emacs.d/nonelpa/awesome-tab
-	url = https://github.com/manateelazycat/awesome-tab.git
 [submodule "emacs.d/nonelpa/sdcv"]
 	path = emacs.d/nonelpa/sdcv
 	url = https://github.com/manateelazycat/sdcv.git
+[submodule "emacs.d/nonelpa/aweshell"]
+	path = emacs.d/nonelpa/aweshell
+	url = https://github.com/manateelazycat/aweshell.git
