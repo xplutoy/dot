@@ -1,7 +1,4 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-
-(set-default-coding-systems 'utf-8)
-
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
@@ -14,6 +11,7 @@
 ;; (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
 (setq-default abbrev-mode t)
+(setq kill-buffer-delete-auto-save-files 1)
 (setq ring-bell-function 'ignore)
 (setq use-short-answers t)
 (setq use-dialog-box nil)
@@ -45,6 +43,8 @@
           (lambda (frame)
             (set-window-scroll-bars
              (minibuffer-window frame) 0 nil 0 nil t)))
+(setq tab-bar-new-button-show nil
+      tab-bar-close-button-show nil)
 
 
 (global-set-key (kbd "M-o") 'other-window)
@@ -62,6 +62,7 @@
   (setq recentf-exclude '(
                 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
                 "^/tmp/"))
+  (setq recentf-auto-cleanup 10)
   (savehist-mode 1)
   (delete-selection-mode 1)
   (global-superword-mode 1)
@@ -91,6 +92,11 @@
     (load-theme 'wombat))
 
   )
+
+;; eww
+;; (with-eval-after-load 'eww
+;;   ;; eww-auto-rename-buffe
+;;   )
 
 (add-hook 'after-init-hook 'yx/inbuilt-modes-global-toggle)
 (add-hook 'prog-mode-hook #'show-paren-mode)

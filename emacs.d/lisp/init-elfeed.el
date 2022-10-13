@@ -1,5 +1,4 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-
 (yx/require-package 'elfeed)
 (with-eval-after-load 'elfeed
   (setq-default elfeed-search-filter "@1-year-ago +unread ")
@@ -9,7 +8,7 @@
     (lambda ()
       (interactive)
       (switch-to-buffer (elfeed-log-buffer))))
-  
+
   (setq elfeed-feeds
         '(
           ("https://liujiacai.net/atom.xml" emacs)
@@ -26,6 +25,8 @@
           ("https://lobste.rs/t/ai.rss" ai)
           ("https://lobste.rs/t/python.rss" python)
           ("https://lobste.rs/t/emacs.rss" emacs)
+          ("https://emacstalk.github.io/podcast/index.xml" emacs)
+          ("http://xahlee.info/emacs/emacs/blog.xml" emacs)
           ))
   )
 

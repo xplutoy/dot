@@ -22,7 +22,7 @@
   ;; vertico-quick
   (define-key vertico-map "\M-q" #'vertico-quick-insert)
   (define-key vertico-map "\C-q" #'vertico-quick-exit)
-  
+
   )
 
 ;; orderless ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -89,7 +89,7 @@
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator)
 
-  
+
   (with-eval-after-load 'embark
     (define-key embark-symbol-map "D" 'sdcv-search-pointer+))
     ;; (embark-define-keymap embark-symbol-map ("D" sdcv-search-pointer+)))  dont work ?? maybe something wrong
@@ -168,7 +168,7 @@
      :preview-key (list (kbd "C-SPC") :debounce 0.5 'any))
     )
   )
-  
+
 
 ;; consult-dir ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (yx/require-package 'consult-dir)
@@ -228,8 +228,8 @@
 ;; cape
 (yx/require-package 'cape)
 (with-eval-after-load 'corfu
-  (global-set-key (kbd "C-c p p") 'completion-at-point)
-  
+  ;; (global-set-key (kbd "C-c p p") 'completion-at-point)
+
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-symbol)

@@ -16,3 +16,4 @@ emacs.d/tramp
 emacs.d/history
 emacs.d/ido.last
 eww-bookmarks
+emacs.d/eln-cache/*
