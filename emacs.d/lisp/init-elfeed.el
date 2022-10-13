@@ -27,6 +27,7 @@
           ("https://lobste.rs/t/emacs.rss" emacs)
           ("https://emacstalk.github.io/podcast/index.xml" emacs)
           ("http://xahlee.info/emacs/emacs/blog.xml" emacs)
+          ("https://lucidmanager.org/categories/productivity//index.xml" emacs)
           ))
   )
 
