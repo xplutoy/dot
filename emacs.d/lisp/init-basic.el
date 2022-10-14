@@ -37,7 +37,9 @@
 (setq mouse-yank-at-point t)
 
 ;; ui
-(tool-bar-mode -1)
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  )
 (menu-bar-mode -1)
 (add-hook 'after-make-frame-functions
           (lambda (frame)
@@ -101,5 +103,9 @@
 (add-hook 'after-init-hook 'yx/inbuilt-modes-global-toggle)
 (add-hook 'prog-mode-hook #'show-paren-mode)
 (add-hook 'prog-mode-hook #'hs-minor-mode)
+;;delete whitespace after line
+(add-hook 'prog-mode-hook
+          #'(lambda ()
+              (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
 (provide 'init-basic)

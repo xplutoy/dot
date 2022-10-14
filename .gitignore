@@ -17,3 +17,4 @@ emacs.d/history
 emacs.d/ido.last
 eww-bookmarks
 emacs.d/eln-cache/*
+emacs.d/org-roam.db

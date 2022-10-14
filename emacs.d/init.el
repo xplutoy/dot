@@ -35,12 +35,13 @@
 
 (require 'init-basic)
 (require 'init-font)
+(require 'init-elpa)
 (require 'init-org)
+(require 'init-elfeed)
 (unless yx/basic-mode-p
-  (require 'init-elpa)
   (require 'init-misc)
   (require 'init-completion)
   (require 'init-ide)
-  (require 'init-python)
-  (require 'init-elfeed))
+  (require 'init-python))
+
 ;; (require 'init-company)

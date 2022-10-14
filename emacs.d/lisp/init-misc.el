@@ -8,11 +8,6 @@
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
 (load-theme 'ef-duo-light :no-confirm)
 
-;;delete whitespace after line
-(add-hook 'prog-mode-hook
-          #'(lambda ()
-                (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
-
 ;; ui modeline
 (when (display-graphic-p)
   (add-to-list 'load-path (concat user-emacs-directory "nonelpa/awesome-tray"))
