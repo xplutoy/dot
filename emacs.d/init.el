@@ -35,6 +35,7 @@
 
 (require 'init-basic)
 (require 'init-font)
+(require 'init-org)
 (unless yx/basic-mode-p
   (require 'init-elpa)
   (require 'init-misc)
@@ -43,4 +44,3 @@
   (require 'init-python)
   (require 'init-elfeed))
 ;; (require 'init-company)
-
