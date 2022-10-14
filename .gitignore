@@ -18,3 +18,5 @@ emacs.d/ido.last
 eww-bookmarks
 emacs.d/eln-cache/*
 emacs.d/org-roam.db
+emacs.d/.emacs.desktop
+emacs.d/.org-id-locations

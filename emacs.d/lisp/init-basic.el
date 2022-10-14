@@ -71,12 +71,18 @@
   (repeat-mode 1)
   (winner-mode 1)
   (global-so-long-mode 1)
+  (setq desktop-save t)
+  (setq sesktop-load-locked-desktop t)
+  (setq desktop-path (list user-emacs-directory))
+  (setq desktop-dirname user-emacs-directory)
+  (desktop-save-mode 1)
   (save-place-mode 1)
   (auto-save-visited-mode 1)
   (setq auto-save-visited-interval 10)
   (global-hl-line-mode 1)
   (blink-cursor-mode -1)
   (tab-bar-history-mode 1)
+
 
   ;; 一些跟后面其他插件有冲突的基础配置
   (when yx/basic-mode-p
