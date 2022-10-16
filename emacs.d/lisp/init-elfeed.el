@@ -28,6 +28,9 @@
           ("https://emacstalk.github.io/podcast/index.xml" emacs)
           ("http://xahlee.info/emacs/emacs/blog.xml" emacs)
           ("https://lucidmanager.org/categories/productivity//index.xml" emacs)
+          ("https://emacsredux.com/atom.xml" emacs)
+          ("https://sachachua.com/blog/category/emacs/feed/" emacs)
+          ("https://planet.emacslife.com/atom.xml" emacs)
           ))
   )
 

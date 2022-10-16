@@ -1,14 +1,16 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (setq-default major-mode 'text-mode
-              fill-column 80
+              fill-column 100
               tab-width 4
               indent-tabs-mode nil
 	          cursor-type 'box)
 
+(fringe-mode 4) ;;default 8
+
 (setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash  t)  ; Deleting files go to OS's trash folder
 
-;; (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 ;; (global-display-line-numbers-mode 1)
 (setq-default abbrev-mode t)
 (setq kill-buffer-delete-auto-save-files 1)
@@ -26,14 +28,12 @@
 (setq isearch-allow-motion t)
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
 (setq tab-bar-show t)
-(setq indent-tabs-mode nil)
 (setq create-lockfiles nil)
 (setq require-final-newline t)
 (setq frame-resize-pixelwise t)
 ;; Better scroll behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
-
 (setq mouse-yank-at-point t)
 
 ;; ui
@@ -113,5 +113,7 @@
 (add-hook 'prog-mode-hook
           #'(lambda ()
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
+(add-hook 'emacs-startup-hook #'desktop-read)
+
 
 (provide 'init-basic)
