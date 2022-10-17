@@ -1,4 +1,7 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
+;; diary
+(setq diary-file (concat org-directory "/diary.org"))
+
 ;; org
 (add-hook 'org-mode-hook
           #'(lambda ()
@@ -10,6 +13,9 @@
 (setq org-directory "~/org")
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
 (setq org-agenda-files '("gtd.org"))
+
+(setq org-agenda-include-diary t)
+(setq org-agenda-diary-file diary-file)
 
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
@@ -59,7 +65,6 @@
         ("wu" tags-todo "+@work+urgent")
         ("l" . "life+tag search")
         ("li" tags-todo "+@life+important")))
-
 
 ;; org-roam
 (yx/require-package 'org-roam)
