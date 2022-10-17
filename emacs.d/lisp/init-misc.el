@@ -79,7 +79,19 @@
           rime-predicate-in-code-string-p
           rime-predicate-punctuation-after-space-cc-p
           rime-predicate-space-after-cc-p))
-)
+  )
+
+(setq calendar-week-start-day 1)
+(yx/require-package 'cal-china-x)
+(yx/run-with-idle-timer 2 #'(lambda ()
+                              (require 'cal-china-x)
+                              (setq mark-holidays-in-calendar t)
+                              (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+                              (setq calendar-holidays
+                                    (append cal-china-x-important-holidays
+                                            cal-china-x-general-holidays
+                                            other-holidays))
+))
 
 
 (provide 'init-misc)

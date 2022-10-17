@@ -5,8 +5,6 @@
               indent-tabs-mode nil
 	          cursor-type 'box)
 
-(fringe-mode 4) ;;default 8
-
 (setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash  t)  ; Deleting files go to OS's trash folder
 
@@ -39,6 +37,7 @@
 ;; ui
 (when (display-graphic-p)
   (tool-bar-mode -1)
+  (fringe-mode 4) ;;default 8
   )
 (menu-bar-mode -1)
 (add-hook 'after-make-frame-functions
@@ -114,6 +113,21 @@
           #'(lambda ()
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 (add-hook 'emacs-startup-hook #'desktop-read)
+
+
+;;user defined
+;;scroll 1/3 page
+(defun previous-multilines ()
+  "scroll down multiple lines"
+  (interactive)
+  (scroll-down (/ (window-body-height) 3)))
+(defun next-multilines ()
+  "scroll up multiple lines"
+  (interactive)
+  (scroll-up (/ (window-body-height) 3)))
+
+(global-set-key "\M-n" 'next-multilines)
+(global-set-key "\M-p" 'previous-multilines)
 
 
 (provide 'init-basic)
