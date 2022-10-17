@@ -27,7 +27,6 @@
 (setq delete-auto-save-files t)  ;; when save or kill buffer
 (setq isearch-allow-motion t)
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
-(setq tab-bar-show t)
 (setq create-lockfiles nil)
 (setq require-final-newline t)
 (setq frame-resize-pixelwise t)
@@ -45,12 +44,12 @@
           (lambda (frame)
             (set-window-scroll-bars
              (minibuffer-window frame) 0 nil 0 nil t)))
-(setq tab-bar-new-button-show nil
-      tab-bar-close-button-show nil)
-
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-i") 'imenu)
+
+(global-set-key (kbd "C-<tab>") 'tab-next)
+(global-set-key (kbd "C-S-<tab>") 'tab-previous)
 
 (defun yx/inbuilt-modes-global-toggle ()
   (setq global-auto-revert-non-file-buffers t)
@@ -81,8 +80,10 @@
   (setq auto-save-visited-interval 10)
   (global-hl-line-mode 1)
   (blink-cursor-mode -1)
+  (setq tab-bar-show 1
+        tab-bar-new-button-show nil
+        tab-bar-close-button-show nil)
   (tab-bar-history-mode 1)
-
 
   ;; 一些跟后面其他插件有冲突的基础配置
   (when yx/basic-mode-p

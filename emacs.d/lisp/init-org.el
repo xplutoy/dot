@@ -10,7 +10,6 @@
 (setq org-directory "~/org")
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
 (setq org-agenda-files '("gtd.org"))
-(defvar yx-daily-file (concat org-directory "/daily.org"))
 
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
@@ -29,15 +28,11 @@
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?")
+         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?" :empty-lines-before 1)
         ("p" "Project" entry (file+headline org-default-notes-file "Projects")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?")
+         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?" :empty-lines-before 1)
         ("h" "Habit" entry (file+headline org-default-notes-file "Habits")
-         "* NEXT [#B] %^{Title}\t%^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
-        ("j" "Journal" entry (file+olp+datetree yx-daily-file)
-         "* %^{Title}\n%U\n%?")))
-
-(setq org-tags-exclude-from-inheritance '("project","habit"))
+         "* NEXT [#B] %^{Title}\t%^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-before 1)))
 
 (setq org-refile-targets '((nil :maxlevel . 2)
                            (org-agenda-files :maxlevel . 2))
