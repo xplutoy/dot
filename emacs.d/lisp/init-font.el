@@ -5,7 +5,7 @@
   (find-font (font-spec :name font-name)))
 
 (defun font-height-ds ()
-  (cond (ON-MAC 150)
+  (cond (ON-MAC 155)
         (ON-WINDOWS 160)
         (t 140))
   )
@@ -43,10 +43,10 @@
              return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("LXGW WenKai" "PingFang SC" "STFangsong")
+    (cl-loop for font in '("LXGW WenKai Mono" "PingFang SC" "STFangsong")
              when (font-installed-p font)
              return (progn
-                      (setq face-font-rescale-alist `((,font . 1.0)))
+                      (setq face-font-rescale-alist `((,font . 1.05)))
                       (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
 (yx/setup-fonts)

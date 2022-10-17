@@ -115,6 +115,12 @@
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 (add-hook 'emacs-startup-hook #'desktop-read)
 
+;; diary calendar
+(setq calendar-week-start-day 1)
+(setq calendar-latitude 31
+      calendar-longitude 103)
+(setq calendar-mark-holidays-flag t
+      calendar-mark-diary-entries-flag t)
 
 ;;user defined
 ;;scroll 1/3 page

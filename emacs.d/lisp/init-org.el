@@ -1,6 +1,4 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
-;; diary
-(setq diary-file (concat org-directory "/diary.org"))
 
 ;; org
 (add-hook 'org-mode-hook
@@ -11,6 +9,7 @@
               (visual-line-mode 1)
               ))
 (setq org-directory "~/org")
+(setq diary-file (concat org-directory "/diary.org"))
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
 (setq org-agenda-files '("gtd.org"))
 
@@ -32,6 +31,9 @@
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+(setq org-priority-faces '((?A :foreground "red")
+			               (?B :foreground "orange")
+			               (?C :foreground "yellow")))
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
          "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?" :empty-lines-before 1)
@@ -50,6 +52,7 @@
 
 (setq org-startup-folded "content"
       org-hide-block-startup t)
+(setq org-hide-leading-stars t)
 (setq org-log-done 'time)
 (setq org-log-repeat 'time)
 (setq org-log-into-drawer t)
@@ -58,6 +61,7 @@
 (setq org-use-fast-todo-selection t)
 (setq org-return-follows-link t)
 (setq-default org-enforce-todo-dependencies t)
+(setq org-src-fontify-natively t)
 
 (setq org-agenda-custom-commands
       '(("n" todo "NEXT")
@@ -71,6 +75,8 @@
 (with-eval-after-load 'org
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
+  ;; (add-to-list 'org-modules 'org-tempo)
+  (org-indent-mode 1)
 
   ;; org-roam
   (define-key org-mode-map (kbd "C-,") nil) ;;unbind org-cycle-agenda-files
