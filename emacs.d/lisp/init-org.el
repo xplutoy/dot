@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 
+(yx/require-package 'mixed-pitch)
+
 ;; org
 (add-hook 'org-mode-hook
           #'(lambda ()
@@ -7,6 +9,8 @@
                     word-wrap-by-category t
                     fill-column 100)
               (visual-line-mode 1)
+              (mixed-pitch-mode 1)
+              ;; (variable-pitch-mode 1)
               ))
 (setq org-directory "~/org")
 (setq diary-file (concat org-directory "/diary.org"))
@@ -51,8 +55,19 @@
       org-log-refile nil)
 
 (setq org-startup-folded "content"
-      org-hide-block-startup t)
-(setq org-hide-leading-stars t)
+      org-startup-indented t
+      org-fontify-done-headline t
+      org-src-fontify-natively t
+      org-hide-leading-stars t
+      org-hidden-keywords t
+      org-hide-emphasis-markers t
+      org-pretty-entities t
+      ;; org-odd-levels-only t
+      org-hide-block-startup t
+      org-startup-with-inline-images t
+      ;; org-auto-align-tags nil
+      org-image-actual-width '(300))
+
 (setq org-log-done 'time)
 (setq org-log-repeat 'time)
 (setq org-log-into-drawer t)
@@ -61,10 +76,13 @@
 (setq org-use-fast-todo-selection t)
 (setq org-return-follows-link t)
 (setq-default org-enforce-todo-dependencies t)
-(setq org-src-fontify-natively t)
 
 (setq org-agenda-custom-commands
-      '(("n" todo "NEXT")
+      '(("x" agenda)
+        ("y" agenda*)
+        ("w" todo "WAITING")
+        ("W" todo-tree "WAITING")
+        ("n" todo "NEXT")
         ("w" . "work+tag search")
         ("wu" tags-todo "+@work+urgent")
         ("l" . "life+tag search")
@@ -76,7 +94,6 @@
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
   ;; (add-to-list 'org-modules 'org-tempo)
-  (org-indent-mode 1)
 
   ;; org-roam
   (define-key org-mode-map (kbd "C-,") nil) ;;unbind org-cycle-agenda-files
@@ -120,5 +137,15 @@
   (org-roam-db-autosync-mode)
   ;; (require 'org-roam-protocol)
   )
+
+(yx/require-package 'org-appear)
+(with-eval-after-load 'org-appear
+  (setq org-appear-autolinks t
+        org-appear-autosubmarkers t
+        org-appear-autoentities t
+        org-appear-autokeywords t
+        org-appear-inside-latex t))
+(add-hook 'org-mode-hook 'org-appear-mode)
+
 
 (provide 'init-org)

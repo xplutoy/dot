@@ -83,6 +83,7 @@
         tab-bar-new-button-show nil
         tab-bar-close-button-show nil)
   (tab-bar-history-mode 1)
+  (midnight-mode 1)
 
   ;; 一些跟后面其他插件有冲突的基础配置
   (when yx/basic-mode-p
@@ -121,6 +122,9 @@
       calendar-longitude 103)
 (setq calendar-mark-holidays-flag t
       calendar-mark-diary-entries-flag t)
+
+;; ibuffer
+(global-set-key (kbd "C-x C-d") 'ibuffer)
 
 ;;user defined
 ;;scroll 1/3 page

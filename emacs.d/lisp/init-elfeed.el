@@ -32,6 +32,9 @@
           ("https://emacsredux.com/atom.xml" emacs)
           ("https://sachachua.com/blog/category/emacs/feed/" emacs)
           ("https://planet.emacslife.com/atom.xml" emacs)
+          ("https://takeonrules.com/index.atom" tech)
+          ("http://blog.lujun9972.win/emacs-document/rss.xml" emacs)
+          ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech)
           ))
   )
 

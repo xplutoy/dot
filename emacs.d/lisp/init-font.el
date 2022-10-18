@@ -5,7 +5,7 @@
   (find-font (font-spec :name font-name)))
 
 (defun font-height-ds ()
-  (cond (ON-MAC 155)
+  (cond (ON-MAC 160)
         (ON-WINDOWS 160)
         (t 140))
   )
@@ -20,17 +20,23 @@
                                         :family font
                                         :height (font-height-ds)))
 
+    (cl-loop for font in '("Inconsolata" "Source Code Pro" "Fira Code" "Menlo" "Monaco")
+             when (font-installed-p font)
+             return (set-face-attribute 'fixed-pitch nil
+                                        :family font
+                                        :height (font-height-ds)))
+
     (cl-loop for font in '("Source Serif Pro")
              when (font-installed-p font)
              return (set-face-attribute 'variable-pitch nil
-                                         :family font
-                                         :height (font-height-ds)))
+                                        :family font
+                                        :height (font-height-ds)))
 
     (cl-loop for font in '("Latin Modern Mono")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch-serif nil
-                                         :family font
-                                         :height (font-height-ds)))
+                                        :family font
+                                        :height (font-height-ds)))
 
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
