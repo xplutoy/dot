@@ -68,6 +68,20 @@
       ;; org-auto-align-tags nil
       org-image-actual-width '(300))
 
+ (let* ((base-font-color (face-foreground 'default nil 'default))
+        (headline   `(:inherit default :weight bold :foreground ,base-font-color)))
+   (custom-theme-set-faces
+    'user
+    `(org-level-8 ((t (,@headline))))
+    `(org-level-7 ((t (,@headline))))
+    `(org-level-6 ((t (,@headline))))
+    `(org-level-5 ((t (,@headline))))
+    `(org-level-4 ((t (,@headline :height 1.1))))
+    `(org-level-3 ((t (,@headline :height 1.25))))
+    `(org-level-2 ((t (,@headline :height 1.5))))
+    `(org-level-1 ((t (,@headline :height 1.75))))
+    `(org-document-title ((t (,@headline :height 2.0 :underline nil))))))
+
 (setq org-log-done 'time)
 (setq org-log-repeat 'time)
 (setq org-log-into-drawer t)
