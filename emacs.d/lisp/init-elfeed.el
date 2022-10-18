@@ -17,6 +17,7 @@
           ("http://pragmaticemacs.com/feed/" emacs)
           ("https://karthinks.com/index.xml" hack tool)
           ("zhihu.com/rss" zhihu)
+          ("http://feeds.feedburner.com/zhihu-daily" zhihu)
           ("https://blog.evjang.com/feeds/posts/default" tech)
           ("https://ruder.io/rss/index.rss" ai nlp)
           ("https://www.inference.vc/rss" ai)
@@ -35,6 +36,14 @@
           ("https://takeonrules.com/index.atom" tech)
           ("http://blog.lujun9972.win/emacs-document/rss.xml" emacs)
           ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech)
+          ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
+
+          ("https://wangyurui.com/feed.xml" 思考 人生 社会)
+
+          ("https://www.tmtpost.com/feed" 科技 商业)
+          ("https://36kr.com/feed" 商业)
+          ("http://feeds.initium.news/theinitium" 新闻)
+          ("https://wanqu.co/feed/" 创业 技术)
           ))
   )
 

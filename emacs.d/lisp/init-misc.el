@@ -67,6 +67,8 @@
         rime-user-data-dir "/Users/yx/Library/Rime"
         rime-show-candidate 'posframe
         rime-cursor "˰")
+  (setq rime-inline-ascii-trigger 'shift-l)
+  (setq rime-inline-ascii-holder ?x)
   (setq rime-posframe-properties
         (list :background-color "#333333"
               :foreground-color "#dcdccc"
@@ -74,11 +76,12 @@
   (setq rime-disable-predicates
         '(rime-predicate-after-alphabet-char-p
           rime-predicate-current-uppercase-letter-p
-          rime-predicate-current-input-punctuation-p
-          rime-predicate-prog-in-code-p
-          rime-predicate-in-code-string-p
-          rime-predicate-punctuation-after-space-cc-p
-          rime-predicate-space-after-cc-p))
+          ;; rime-predicate-current-input-punctuation-p
+          ;; rime-predicate-prog-in-code-p
+          ;; rime-predicate-in-code-string-p
+          ;; rime-predicate-punctuation-after-space-cc-p
+          ;; rime-predicate-space-after-cc-p
+          ))
   )
 
 ;; cal-china-x

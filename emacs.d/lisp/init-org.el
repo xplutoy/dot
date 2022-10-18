@@ -8,6 +8,7 @@
               (setq word-wrap t
                     word-wrap-by-category t
                     fill-column 100)
+              (auto-fill-mode 1)
               (visual-line-mode 1)
               (mixed-pitch-mode 1)
               ;; (variable-pitch-mode 1)
@@ -116,23 +117,26 @@
   (define-key org-mode-map (kbd "C-c n i") 'org-roam-node-insert)
   (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
   (define-key org-mode-map (kbd "C-c n r") 'org-roam-ref-add)
+  (define-key org-mode-map (kbd "C-c n R") 'org-roam-ref-remove)
+  (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
+  (define-key org-mode-map (kbd "C-c n A") 'org-roam-alias-remove)
   (global-set-key (kbd "C-c n c") 'org-roam-capture)
-  ()
+
   (setq org-roam-directory (file-truename org-directory))
   (setq org-roam-completion-everywhere t)
   (setq org-roam-capture-templates
         '(("n" "note" plain "%?"
-           :if-new (file+head "notes/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :if-new (file+head "notes/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n")
            :immediate-finish t
            :unnarrowed t)
           ("f" "fleeting-note" plain "%?"
            :if-new
-           (file+head "inbox/%<%Y%m%d%H%M%S>-${title}.org" "#+title: ${title}\n")
+           (file+head "inbox/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n\n#+begin_quote\n%i\n#+end_quote\n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "article" plain "%?"
            :if-new
-           (file+head "articles/%<%Y%m%d%H%M%S>-${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           (file+head "articles/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+FILETAGS: :article:\n")
            :immediate-finish t
            :unnarrowed t)))
   (setq org-roam-node-display-template

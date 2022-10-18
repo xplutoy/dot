@@ -32,6 +32,12 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+(add-hook 'emacs-startup-hook #'(lambda ()
+                               (require 'server)
+                               (unless (or (bound-and-true-p server-process)
+                                           (server-running-p))
+                                 (server-start))))
+(add-hook 'server-done-hook 'delete-frame)
 
 (require 'init-basic)
 (require 'init-font)
