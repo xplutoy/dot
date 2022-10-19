@@ -7,3 +7,6 @@
 [submodule "emacs.d/nonelpa/aweshell"]
 	path = emacs.d/nonelpa/aweshell
 	url = https://github.com/manateelazycat/aweshell.git
+[submodule "miniplug"]
+	path = miniplug
+	url = https://github.com/YerinAlexey/miniplug.git

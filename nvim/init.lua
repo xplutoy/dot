@@ -46,14 +46,6 @@ vim.opt.history = 1000
 
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
--- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
@@ -73,51 +65,7 @@ vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
 vim.keymap.set("n", "<S-l>", ":bnext<CR>")
 vim.keymap.set("n", "<S-w>", ":Bdelete!<CR>")
 
-require'paq'{
-	'savq/paq-nvim';
-
-	-- List your packages here!
-	-- misc
-	'moll/vim-bbye';
-	'nvim-lua/plenary.nvim';
-	-- theme
-	'folke/tokyonight.nvim';
-	'glepnir/zephyr-nvim';
-	'ellisonleao/gruvbox.nvim';
-	-- ui
-	'kyazdani42/nvim-web-devicons';
-	-- "goolord/alpha-nvim";
-	'nvim-lualine/lualine.nvim';
-	-- edit
-	'nvim-telescope/telescope.nvim';
-	'pocco81/auto-save.nvim';
-	'akinsho/bufferline.nvim';
-	'kyazdani42/nvim-tree.lua';
-	"m4xshen/autoclose.nvim";
-	-- lang
-	'nvim-treesitter/nvim-treesitter';
-	'lukas-reineke/indent-blankline.nvim';
-	'numToStr/Comment.nvim';
-	-- lang(lsp)
-	'neovim/nvim-lspconfig';
-
-	-- workspace
-	'ahmedkhalf/project.nvim';
-	'lewis6991/gitsigns.nvim';
-	'akinsho/toggleterm.nvim';
-}
-
--- themescheme ----------
--- tokyonight
--- gruvbox
--- zephyr
--- nord
--- onedark
--- nightfox
-vim.o.background = 'dark'
-vim.cmd("colorscheme tokyonight-night")
-
 -- plugins -----------------
-require 'plugins.edit'
-require 'plugins.lang'
-require 'plugins.workspace'
+require 'plugins.boostrap'
+-- require 'plugins.lang'
+-- require 'plugins.workspace'

@@ -4,6 +4,9 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export fpath=($ZDOTDIR/.zsh $fpath)         # add own functions folder to fpath 
 
+export YX_DOTDIR=$HOME/dot
+export YX_ORGDIR=$HOME/org
+
 # line edit
 bindkey -e
 export KEYTIMEOUT=1
@@ -77,7 +80,7 @@ zstyle :prompt:pure:git:stash show yes
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # 插件管理器
-[ -f ~/.miniplug.zsh ] && source ~/.miniplug.zsh
+[ -f $YX_DOTDIR/miniplug/miniplug.zsh ] && source $YX_DOTDIR/miniplug/miniplug.zsh
 
 # plugin manager
 miniplug plugin 'zsh-users/zsh-syntax-highlighting'

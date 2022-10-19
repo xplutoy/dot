@@ -1,10 +1,13 @@
--- auto-save ----------------
-require'auto-save'.setup{}
+-- themescheme ----------
+-- tokyonight
+-- gruvbox                             -- auto-save ----------------
+-- zephyr                              require'auto-save'.setup{}
+-- nord
+-- onedark                             -- nvim-tree ----------------
+-- nightfox                            -- disable netrw at the very start of your init.lua (strongly advised)
+vim.o.background = 'dark'              vim.g.loaded = 1
+vim.cmd("colorscheme tokyonight-night")vim.g.loaded_netrwPlugin = 1
 
--- nvim-tree ----------------
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup({
     disable_netrw = true,
     hijack_cursor = false,
