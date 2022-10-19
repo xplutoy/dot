@@ -1,37 +1,10 @@
 -- themescheme ----------
--- tokyonight
--- gruvbox                             -- auto-save ----------------
--- zephyr                              require'auto-save'.setup{}
--- nord
--- onedark                             -- nvim-tree ----------------
--- nightfox                            -- disable netrw at the very start of your init.lua (strongly advised)
-vim.o.background = 'dark'              vim.g.loaded = 1
-vim.cmd("colorscheme tokyonight-night")vim.g.loaded_netrwPlugin = 1
+-- tokyonight | gruvbox | zephyr | nord | onedark | nightfox                            
+vim.o.background = 'dark'              
+vim.cmd("colorscheme tokyonight-night")
 
-require("nvim-tree").setup({
-    disable_netrw = true,
-    hijack_cursor = false,
-    sort_by = "case_sensitive",
-    view = {
-        side = "right",
-        adaptive_size = false,
-        mappings = {
-            list = {
-                { key = "u", action = "dir_up" },
-            },
-        },
-    },
-    renderer = {
-        group_empty = true,
-    },
-    filters = {
-        custom = { "^.git$" },
-        dotfiles = true,
-    },
-})
--- nvimTree
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>')
-vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFileToggle<cr>')
+-- auto-save ----------------
+require'auto-save'.setup{}
 
 -- bufferline ----------------
 require'bufferline'.setup({

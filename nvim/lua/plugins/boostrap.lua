@@ -25,7 +25,6 @@ local PKGS = {
 	'neovim/nvim-lspconfig';
 	-- workspace
 	'ahmedkhalf/project.nvim';
-	'lewis6991/gitsigns.nvim';
 	'akinsho/toggleterm.nvim';
   }
 

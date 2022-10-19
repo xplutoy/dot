@@ -57,7 +57,7 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
 
 vim.keymap.set("v", "p", '"_dP')                    -- 在visual mode 里粘贴不要复制
-vim.keymap.set({'n', 'x'}, 'x', '"_x')              -- x只删除一个字符，一般不用保存到寄存器
+vim.keymap.set("n", "x", '"_x')              -- x只删除一个字符，一般不用保存到寄存器
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
@@ -67,5 +67,6 @@ vim.keymap.set("n", "<S-w>", ":Bdelete!<CR>")
 
 -- plugins -----------------
 require 'plugins.boostrap'
--- require 'plugins.lang'
--- require 'plugins.workspace'
+require 'plugins.misc'
+require 'plugins.lang'
+require 'plugins.workspace'
