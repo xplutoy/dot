@@ -5,10 +5,9 @@
   (setq-default elfeed-search-filter "@1-year-ago +unread ")
   (define-key elfeed-search-mode-map (kbd "j") #'next-line)
   (define-key elfeed-search-mode-map (kbd "k") #'previous-line)
-  (define-key elfeed-search-mode-map (kbd "l")
-    (lambda ()
-      (interactive)
-      (switch-to-buffer (elfeed-log-buffer))))
+  (define-key elfeed-search-mode-map (kbd "l") #'(lambda ()
+                                                   (interactive)
+                                                   (switch-to-buffer (elfeed-log-buffer))))
 
   (setq elfeed-feeds
         '(
@@ -16,8 +15,7 @@
           ("https://protesilaos.com/codelog.xml" emacs)
           ("http://pragmaticemacs.com/feed/" emacs)
           ("https://karthinks.com/index.xml" hack tool)
-          ("zhihu.com/rss" zhihu)
-          ("http://feeds.feedburner.com/zhihu-daily" zhihu)
+          ("https://www.zhihu.com/rss" zhihu)
           ("https://blog.evjang.com/feeds/posts/default" tech)
           ("https://ruder.io/rss/index.rss" ai nlp)
           ("https://www.inference.vc/rss" ai)
@@ -39,11 +37,12 @@
           ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
 
           ("https://wangyurui.com/feed.xml" 思考 人生 社会)
+          ("http://www.4sbooks.com/feed" 人文 读书)
 
           ("https://www.tmtpost.com/feed" 科技 商业)
           ("https://36kr.com/feed" 商业)
           ("http://feeds.initium.news/theinitium" 新闻)
-          ("https://wanqu.co/feed/" 创业 技术)
+          ("https://wanqu.co/feed" 创业 技术)
           ))
   )
 
