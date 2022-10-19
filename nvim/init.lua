@@ -1,7 +1,7 @@
 -- basic --------------------
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
-vim.opt.cmdheight = 2                           -- more space in the neovim command line for displaying messages
+vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
@@ -9,7 +9,6 @@ vim.opt.hlsearch = true                         -- highlight all matches on prev
 vim.opt.ignorecase = true                       -- ignore case in search patterns
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10                          -- pop up menu height
-vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 2                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
 vim.opt.smartindent = true                      -- make indenting smarter again
@@ -45,11 +44,80 @@ vim.opt.autowrite = true
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'}
 vim.opt.history = 1000
 
+vim.keymap.set("", "<Space>", "<Nop>")
+vim.g.mapleader = " "
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
+-- Better window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+-- Resize with arrows
+vim.keymap.set("n", "<C-Up>", ":resize -10<CR>")
+vim.keymap.set("n", "<C-Down>", ":resize +10<CR>")
+vim.keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
+vim.keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
+
+vim.keymap.set("v", "p", '"_dP')                    -- 在visual mode 里粘贴不要复制
+vim.keymap.set({'n', 'x'}, 'x', '"_x')              -- x只删除一个字符，一般不用保存到寄存器
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
+vim.keymap.set("n", "<S-l>", ":bnext<CR>")
+vim.keymap.set("n", "<S-w>", ":Bdelete!<CR>")
+
+require'paq'{
+	'savq/paq-nvim';
+
+	-- List your packages here!
+	-- misc
+	'moll/vim-bbye';
+	'nvim-lua/plenary.nvim';
+	-- theme
+	'folke/tokyonight.nvim';
+	'glepnir/zephyr-nvim';
+	'ellisonleao/gruvbox.nvim';
+	-- ui
+	'kyazdani42/nvim-web-devicons';
+	-- "goolord/alpha-nvim";
+	'nvim-lualine/lualine.nvim';
+	-- edit
+	'nvim-telescope/telescope.nvim';
+	'pocco81/auto-save.nvim';
+	'akinsho/bufferline.nvim';
+	'kyazdani42/nvim-tree.lua';
+	"m4xshen/autoclose.nvim";
+	-- lang
+	'nvim-treesitter/nvim-treesitter';
+	'lukas-reineke/indent-blankline.nvim';
+	'numToStr/Comment.nvim';
+	-- lang(lsp)
+	'neovim/nvim-lspconfig';
+
+	-- workspace
+	'ahmedkhalf/project.nvim';
+	'lewis6991/gitsigns.nvim';
+	'akinsho/toggleterm.nvim';
+}
+
+-- themescheme ----------
+-- tokyonight
+-- gruvbox
+-- zephyr
+-- nord
+-- onedark
+-- nightfox
+vim.o.background = 'dark'
+vim.cmd("colorscheme tokyonight-night")
 
 -- plugins -----------------
-require 'plugins.plugin'
-require 'plugins.ui'
 require 'plugins.edit'
 require 'plugins.lang'
 require 'plugins.workspace'
-require 'plugins.keybinding'

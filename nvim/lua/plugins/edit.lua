@@ -26,6 +26,9 @@ require("nvim-tree").setup({
         dotfiles = true,
     },
 })
+-- nvimTree
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>')
+vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFileToggle<cr>')
 
 -- bufferline ----------------
 require'bufferline'.setup({
@@ -55,6 +58,15 @@ require'bufferline'.setup({
         },
     },
 })
+vim.keymap.set("n", "<leader>bh", ":BufferLineCyclePrev<CR>")
+vim.keymap.set("n", "<leader>bl", ":BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<leader>bo", ":BufferLineCloseRight<CR>:BufferLineCloseLeft<CR>")
+vim.keymap.set("n", "<leader>bc", ":BufferLinePickClose<CR>")
+
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
+vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
+vim.keymap.set('n', '<leader>fp', ':Telescope projects<cr>')
+vim.keymap.set('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<cr>')
 
 -- telescope -----------
 require('telescope').setup{
@@ -63,6 +75,15 @@ require('telescope').setup{
         layout_strategy = 'horizontal',
         path_display = { 'smart' },
         file_ignore_patterns = {'.git/'},
-        mappings = telescope_keybindings,
-    },
+        mappings = {
+                      i = {
+                           -- 历史记录
+                            ["<Down>"] = "cycle_history_next",
+                            ["<Up>"] = "cycle_history_prev",
+                            -- 预览窗口上下滚动
+                            ["<C-u>"] = "preview_scrolling_up",
+                            ["<C-d>"] = "preview_scrolling_down",
+                        },
+                    },
+                },
 }

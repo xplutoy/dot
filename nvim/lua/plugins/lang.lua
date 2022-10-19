@@ -20,6 +20,8 @@ require'nvim-treesitter.configs'.setup {
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99      -- 默认不要折叠
+vim.keymap.set("n", "z", ":foldclose<CR>")
+vim.keymap.set("n", "Z", ":foldopen<CR>")
 
 -- Comment --------------
 require'Comment'.setup{
@@ -29,6 +31,8 @@ require'Comment'.setup{
         extended = false,   ---Extended mapping; `g>` `g<` `g>[count]{motion}` `g<[count]{motion}`
     },
 }
+vim.keymap.set('n', '<C-_>', require("Comment.api").toggle.linewise.current)
+vim.keymap.set('x', '<C-_>', require("Comment.api").toggle.blockwise.current)
 
 -- indent_blankline -----
 vim.opt.list = true
