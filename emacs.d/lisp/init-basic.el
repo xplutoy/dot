@@ -1,6 +1,6 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (setq-default major-mode 'text-mode
-              fill-column 100
+              fill-column 78
               tab-width 4
               indent-tabs-mode nil
 	          cursor-type 'box)
@@ -32,6 +32,7 @@
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-yank-at-point t)
+(setq x-underline-at-descent-line t)
 
 ;; ui
 (when (display-graphic-p)

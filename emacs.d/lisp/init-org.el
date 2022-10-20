@@ -1,7 +1,4 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
-
-;; (yx/require-package 'mixed-pitch)
-
 ;; org
 (add-hook 'org-mode-hook
           #'(lambda ()
@@ -10,11 +7,10 @@
                     fill-column 100)
               (auto-fill-mode 1)
               (visual-line-mode 1)
-              ;; (mixed-pitch-mode 1)
               (variable-pitch-mode 1)
               ))
 (setq org-directory "~/org")
-(setq diary-file (concat org-directory "/diary.org"))
+(setq diary-file (concat org-directory "/diary"))
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
 (setq org-agenda-files '("gtd.org"))
 
@@ -41,11 +37,11 @@
 			               (?C :foreground "yellow")))
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
+         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
         ("p" "Project" entry (file+headline org-default-notes-file "Projects")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
+         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
         ("h" "Habit" entry (file+headline org-default-notes-file "Habits")
-         "* NEXT [#B] %^{Title}\t%^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-after 1)))
+         "* NEXT [#B] %^{Title}\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-after 1)))
 
 (setq org-refile-targets '((nil :maxlevel . 2)
                            (org-agenda-files :maxlevel . 2))
@@ -67,15 +63,10 @@
       ;; org-auto-align-tags nil
       org-image-actual-width '(300))
 
-(setq org-fontify-whole-heading-line t
-      org-fontify-done-headline t
-      org-fontify-done-headline t
+(setq org-fontify-done-headline t
       org-src-fontify-natively t
       org-src-preserve-indentation t
-      org-edit-src-content-indentation 0
-      org-fontify-quote-and-verse-blocks t)
-
-(setq org-tags-column 78)
+      )
 
 (let ((headline `(:inherit variable-pitch :weight bold)))
   (custom-theme-set-faces
@@ -119,25 +110,20 @@
         ("y" agenda*)
         ("w" todo "WAITING")
         ("W" todo-tree "WAITING")
-        ("n" todo "NEXT")
-        ("w" . "work+tag search")
-        ("wu" tags-todo "+@work+urgent")
-        ("l" . "life+tag search")
-        ("li" tags-todo "+@life+important")))
+        ("n" todo "NEXT")))
 
 ;; org-roam
 (yx/require-package 'org-roam)
 (with-eval-after-load 'org
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
-  ;; (add-to-list 'org-modules 'org-tempo)
-
   ;; org-roam
   (define-key org-mode-map (kbd "C-,") nil) ;;unbind org-cycle-agenda-files
   (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
   (define-key org-mode-map (kbd "C-c n f") 'org-roam-node-find)
   (define-key org-mode-map (kbd "C-c n i") 'org-roam-node-insert)
   (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
+  (define-key org-mode-map (kbd "C-c n T") 'org-roam-tag-remove)
   (define-key org-mode-map (kbd "C-c n r") 'org-roam-ref-add)
   (define-key org-mode-map (kbd "C-c n R") 'org-roam-ref-remove)
   (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
@@ -148,19 +134,21 @@
   (setq org-roam-completion-everywhere t)
   (setq org-roam-capture-templates
         '(("n" "note" plain "%?"
-           :if-new (file+head "notes/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n")
+           :if-new (file+head "notes/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+TITLE: ${title}\n")
            :immediate-finish t
            :unnarrowed t)
           ("f" "fleeting-note" plain "%?"
-           :if-new
-           (file+head "inbox/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n\n#+begin_quote\n%i\n#+end_quote\n")
+           :if-new (file+head "inbox/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+TITLE: ${title}\n#+begin_quote\n%i\n#+end_quote\n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "article" plain "%?"
-           :if-new
-           (file+head "articles/%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+FILETAGS: :article:\n")
+           :if-new (file+head "articles/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+TITLE: ${title}\n")
            :immediate-finish t
            :unnarrowed t)))
+  ;; (add-hook 'org-roam-capture-new-node-hook #'(lambda () (org-roam-tag-add '("draft"))))
   (setq org-roam-node-display-template
         (concat "${title:*} "
                 (propertize "${tags:10}" 'face 'org-tag)))
@@ -172,10 +160,14 @@
                  (window-width . 0.33)
                  (window-height . fit-window-to-buffer)))
 
-  (add-hook 'org-roam-capture-new-node-hook #'(lambda () (org-roam-tag-add '("draft"))))
-
   (org-roam-db-autosync-mode)
-  ;; (require 'org-roam-protocol)
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %^{desc:}\n%?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+TITLE: %<%Y-%m-%d>\n"))))
+  (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-date)
   )
 
 (yx/require-package 'org-appear)
