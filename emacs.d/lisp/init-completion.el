@@ -42,7 +42,7 @@
 ;; embark ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (yx/require-package 'embark)
 (with-eval-after-load 'vertico
-  (global-set-key (kbd "C-.") 'embark-act)
+  (global-set-key (kbd "C-'") 'embark-act)
   (global-set-key (kbd "C-;") 'embark-dwim)
   (global-set-key (kbd "C-h B") 'embark-bindings) ;;; alternative for `describe-bindings'
 

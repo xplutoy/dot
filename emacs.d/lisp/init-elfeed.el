@@ -37,7 +37,7 @@
           ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
 
           ("https://wangyurui.com/feed.xml" 思考 人生 社会)
-          ("http://www.4sbooks.com/feed" 人文 读书)
+          ("http://www.4sbooks.com/feed" 人文 四季书评)
 
           ("https://www.tmtpost.com/feed" 科技 商业)
           ("https://36kr.com/feed" 商业)

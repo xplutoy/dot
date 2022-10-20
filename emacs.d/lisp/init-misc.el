@@ -8,6 +8,13 @@
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
 (load-theme 'ef-duo-light :no-confirm)
 
+(yx/require-package 'ibuffer-vc)
+(add-hook 'ibuffer-hook
+          (lambda ()
+            (ibuffer-vc-set-filter-groups-by-vc-root)
+            (unless (eq ibuffer-sorting-mode 'alphabetic)
+              (ibuffer-do-sort-by-alphabetic))))
+
 ;; @ https://lists.gnu.org/archive/html/bug-gnu-emacs/2012-07/msg01208.html
 (let ((gls "/usr/local/bin/gls"))
   (if (file-exists-p gls) (setq insert-directory-program gls)))

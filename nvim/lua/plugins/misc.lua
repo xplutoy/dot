@@ -39,11 +39,6 @@ vim.keymap.set("n", "<leader>bl", ":BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<leader>bo", ":BufferLineCloseRight<CR>:BufferLineCloseLeft<CR>")
 vim.keymap.set("n", "<leader>bc", ":BufferLinePickClose<CR>")
 
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
-vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
-vim.keymap.set('n', '<leader>fp', ':Telescope projects<cr>')
-vim.keymap.set('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<cr>')
-
 -- telescope -----------
 require('telescope').setup{
     defaults = {
@@ -63,3 +58,7 @@ require('telescope').setup{
                     },
                 },
 }
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
+vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<cr>')
+vim.keymap.set('n', '<leader>fp', ':Telescope projects<cr>')
+vim.keymap.set('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<cr>')

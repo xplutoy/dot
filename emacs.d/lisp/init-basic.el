@@ -99,7 +99,6 @@
     (fido-mode t)
     (global-set-key (kbd "C-x C-r") 'recentf-open-files)
     (load-theme 'wombat))
-
   )
 
 ;; eww
@@ -124,7 +123,43 @@
       calendar-mark-diary-entries-flag t)
 
 ;; ibuffer
-(global-set-key (kbd "C-x C-d") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(when yx/basic-mode-p
+  ;; ibuffer
+  (with-eval-after-load 'ibuffer
+    (setq ibuffer-expert t)
+    ;; (setq ibuffer-show-empty-filter-groups nil)
+    (require 'ibuf-ext)
+    ;; (add-to-list 'ibuffer-never-show-predicates "^\\*")
+    (setq ibuffer-saved-filter-groups
+          (quote (("default"
+                   ("Dots" (filename . "/dot/"))
+                   ("Notes" (mode . org-mode))
+                   ("Programing" (or (mode . python-mode)
+                                     (mode . c-mode)))
+                   ;; ("svg" (name . "\\.svg"))
+                   ))))
+    (add-hook 'ibuffer-mode-hook
+              (lambda ()
+                (ibuffer-switch-to-saved-filter-groups "default"))))
+  )
+
+;; flyspell
+(cond
+ ((executable-find "aspell")
+  (setq ispell-list-command "--list") ;; @see https://www.emacswiki.org/emacs/FlySpell
+  (setq ispell-program-name "aspell")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+ ((executable-find "hunspell")
+  (setq ispell-program-name "hunspell")
+  (setq ispell-local-dictionary "en_US")
+  (setq ispell-dictionary-alist
+        '((nil "[A-Za-z]" "[^A-Za-z]" "[']" t ("-d" "en_US") nil utf-8)))
+  (when (boundp 'ispell-hunspell-dictionary-alist)
+    (setq ispell-hunspell-dictionary-alist ispell-local-dictionary-alist)))
+ )
+(dolist (hook '(text-mode-hook org-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
 
 ;;user defined
 ;;scroll 1/3 page

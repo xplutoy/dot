@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 
-(yx/require-package 'mixed-pitch)
+;; (yx/require-package 'mixed-pitch)
 
 ;; org
 (add-hook 'org-mode-hook
@@ -10,7 +10,7 @@
                     fill-column 100)
               (auto-fill-mode 1)
               (visual-line-mode 1)
-              (mixed-pitch-mode 1)
+              ;; (mixed-pitch-mode 1)
               (variable-pitch-mode 1)
               ))
 (setq org-directory "~/org")
@@ -41,11 +41,11 @@
 			               (?C :foreground "yellow")))
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?" :empty-lines-before 1)
+         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
         ("p" "Project" entry (file+headline org-default-notes-file "Projects")
-         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?" :empty-lines-before 1)
+         "* TODO [#B] %^{Title}\t%^g\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
         ("h" "Habit" entry (file+headline org-default-notes-file "Habits")
-         "* NEXT [#B] %^{Title}\t%^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-before 1)))
+         "* NEXT [#B] %^{Title}\t%^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-after 1)))
 
 (setq org-refile-targets '((nil :maxlevel . 2)
                            (org-agenda-files :maxlevel . 2))
@@ -57,8 +57,6 @@
 
 (setq org-startup-folded "content"
       org-startup-indented t
-      org-fontify-done-headline t
-      org-src-fontify-natively t
       org-hide-leading-stars t
       org-hidden-keywords t
       org-hide-emphasis-markers t
@@ -69,33 +67,51 @@
       ;; org-auto-align-tags nil
       org-image-actual-width '(300))
 
- (let* ((base-font-color (face-foreground 'default nil 'default))
-        (headline   `(:inherit default :weight bold :foreground ,base-font-color)))
-   (custom-theme-set-faces
-    'user
-    `(org-level-8 ((t (,@headline))))
-    `(org-level-7 ((t (,@headline))))
-    `(org-level-6 ((t (,@headline))))
-    `(org-level-5 ((t (,@headline))))
-    `(org-level-4 ((t (,@headline :height 1.1))))
-    `(org-level-3 ((t (,@headline :height 1.2))))
-    `(org-level-2 ((t (,@headline :height 1.35))))
-    `(org-level-1 ((t (,@headline :height 1.5))))
-    `(org-document-title ((t (,@headline :height 1.75 :underline nil))))
-    '(org-block ((t (:inherit fixed-pitch))))
-    '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-    '(org-property-value ((t (:inherit fixed-pitch))) t)
-    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-    '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
-    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold))))))
+(setq org-fontify-whole-heading-line t
+      org-fontify-done-headline t
+      org-fontify-done-headline t
+      org-src-fontify-natively t
+      org-src-preserve-indentation t
+      org-edit-src-content-indentation 0
+      org-fontify-quote-and-verse-blocks t)
 
-(setq org-log-done 'time)
-(setq org-log-repeat 'time)
-(setq org-log-into-drawer t)
+(setq org-tags-column 78)
+
+(let ((headline `(:inherit variable-pitch :weight bold)))
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline))))
+   `(org-level-7 ((t (,@headline))))
+   `(org-level-6 ((t (,@headline))))
+   `(org-level-5 ((t (,@headline))))
+   `(org-level-4 ((t (,@headline))))
+   `(org-level-3 ((t (,@headline :foreground "#502222" :height 1.1))))
+   `(org-level-2 ((t (,@headline :foreground "#502222" :height 1.2))))
+   `(org-level-1 ((t (,@headline :foreground "#32133c" :height 1.35))))
+   `(org-document-title ((t (,@headline :height 1.5 :underline nil))))
+
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch :foreground "#2b2a33"))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+   '(org-link ((t (:foreground "royal blue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold))))))
+
+(setq org-log-done 'time
+      org-log-repeat 'time)
+(setq org-log-into-drawer t
+      org-log-state-notes-into-drawer t)
 (setq org-agenda-span 'day)
 (setq org-deadline-warning-days 14)
 (setq org-use-fast-todo-selection t)
 (setq org-return-follows-link t)
+(setq org-reverse-note-order t)
 (setq-default org-enforce-todo-dependencies t)
 
 (setq org-agenda-custom-commands
@@ -163,7 +179,7 @@
   )
 
 (yx/require-package 'org-appear)
-(with-eval-after-load 'org-appear
+(with-eval-after-load 'org
   (setq org-appear-autolinks t
         org-appear-autosubmarkers t
         org-appear-autoentities t
