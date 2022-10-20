@@ -4,13 +4,7 @@
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
 
-(defun font-height-ds ()
-  (cond (ON-MAC 160)
-        (ON-WINDOWS 160)
-        (t 140))
-  )
-
-(defun yx/setup-fonts ()
+(defun yx-setup-fonts ()
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
@@ -18,25 +12,25 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (font-height-ds)))
+                                        :height 160))
 
     (cl-loop for font in '("Inconsolata" "Source Code Pro" "Fira Code" "Menlo" "Monaco")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch nil
                                         :family font
-                                        :height (font-height-ds)))
+                                        :height 1.0))
 
     (cl-loop for font in '("Source Serif Pro")
              when (font-installed-p font)
              return (set-face-attribute 'variable-pitch nil
                                         :family font
-                                        :height (font-height-ds)))
+                                        :height 1.0))
 
     (cl-loop for font in '("Latin Modern Mono")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch-serif nil
                                         :family font
-                                        :height (font-height-ds)))
+                                        :height 1.0))
 
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
@@ -52,11 +46,11 @@
     (cl-loop for font in '("LXGW WenKai Mono" "PingFang SC" "STFangsong")
              when (font-installed-p font)
              return (progn
-                      (setq face-font-rescale-alist `((,font . 1.05)))
+                      (setq face-font-rescale-alist `((,font . 1.05))) ;; 1.05 magic number
                       (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
-(yx/setup-fonts)
-(add-hook 'window-setup-hook #'yx/setup-fonts)
-(add-hook 'server-after-make-frame-hook #'yx/setup-fonts)
+(yx-setup-fonts)
+(add-hook 'window-setup-hook #'yx-setup-fonts)
+(add-hook 'server-after-make-frame-hook #'yx-setup-fonts)
 
 (provide 'init-font)

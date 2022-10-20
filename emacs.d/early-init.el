@@ -1,7 +1,4 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-
-;; In Emacs 27+, package initialization occurs before `user-init-file' is
-;; loaded, but after `early-init-file'.
 (setq package-enable-at-startup nil)
 (set-default 'cursor-type 'box)
 
@@ -10,16 +7,25 @@
 (prefer-coding-system 'utf-8)
 
 ;; no menu bar, toolbar, scroll bar
-(setq default-frame-alist
-      '((menu-bar-lines . 0)
-        (tool-bar-lines . 0)
-        (horizontal-scroll-bars)
-        (vertical-scroll-bars)
-        (fullscreen . maximized)))
+(dolist (var '(default-frame-alist initial-frame-alist))
+  (add-to-list var '(menu-bar-lines . 0))
+  (add-to-list var '(tool-bar-lines . 0))
+  (add-to-list var '(vertical-scroll-bars))
+  (add-to-list var '(horizontal-scroll-bars))
+  (add-to-list var '(fullscreen . maximized)))
 
 (setq inhibit-splash-screen t
       inhibit-startup-message t
+      frame-resize-pixelwise t
       frame-inhibit-implied-resize t)
+;; (setq native-comp-async-report-warnings-errors 'silent)
+
+(when (display-graphic-p)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (fringe-mode 4) ;;default 8
+  )
+(menu-bar-mode -1)
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum

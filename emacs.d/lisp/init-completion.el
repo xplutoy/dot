@@ -2,7 +2,7 @@
 
 ;; minibuffer enhance
 ;; vertico ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'vertico)
+(yx-require-package 'vertico)
 (add-hook 'after-init-hook 'vertico-mode)
 
 (with-eval-after-load 'vertico
@@ -26,21 +26,17 @@
   )
 
 ;; orderless ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'orderless)
+(yx-require-package 'orderless)
 (with-eval-after-load 'vertico
-  (setq completion-styles '(orderless basic)
-	    completion-category-overrides '((file (styles basic partial-completion))))
+  (setq completion-styles '(basic orderless)
+	    completion-category-overrides '((file (styles . (basic partial-completion orderless)))
+                                        (imenu (styles . (basic substring orderless)))
+                                        (kill-ring (styles . (basic substring orderless)))
+                                        (project-file (styles . (basic substring partial-completion orderless)))))
   )
 
-;; marginalia ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (yx/require-package 'marginalia)
-;; (with-eval-after-load 'vertico
-;;   (define-key minibuffer-local-map "\M-A" #'marginalia-cycle)
-;;   (marginalia-mode 1)
-;;   )
-
 ;; embark ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'embark)
+(yx-require-package 'embark)
 (with-eval-after-load 'vertico
   (global-set-key (kbd "C-'") 'embark-act)
   (global-set-key (kbd "C-;") 'embark-dwim)
@@ -95,13 +91,13 @@
     ;; (embark-define-keymap embark-symbol-map ("D" sdcv-search-pointer+)))  dont work ?? maybe something wrong
   )
 
-(yx/require-package 'embark-consult)
+(yx-require-package 'embark-consult)
 (with-eval-after-load 'consult
   (with-eval-after-load 'embark
     (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode)))
 
 ;; consult ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'consult)
+(yx-require-package 'consult)
 (with-eval-after-load 'vertico
   (global-set-key (kbd "C-x b") 'consult-buffer)
   (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
@@ -171,7 +167,7 @@
 
 
 ;; consult-dir ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'consult-dir)
+(yx-require-package 'consult-dir)
 (with-eval-after-load 'consult
   (define-key global-map (kbd "C-x C-d") #'consult-dir)
   (define-key vertico-map (kbd "C-x C-d") #'consult-dir)
@@ -179,36 +175,38 @@
   )
 
 ;; consult-yac
-(yx/require-package 'consult-yasnippet)
+(yx-require-package 'consult-yasnippet)
 (with-eval-after-load 'consult
   (define-key global-map (kbd "M-s y") #'consult-yasnippet)
   )
 
 ;; corfu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(yx/require-package 'corfu)
-(add-hook 'after-init-hook 'global-corfu-mode)
-(with-eval-after-load 'corfu
+(yx-require-package 'corfu)
+(defun yx-corfu-setup ()
+  (setq corfu-auto t)  ;; set befor global-corfu-mode
   (setq corfu-cycle t)
-  (setq corfu-auto t)
   (setq corfu-quit-at-boundary nil)
-  (setq corfu-quit-no-match nil)
-  (setq corfu-auto-delay 0.2)
+  (setq corfu-quit-no-match 'separator)
+  (setq corfu-auto-delay 0.1)
   (setq corfu-auto-prefix 1)
   (setq corfu-echo-documentation nil)
+  (add-hook 'eshell-mode-hook #'(lambda ()
+                                  (setq-local corfu-auto nil)
+                                  (corfu-mode)))
+  (add-hook 'minibuffer-setup-hook #' (lambda ()
+                                        (unless (bound-and-true-p vertico--input)
+                                          (corfu-mode 1))))
 
-  (add-hook 'eshell-mode-hook
-            #'(lambda ()
-              (setq-local corfu-auto nil)
-              (corfu-mode)))
-  (define-key corfu-map (kbd "M-SPC") 'corfu-insert-separator)
-
-  ;; corfu-quick
-  (define-key corfu-map "\M-q" #'corfu-quick-complete)
-  (define-key corfu-map "\C-q" #'corfu-quick-insert)
-  )
+  (with-eval-after-load 'corfu
+    (define-key corfu-map (kbd "SPC") #'corfu-insert-separator)
+    ;; corfu-quick
+    (define-key corfu-map "\M-q" #'corfu-quick-complete)
+    (define-key corfu-map "\C-q" #'corfu-quick-insert))
+  (global-corfu-mode 1))
+(add-hook 'after-init-hook #'yx-corfu-setup)
 
 ;; corfu-doc
-(yx/require-package 'corfu-doc)
+(yx-require-package 'corfu-doc)
 (add-hook 'corfu-mode-hook #'corfu-doc-mode)
 (with-eval-after-load 'corfu-doc
   (setq corfu-doc-auto nil)
@@ -218,7 +216,7 @@
   )
 
 ;; kind-icon
-(yx/require-package 'kind-icon)
+(yx-require-package 'kind-icon)
 (with-eval-after-load 'corfu
   ;; (require 'kind-icon)
   (setq kind-icon-default-face 'corfu-default)
@@ -226,18 +224,17 @@
   )
 
 ;; cape
-(yx/require-package 'cape)
+(yx-require-package 'cape)
 (with-eval-after-load 'corfu
-  ;; (global-set-key (kbd "C-c p p") 'completion-at-point)
-
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file)
+  (setq cape-dabbrev-min-length 3)
+  (add-to-list 'completion-at-point-functions #'cape-abbrev)
   (add-to-list 'completion-at-point-functions #'cape-symbol)
-
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-ispell)
   ;; Silence the pcomplete capf, no errors or messages!
   ;; Important for corfu
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)

@@ -2,13 +2,13 @@
 ;; ui theme
 ;; 1, monokai-theme
 ;; 2, ef-themes
-;; (yx/require-package 'gruvbox-theme)
+;; (yx-require-package 'gruvbox-theme)
 ;; (load-theme 'gruvbox-light-medium t)
-(yx/require-package 'ef-themes)
+(yx-require-package 'ef-themes)
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
 (load-theme 'ef-duo-light :no-confirm)
 
-(yx/require-package 'ibuffer-vc)
+(yx-require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook
           (lambda ()
             (ibuffer-vc-set-filter-groups-by-vc-root)
@@ -33,7 +33,7 @@
     (awesome-tray-mode 1)
     ))
 
-(yx/require-package 'which-key)
+(yx-require-package 'which-key)
 (add-hook 'after-init-hook
           #'(lambda ()
               (setq which-key-idle-delay 1.5) ;; whick-key文挡上说必须在load之前设置
@@ -43,19 +43,19 @@
               ))
 
 ;; buffer-move
-(yx/require-package 'buffer-move)
+(yx-require-package 'buffer-move)
 (global-set-key (kbd "<C-S-up>")     'buf-move-up)
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
 
 ;; restart-emacs
-(yx/require-package 'restart-emacs)
+(yx-require-package 'restart-emacs)
 
-(yx/require-package 'posframe)  ;; sdcv dep
+(yx-require-package 'posframe)  ;; sdcv dep
 
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx/run-with-idle-timer 2 #'(lambda ()
+(yx-run-with-idle-timer 2 #'(lambda ()
                               (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
                               (require 'sdcv)
                               (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
@@ -66,7 +66,7 @@
 
 (when ON-MAC
   ;; emacs-rime
-  (yx/require-package 'rime)
+  (yx-require-package 'rime)
   (setq rime-translate-keybindings
   '("C-f" "C-b" "C-n" "C-p" "C-g" "C-v" "M-v" "<delete>"))
   (setq default-input-method "rime"
@@ -92,8 +92,8 @@
   )
 
 ;; cal-china-x
-(yx/require-package 'cal-china-x)
-(yx/run-with-idle-timer 2 #'(lambda ()
+(yx-require-package 'cal-china-x)
+(yx-run-with-idle-timer 2 #'(lambda ()
                               (require 'cal-china-x)
                               (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
                               (setq calendar-holidays (append cal-china-x-important-holidays

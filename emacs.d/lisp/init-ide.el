@@ -1,9 +1,9 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(yx/require-package 'eglot)
+(yx-require-package 'eglot)
 (add-hook 'python-mode-hook 'eglot-ensure)
 
-(yx/require-package 'yasnippet-snippets)
-(yx/require-package 'yasnippet)
+(yx-require-package 'yasnippet-snippets)
+(yx-require-package 'yasnippet)
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 (with-eval-after-load 'yasnippet
   ;; unbind <TAB> completion
@@ -15,7 +15,7 @@
   )
 
 ;; vterm ;;;;;;;;;;;;;;;
-(yx/require-package 'vterm)
+(yx-require-package 'vterm)
 (with-eval-after-load 'vterm
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
   (setq vterm-kill-buffer-on-exit t)
@@ -36,7 +36,7 @@
   )
 
 ;; aweshell
-(defun yx/awesome-eshell-conf ()
+(defun yx-awesome-eshell-conf ()
   (add-to-list 'load-path (concat user-emacs-directory "nonelpa/aweshell"))
   ;; (setq aweshell-auto-suggestion-p nil) ;;auto suggestion depend on company ;before require
   (require 'aweshell)
@@ -54,7 +54,7 @@
   (global-set-key (kbd "C-,") #'aweshell-dedicated-toggle)
 
   )
-(add-hook 'after-init-hook #'yx/awesome-eshell-conf)
+(add-hook 'after-init-hook #'yx-awesome-eshell-conf)
 
 ;; project
 (with-eval-after-load "project"

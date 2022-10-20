@@ -1,9 +1,9 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(yx/require-package 'company)
+(yx-require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (with-eval-after-load 'company
-  
+
   (setq company-idle-delay
 	(lambda () (if (company-in-string-or-comment) nil 0.2)))
   (setq company-global-modes

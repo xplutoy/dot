@@ -113,7 +113,7 @@
         ("n" todo "NEXT")))
 
 ;; org-roam
-(yx/require-package 'org-roam)
+(yx-require-package 'org-roam)
 (with-eval-after-load 'org
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
@@ -170,7 +170,7 @@
   (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-date)
   )
 
-(yx/require-package 'org-appear)
+(yx-require-package 'org-appear)
 (with-eval-after-load 'org
   (setq org-appear-autolinks t
         org-appear-autosubmarkers t
