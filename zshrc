@@ -56,8 +56,9 @@ alias gstd='git stash drop'
 alias gstp='git stash pop'
 alias gstc='git stash clear'
 
-# 补全
+autoload -U colors && colors
 autoload -U compinit; compinit
+
 unsetopt MENU_COMPLETE
 setopt AUTO_MENU
 setopt ALWAYS_TO_END
@@ -72,23 +73,15 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' file-sort change
 
-# promt
-zstyle :prompt:pure:git:stash show yes
-
-# misc
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # 插件管理器
 [ -f $YX_DOTDIR/miniplug/miniplug.zsh ] && source $YX_DOTDIR/miniplug/miniplug.zsh
-
-# plugin manager
+# plugin managed
 miniplug plugin 'zsh-users/zsh-syntax-highlighting'
 miniplug plugin 'zsh-users/zsh-autosuggestions'
 miniplug plugin 'zsh-users/zsh-completions'
 miniplug plugin 'agkozak/zsh-z'
 miniplug plugin 'Tarrasch/zsh-bd'
-# theme
 miniplug plugin 'sindresorhus/pure'
 miniplug load
 
@@ -97,6 +90,7 @@ miniplug load
 fpath+=($HOME/.local/share/miniplug/sindresorhus/pure)
 autoload -U promptinit; promptinit
 prompt pure
+zstyle :prompt:pure:git:stash show yes
 
 # emacs vterm shell side configuration
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \

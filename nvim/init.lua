@@ -46,24 +46,25 @@ vim.opt.history = 1000
 
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
+-- navigate windows(Ctrl)
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
--- Resize with arrows
-vim.keymap.set("n", "<C-Up>", ":resize -10<CR>")
-vim.keymap.set("n", "<C-Down>", ":resize +10<CR>")
+-- Resize with arrows(Ctrl)
+vim.keymap.set("n", "<C-Up>", ":resize -5<CR>")
+vim.keymap.set("n", "<C-Down>", ":resize +5<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
+-- navigate buffer(Shift)
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
+vim.keymap.set("n", "<S-l>", ":bnext<CR>")
+vim.keymap.set("n", "<S-w>", ":Bdelete!<CR>")
 
 vim.keymap.set("v", "p", '"_dP')                    -- 在visual mode 里粘贴不要复制
 vim.keymap.set("n", "x", '"_x')              -- x只删除一个字符，一般不用保存到寄存器
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
-
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
-vim.keymap.set("n", "<S-l>", ":bnext<CR>")
-vim.keymap.set("n", "<S-w>", ":Bdelete!<CR>")
 
 -- plugins -----------------
 require 'plugins.boostrap'
