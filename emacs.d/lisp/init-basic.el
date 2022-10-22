@@ -1,9 +1,12 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (setq frame-title-format '("%b"))
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (fringe-mode 4)) ;;default 8
+
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'fringe-mode)
+  (fringe-mode 4))
 (menu-bar-mode -1)
 ;; (setq initial-buffer-choice t)
 
@@ -21,8 +24,8 @@
 (dolist (c '(overwrite-mode))
   (put c 'disabled t))
 
-(setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
-      delete-by-moving-to-trash  t)  ; Deleting files go to OS's trash folder
+(setq inhibit-compacting-font-caches t
+      delete-by-moving-to-trash  t)
 
 (setq-default abbrev-mode t)
 (setq kill-buffer-delete-auto-save-files 1)
@@ -132,15 +135,14 @@
 (setq sesktop-load-locked-desktop nil)
 (setq desktop-dirname (concat user-emacs-directory "/desktop.saved"))
 (setq desktop-path (list desktop-dirname))
-(let ((desktop-hash  (secure-hash 'md5 (apply 'concat command-line-args))))
-  (setq
-      desktop-base-file-name (concat "emacs.desktop." desktop-hash)
-      desktop-base-lock-name (concat "emacs.desktop." desktop-hash ".lock"))
-  )
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (let ((desktop-id (if (and (featurep 'server)  server-process) (concat "." server-name) "")))
+              (setq desktop-base-file-name (concat "emacs.desktop" desktop-id)
+                    desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))))
 (add-hook 'after-init-hook #'(lambda ()
                                   (desktop-save-mode 1)
-                                  (desktop-read)
-                                  ))
+                                  (desktop-read)))
 
 ;; diary calendar
 (setq calendar-week-start-day 1)
@@ -153,6 +155,16 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq ibuffer-expert t)
 (setq ibuffer-show-empty-filter-groups nil)
+
+;; dired
+(add-to-list 'exec-path "/usr/local/bin")
+(let ((gls (executable-find "gls")))
+  (when gls
+    (setq insert-directory-program gls)))
+(setq dired-listing-switches "-aBhl  --group-directories-first")
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'top)
 
 ;; flyspell
 (cond
@@ -195,6 +207,17 @@
         ("file" "Link to document file."))
       bibtex-align-at-equal-sign t)
 (add-hook 'bibtex-mode-hook 'flyspell-mode)
+
+;; text-mode-comm-setup
+(add-hook 'text-mode-hook
+          #'(lambda ()
+              (setq word-wrap t
+                    word-wrap-by-category t
+                    fill-column 100)
+              (auto-fill-mode 1)
+              (visual-line-mode 1)
+              (variable-pitch-mode 1)
+              ))
 
 ;;user defined
 ;;scroll 1/3 page

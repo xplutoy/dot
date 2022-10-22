@@ -2,8 +2,6 @@
 ;; ui theme
 ;; 1, monokai-theme
 ;; 2, ef-themes
-;; (yx-require-package 'gruvbox-theme)
-;; (load-theme 'gruvbox-light-medium t)
 (yx-require-package 'ef-themes)
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
 (load-theme 'ef-duo-light :no-confirm)
@@ -14,10 +12,6 @@
             (ibuffer-vc-set-filter-groups-by-vc-root)
             (unless (eq ibuffer-sorting-mode 'alphabetic)
               (ibuffer-do-sort-by-alphabetic))))
-
-;; @ https://lists.gnu.org/archive/html/bug-gnu-emacs/2012-07/msg01208.html
-(let ((gls "/usr/local/bin/gls"))
-  (if (file-exists-p gls) (setq insert-directory-program gls)))
 
 (yx-require-package 'which-key)
 (add-hook 'after-init-hook
