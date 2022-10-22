@@ -95,7 +95,10 @@
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold))))))
 
 (setq org-log-done 'time
-      org-log-repeat 'time)
+      org-log-repeat 'time
+      org-log-redeadline 'time
+      org-log-reschedule 'time
+      )
 (setq org-log-into-drawer t
       org-log-state-notes-into-drawer t)
 (setq org-agenda-span 'day)

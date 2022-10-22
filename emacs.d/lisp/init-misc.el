@@ -19,20 +19,6 @@
 (let ((gls "/usr/local/bin/gls"))
   (if (file-exists-p gls) (setq insert-directory-program gls)))
 
-;; ui modeline
-(when (display-graphic-p)
-  (add-to-list 'load-path (concat user-emacs-directory "nonelpa/awesome-tray"))
-  (require 'awesome-tray)
-  (with-eval-after-load 'awesome-tray
-    (setq awesome-tray-git-show-status t)
-    (setq awesome-tray-buffer-name-buffer-changed t)
-    ;; (setq awesome-tray-file-path-show-filename t)
-    ;; (setq awesome-tray-file-path-full-dirname-levels 0) ;; only file name
-    (setq awesome-tray-active-modules '("location" "git" "buffer-name" "mode-name"))
-    ;; awesome-tray-module-alist
-    (awesome-tray-mode 1)
-    ))
-
 (yx-require-package 'which-key)
 (add-hook 'after-init-hook
           #'(lambda ()
@@ -53,7 +39,6 @@
 (yx-require-package 'restart-emacs)
 
 (yx-require-package 'posframe)  ;; sdcv dep
-
 ;; sdcv @https://github.com/manateelazycat/sdcv
 (yx-run-with-idle-timer 2 #'(lambda ()
                               (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
