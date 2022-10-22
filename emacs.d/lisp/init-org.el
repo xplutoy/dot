@@ -117,6 +117,7 @@
 
 ;; org-roam
 (yx-require-package 'org-roam)
+(global-set-key (kbd "C-c n c") 'org-roam-capture)
 (with-eval-after-load 'org
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
@@ -131,7 +132,6 @@
   (define-key org-mode-map (kbd "C-c n R") 'org-roam-ref-remove)
   (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
   (define-key org-mode-map (kbd "C-c n A") 'org-roam-alias-remove)
-  (global-set-key (kbd "C-c n c") 'org-roam-capture)
 
   (setq org-roam-directory (file-truename org-directory))
   (setq org-roam-completion-everywhere t)
@@ -175,6 +175,7 @@
 
 (yx-require-package 'org-appear)
 (with-eval-after-load 'org
+  (setq org-appear-trigger 'always)
   (setq org-appear-autolinks t
         org-appear-autosubmarkers t
         org-appear-autoentities t

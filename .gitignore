@@ -24,3 +24,4 @@ emacs.d/.emacs.desktop*
 emacs.d/librime/*
 emacs.d/elfeed_db/*
 emacs.d/network-security.data
+emacs.d/desktop.saved/*

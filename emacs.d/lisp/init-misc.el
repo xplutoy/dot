@@ -66,7 +66,7 @@
               :foreground-color "#dcdccc"
               :internal-border-width 3))
   (setq rime-disable-predicates
-        '(rime-predicate-after-alphabet-char-p
+        '(;; rime-predicate-after-alphabet-char-p
           rime-predicate-current-uppercase-letter-p
           ;; rime-predicate-current-input-punctuation-p
           ;; rime-predicate-prog-in-code-p

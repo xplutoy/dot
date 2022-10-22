@@ -80,7 +80,7 @@
   (setq recentf-exclude '(
                 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
                 "^/tmp/"))
-  (setq recentf-auto-cleanup 10)
+  (setq recentf-auto-cleanup 60)
   (recentf-mode 1)
   ;; savelist
   (setq history-delete-duplicates t)
@@ -128,15 +128,19 @@
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
 ;; desktop.el
-(setq sesktop-load-locked-desktop t)
-(setq desktop-path (list user-emacs-directory))
-(setq desktop-dirname user-emacs-directory)
-(add-hook 'emacs-startup-hook #'(lambda ()
-                                  (when (daemonp)
-                                    (setq desktop-save t)
-                                    (desktop-save-mode 1)
-                                    (desktop-read)))
-          )
+(setq desktop-save t)
+(setq sesktop-load-locked-desktop nil)
+(setq desktop-dirname (concat user-emacs-directory "/desktop.saved"))
+(setq desktop-path (list desktop-dirname))
+(let ((desktop-hash  (secure-hash 'md5 (apply 'concat command-line-args))))
+  (setq
+      desktop-base-file-name (concat "emacs.desktop." desktop-hash)
+      desktop-base-lock-name (concat "emacs.desktop." desktop-hash ".lock"))
+  )
+(add-hook 'after-init-hook #'(lambda ()
+                                  (desktop-save-mode 1)
+                                  (desktop-read)
+                                  ))
 
 ;; diary calendar
 (setq calendar-week-start-day 1)
