@@ -4,7 +4,24 @@
 ;; 2, ef-themes
 (yx-require-package 'ef-themes)
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
-(load-theme 'ef-duo-light :no-confirm)
+(load-theme 'ef-winter :no-confirm)
+;;no need mode line.
+(defun yx-mode-line-setup ()
+  (interactive)
+  (let ((bg (face-attribute 'mode-line :background))
+        (ibg (face-attribute 'mode-line-inactive :background)))
+    (set-face-attribute 'mode-line nil
+                        :foreground bg
+                        :height 0.1
+                        :box nil)
+    (set-face-attribute 'mode-line-inactive nil
+                        :foreground ibg
+                        :height 0.1
+                        :box nil
+                        :inherit 'unspecified)
+    )
+  )
+(yx-mode-line-setup)
 
 (yx-require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook
@@ -34,20 +51,20 @@
 
 (yx-require-package 'posframe)  ;; sdcv dep
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx-run-with-idle-timer 2 #'(lambda ()
-                              (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
-                              (require 'sdcv)
-                              (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
-                                    sdcv-dictionary-complete-list (list "朗道英汉字典5.0")
-                                    sdcv-dictionary-data-dir "/Users/yx/.config/stardict/dic") ; set local sdcv dict dir
-                              (global-set-key (kbd "M-s s") 'sdcv-search-pointer+)
-                              ))
+(yx-delay-run 2 #'(lambda ()
+                    (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
+                    (require 'sdcv)
+                    (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
+                          sdcv-dictionary-complete-list (list "朗道英汉字典5.0")
+                          sdcv-dictionary-data-dir "/Users/yx/.config/stardict/dic") ; set local sdcv dict dir
+                    (global-set-key (kbd "M-s s") 'sdcv-search-pointer+)
+                    ))
 
 (when ON-MAC
   ;; emacs-rime
   (yx-require-package 'rime)
   (setq rime-translate-keybindings
-  '("C-f" "C-b" "C-n" "C-p" "C-g" "C-v" "M-v" "<delete>"))
+        '("C-f" "C-b" "C-n" "C-p" "C-g" "C-v" "M-v" "<delete>"))
   (setq default-input-method "rime"
         rime-librime-root "~/.emacs.d/librime/dist"
         rime-user-data-dir "/Users/yx/Library/Rime"
@@ -72,13 +89,13 @@
 
 ;; cal-china-x
 (yx-require-package 'cal-china-x)
-(yx-run-with-idle-timer 2 #'(lambda ()
-                              (require 'cal-china-x)
-                              (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
-                              (setq calendar-holidays (append cal-china-x-important-holidays
-                                                              cal-china-x-general-holidays
-                                                              holiday-general-holidays
-                                                              holiday-christian-holidays))))
+(yx-delay-run 2 #'(lambda ()
+                    (require 'cal-china-x)
+                    (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+                    (setq calendar-holidays (append cal-china-x-important-holidays
+                                                    cal-china-x-general-holidays
+                                                    holiday-general-holidays
+                                                    holiday-christian-holidays))))
 
 
 (provide 'init-misc)

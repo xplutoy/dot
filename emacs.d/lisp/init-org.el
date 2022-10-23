@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 ;; org
-(yx-run-with-idle-timer 1 #'(lambda ()
-                              (require 'org)))
+(yx-delay-run 1 #'(lambda ()
+                    (require 'org)))
 
 (setq org-directory "~/org")
 (setq diary-file (concat org-directory "/diary"))

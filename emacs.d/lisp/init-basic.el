@@ -81,8 +81,8 @@
   ;; recentf
   (setq recentf-max-saved-items 100)
   (setq recentf-exclude '(
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "^/tmp/"))
+                          "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                          "^/tmp/"))
   (setq recentf-auto-cleanup 60)
   (recentf-mode 1)
   ;; savelist
@@ -139,10 +139,9 @@
           (lambda ()
             (let ((desktop-id (if (and (featurep 'server)  server-process) (concat "." server-name) "")))
               (setq desktop-base-file-name (concat "emacs.desktop" desktop-id)
-                    desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))))
-(add-hook 'after-init-hook #'(lambda ()
-                                  (desktop-save-mode 1)
-                                  (desktop-read)))
+                    desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))
+            (desktop-save-mode 1)
+            (desktop-read)))
 
 ;; diary calendar
 (setq calendar-week-start-day 1)

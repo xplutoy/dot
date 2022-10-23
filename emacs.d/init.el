@@ -34,7 +34,7 @@
     (normal-top-level-add-subdirs-to-load-path))
   )
 
-(defun yx-run-with-idle-timer (seconds func)
+(defun yx-delay-run (seconds func)
   "After SECONDS, run function FUNC once."
   (run-with-idle-timer seconds nil func))
 
