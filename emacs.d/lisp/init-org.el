@@ -62,32 +62,6 @@
       org-src-preserve-indentation t
       )
 
-(let ((headline `(:inherit variable-pitch :weight bold)))
-  (custom-theme-set-faces
-   'user
-   `(org-level-8 ((t (,@headline))))
-   `(org-level-7 ((t (,@headline))))
-   `(org-level-6 ((t (,@headline))))
-   `(org-level-5 ((t (,@headline))))
-   `(org-level-4 ((t (,@headline))))
-   `(org-level-3 ((t (,@headline :foreground "#502222" :height 1.1))))
-   `(org-level-2 ((t (,@headline :foreground "#502222" :height 1.2))))
-   `(org-level-1 ((t (,@headline :foreground "#32133c" :height 1.3))))
-   `(org-document-title ((t (,@headline :height 1.5 :underline nil))))
-
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#2b2a33"))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold))))))
-
 (setq org-log-done 'time
       org-log-repeat 'time
       org-log-redeadline 'time

@@ -3,8 +3,14 @@
 ;; 1, monokai-theme
 ;; 2, ef-themes
 (yx-require-package 'ef-themes)
+(setq ef-themes-mixed-fonts t
+      ef-themes-variable-pitch-ui t)
+(setq ef-themes-headings
+      '((0 . (light variable-pitch 1.5))
+        (1 . (light variable-pitch 1.3))
+        (2 . (variable-pitch 1.1))
+        (t . (variable-pitch))))
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
-(load-theme 'ef-winter :no-confirm)
 ;;no need mode line.
 (defun yx-mode-line-setup ()
   (interactive)
@@ -21,8 +27,12 @@
                         :inherit 'unspecified)
     )
   )
-(yx-mode-line-setup)
+(add-hook 'ef-themes-toggle #'yx-mode-line-setup)
+(add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
+(mapc #'disable-theme custom-enabled-themes)
+(ef-themes-select 'ef-summer)
 
+;; ibuffer-vc
 (yx-require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook
           (lambda ()
