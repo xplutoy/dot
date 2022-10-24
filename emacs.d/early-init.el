@@ -20,13 +20,6 @@
       frame-inhibit-implied-resize t)
 ;; (setq native-comp-async-report-warnings-errors 'silent)
 
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (fringe-mode 4) ;;default 8
-  )
-(menu-bar-mode -1)
-
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5

@@ -1,14 +1,8 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 ;; org
-(add-hook 'org-mode-hook
-          #'(lambda ()
-              (setq word-wrap t
-                    word-wrap-by-category t
-                    fill-column 100)
-              (auto-fill-mode 1)
-              (visual-line-mode 1)
-              (variable-pitch-mode 1)
-              ))
+(yx-delay-run 1 #'(lambda ()
+                    (require 'org)))
+
 (setq org-directory "~/org")
 (setq diary-file (concat org-directory "/diary"))
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
@@ -68,34 +62,11 @@
       org-src-preserve-indentation t
       )
 
-(let ((headline `(:inherit variable-pitch :weight bold)))
-  (custom-theme-set-faces
-   'user
-   `(org-level-8 ((t (,@headline))))
-   `(org-level-7 ((t (,@headline))))
-   `(org-level-6 ((t (,@headline))))
-   `(org-level-5 ((t (,@headline))))
-   `(org-level-4 ((t (,@headline))))
-   `(org-level-3 ((t (,@headline :foreground "#502222" :height 1.1))))
-   `(org-level-2 ((t (,@headline :foreground "#502222" :height 1.2))))
-   `(org-level-1 ((t (,@headline :foreground "#32133c" :height 1.35))))
-   `(org-document-title ((t (,@headline :height 1.5 :underline nil))))
-
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#2b2a33"))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold))))))
-
 (setq org-log-done 'time
-      org-log-repeat 'time)
+      org-log-repeat 'time
+      org-log-redeadline 'time
+      org-log-reschedule 'time
+      )
 (setq org-log-into-drawer t
       org-log-state-notes-into-drawer t)
 (setq org-agenda-span 'day)
@@ -114,13 +85,14 @@
 
 ;; org-roam
 (yx-require-package 'org-roam)
+(global-set-key (kbd "C-c n c") 'org-roam-capture)
+(global-set-key (kbd "C-c n f") 'org-roam-node-find)
 (with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-,") nil) ;;unbind org-cycle-agenda-files
   ;; org-modules
   (add-to-list 'org-modules 'org-habit)
   ;; org-roam
-  (define-key org-mode-map (kbd "C-,") nil) ;;unbind org-cycle-agenda-files
   (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
-  (define-key org-mode-map (kbd "C-c n f") 'org-roam-node-find)
   (define-key org-mode-map (kbd "C-c n i") 'org-roam-node-insert)
   (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
   (define-key org-mode-map (kbd "C-c n T") 'org-roam-tag-remove)
@@ -128,7 +100,6 @@
   (define-key org-mode-map (kbd "C-c n R") 'org-roam-ref-remove)
   (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
   (define-key org-mode-map (kbd "C-c n A") 'org-roam-alias-remove)
-  (global-set-key (kbd "C-c n c") 'org-roam-capture)
 
   (setq org-roam-directory (file-truename org-directory))
   (setq org-roam-completion-everywhere t)
@@ -161,10 +132,11 @@
                  (window-height . fit-window-to-buffer)))
 
   (org-roam-db-autosync-mode)
+
   (setq org-roam-dailies-directory "daily/")
   (setq org-roam-dailies-capture-templates
       '(("d" "default" entry
-         "* %^{desc:}\n%?"
+         "* %^{desc}\n%?"
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+TITLE: %<%Y-%m-%d>\n"))))
   (global-set-key (kbd "C-c n d") 'org-roam-dailies-capture-date)
@@ -172,6 +144,7 @@
 
 (yx-require-package 'org-appear)
 (with-eval-after-load 'org
+  (setq org-appear-trigger 'always)
   (setq org-appear-autolinks t
         org-appear-autosubmarkers t
         org-appear-autoentities t
@@ -179,5 +152,5 @@
         org-appear-inside-latex t))
 (add-hook 'org-mode-hook 'org-appear-mode)
 
-
+;; end init-org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-org)

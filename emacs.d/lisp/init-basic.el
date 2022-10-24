@@ -1,6 +1,14 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (setq frame-title-format '("%b"))
-(setq initial-buffer-choice t)
+
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'fringe-mode)
+  (fringe-mode 4))
+(menu-bar-mode -1)
+;; (setq initial-buffer-choice t)
 
 (setq-default major-mode 'text-mode
               fill-column 78
@@ -16,8 +24,8 @@
 (dolist (c '(overwrite-mode))
   (put c 'disabled t))
 
-(setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
-      delete-by-moving-to-trash  t)  ; Deleting files go to OS's trash folder
+(setq inhibit-compacting-font-caches t
+      delete-by-moving-to-trash  t)
 
 (setq-default abbrev-mode t)
 (setq kill-buffer-delete-auto-save-files 1)
@@ -73,20 +81,14 @@
   ;; recentf
   (setq recentf-max-saved-items 100)
   (setq recentf-exclude '(
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "^/tmp/"))
-  (setq recentf-auto-cleanup 10)
+                          "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                          "^/tmp/"))
+  (setq recentf-auto-cleanup 60)
   (recentf-mode 1)
   ;; savelist
   (setq history-delete-duplicates t)
   (setq savehist-save-minibuffer-history t)
   (savehist-mode 1)
-  ;; desktop.el
-  (setq desktop-save t)
-  (setq sesktop-load-locked-desktop t)
-  (setq desktop-path (list user-emacs-directory))
-  (setq desktop-dirname user-emacs-directory)
-  (desktop-save-mode 1)
   (save-place-mode 1)
   ;; auto-save
   (auto-save-visited-mode 1)
@@ -102,22 +104,7 @@
   (setq enable-recursive-minibuffers t)
   (minibuffer-depth-indicate-mode 1)
   (minibuffer-electric-default-mode 1)
-
-  ;; 一些跟后面其他插件有冲突的基础配置
-  (when yx-basic-mode-p
-    (require 'ido)
-    (setq ido-enable-flex-matching t)
-    (setq ido-use-filename-at-point 'guess)
-    (setq ido-creat-new-buffer 'always)
-    (setq ido-use-url-at-point t)
-    (setq ido-ignore-extensions t)
-    (setq ido-case-fold t)
-    (setq ido-everywhere t)
-    (ido-mode t)
-    (fido-mode t)
-    (global-set-key (kbd "C-x C-r") 'recentf-open-files)
-    (load-theme 'wombat))
-)
+  )
 (add-hook 'after-init-hook 'yx-global-inbuilt-mirror-mode-setup)
 
 ;; completion
@@ -142,7 +129,19 @@
 (add-hook 'prog-mode-hook
           #'(lambda ()
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
-(add-hook 'emacs-startup-hook #'desktop-read)
+
+;; desktop.el
+(setq desktop-save t)
+(setq sesktop-load-locked-desktop nil)
+(setq desktop-dirname (concat user-emacs-directory "/desktop.saved"))
+(setq desktop-path (list desktop-dirname))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (let ((desktop-id (if (and (featurep 'server)  server-process) (concat "." server-name) "")))
+              (setq desktop-base-file-name (concat "emacs.desktop" desktop-id)
+                    desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))
+            (desktop-save-mode 1)
+            (desktop-read)))
 
 ;; diary calendar
 (setq calendar-week-start-day 1)
@@ -153,25 +152,18 @@
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(when yx-basic-mode-p
-  ;; ibuffer
-  (with-eval-after-load 'ibuffer
-    (setq ibuffer-expert t)
-    ;; (setq ibuffer-show-empty-filter-groups nil)
-    (require 'ibuf-ext)
-    ;; (add-to-list 'ibuffer-never-show-predicates "^\\*")
-    (setq ibuffer-saved-filter-groups
-          (quote (("default"
-                   ("Dots" (filename . "/dot/"))
-                   ("Notes" (mode . org-mode))
-                   ("Programing" (or (mode . python-mode)
-                                     (mode . c-mode)))
-                   ;; ("svg" (name . "\\.svg"))
-                   ))))
-    (add-hook 'ibuffer-mode-hook
-              (lambda ()
-                (ibuffer-switch-to-saved-filter-groups "default"))))
-  )
+(setq ibuffer-expert t)
+(setq ibuffer-show-empty-filter-groups nil)
+
+;; dired
+(add-to-list 'exec-path "/usr/local/bin")
+(let ((gls (executable-find "gls")))
+  (when gls
+    (setq insert-directory-program gls)))
+(setq dired-listing-switches "-aBhl  --group-directories-first")
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'top)
 
 ;; flyspell
 (cond
@@ -204,6 +196,27 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-strip-common-suffix t)
 (setq uniquify-after-kill-buffer-p t)
+
+;; bibtex
+
+;; Change fields and format
+(setq bibtex-dialect 'biblatex)
+(setq bibtex-user-optional-fields
+      '(("keywords" "Keywords to describe the entry")
+        ("file" "Link to document file."))
+      bibtex-align-at-equal-sign t)
+(add-hook 'bibtex-mode-hook 'flyspell-mode)
+
+;; text-mode-comm-setup
+(add-hook 'text-mode-hook
+          #'(lambda ()
+              (setq word-wrap t
+                    word-wrap-by-category t
+                    fill-column 100)
+              (auto-fill-mode 1)
+              (visual-line-mode 1)
+              (variable-pitch-mode 1)
+              ))
 
 ;;user defined
 ;;scroll 1/3 page

@@ -34,7 +34,9 @@ alias ls='ls --color=auto'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 alias vim='nvim'
-alias em='emacs -nw'
+alias em='emacs --no-desktop -nw "$@"'
+alias ec='TERM=xterm-256color emacsclient -s server -t "$@"'
+
 
 # alias for git
 alias ga='git add'

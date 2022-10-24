@@ -2,36 +2,43 @@
 ;; ui theme
 ;; 1, monokai-theme
 ;; 2, ef-themes
-;; (yx-require-package 'gruvbox-theme)
-;; (load-theme 'gruvbox-light-medium t)
 (yx-require-package 'ef-themes)
+(setq ef-themes-mixed-fonts t
+      ef-themes-variable-pitch-ui t)
+(setq ef-themes-headings
+      '((0 . (light variable-pitch 1.5))
+        (1 . (light variable-pitch 1.3))
+        (2 . (variable-pitch 1.1))
+        (t . (variable-pitch))))
 (setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
-(load-theme 'ef-duo-light :no-confirm)
+;;no need mode line.
+(defun yx-mode-line-setup ()
+  (interactive)
+  (let ((bg (face-attribute 'mode-line :background))
+        (ibg (face-attribute 'mode-line-inactive :background)))
+    (set-face-attribute 'mode-line nil
+                        :foreground bg
+                        :height 0.1
+                        :box nil)
+    (set-face-attribute 'mode-line-inactive nil
+                        :foreground ibg
+                        :height 0.1
+                        :box nil
+                        :inherit 'unspecified)
+    )
+  )
+(add-hook 'ef-themes-toggle #'yx-mode-line-setup)
+(add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
+(mapc #'disable-theme custom-enabled-themes)
+(ef-themes-select 'ef-summer)
 
+;; ibuffer-vc
 (yx-require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook
           (lambda ()
             (ibuffer-vc-set-filter-groups-by-vc-root)
             (unless (eq ibuffer-sorting-mode 'alphabetic)
               (ibuffer-do-sort-by-alphabetic))))
-
-;; @ https://lists.gnu.org/archive/html/bug-gnu-emacs/2012-07/msg01208.html
-(let ((gls "/usr/local/bin/gls"))
-  (if (file-exists-p gls) (setq insert-directory-program gls)))
-
-;; ui modeline
-(when (display-graphic-p)
-  (add-to-list 'load-path (concat user-emacs-directory "nonelpa/awesome-tray"))
-  (require 'awesome-tray)
-  (with-eval-after-load 'awesome-tray
-    (setq awesome-tray-git-show-status t)
-    (setq awesome-tray-buffer-name-buffer-changed t)
-    ;; (setq awesome-tray-file-path-show-filename t)
-    ;; (setq awesome-tray-file-path-full-dirname-levels 0) ;; only file name
-    (setq awesome-tray-active-modules '("location" "git" "buffer-name" "mode-name"))
-    ;; awesome-tray-module-alist
-    (awesome-tray-mode 1)
-    ))
 
 (yx-require-package 'which-key)
 (add-hook 'after-init-hook
@@ -53,22 +60,21 @@
 (yx-require-package 'restart-emacs)
 
 (yx-require-package 'posframe)  ;; sdcv dep
-
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx-run-with-idle-timer 2 #'(lambda ()
-                              (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
-                              (require 'sdcv)
-                              (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
-                                    sdcv-dictionary-complete-list (list "朗道英汉字典5.0")
-                                    sdcv-dictionary-data-dir "/Users/yx/.config/stardict/dic") ; set local sdcv dict dir
-                              (global-set-key (kbd "M-s s") 'sdcv-search-pointer+)
-                              ))
+(yx-delay-run 2 #'(lambda ()
+                    (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
+                    (require 'sdcv)
+                    (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
+                          sdcv-dictionary-complete-list (list "朗道英汉字典5.0")
+                          sdcv-dictionary-data-dir "/Users/yx/.config/stardict/dic") ; set local sdcv dict dir
+                    (global-set-key (kbd "M-s s") 'sdcv-search-pointer+)
+                    ))
 
 (when ON-MAC
   ;; emacs-rime
   (yx-require-package 'rime)
   (setq rime-translate-keybindings
-  '("C-f" "C-b" "C-n" "C-p" "C-g" "C-v" "M-v" "<delete>"))
+        '("C-f" "C-b" "C-n" "C-p" "C-g" "C-v" "M-v" "<delete>"))
   (setq default-input-method "rime"
         rime-librime-root "~/.emacs.d/librime/dist"
         rime-user-data-dir "/Users/yx/Library/Rime"
@@ -81,7 +87,7 @@
               :foreground-color "#dcdccc"
               :internal-border-width 3))
   (setq rime-disable-predicates
-        '(rime-predicate-after-alphabet-char-p
+        '(;; rime-predicate-after-alphabet-char-p
           rime-predicate-current-uppercase-letter-p
           ;; rime-predicate-current-input-punctuation-p
           ;; rime-predicate-prog-in-code-p
@@ -93,13 +99,13 @@
 
 ;; cal-china-x
 (yx-require-package 'cal-china-x)
-(yx-run-with-idle-timer 2 #'(lambda ()
-                              (require 'cal-china-x)
-                              (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
-                              (setq calendar-holidays (append cal-china-x-important-holidays
-                                                              cal-china-x-general-holidays
-                                                              holiday-general-holidays
-                                                              holiday-christian-holidays))))
+(yx-delay-run 2 #'(lambda ()
+                    (require 'cal-china-x)
+                    (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+                    (setq calendar-holidays (append cal-china-x-important-holidays
+                                                    cal-china-x-general-holidays
+                                                    holiday-general-holidays
+                                                    holiday-christian-holidays))))
 
 
 (provide 'init-misc)

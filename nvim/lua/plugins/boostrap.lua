@@ -16,7 +16,6 @@ local PKGS = {
 	'pocco81/auto-save.nvim';
 	'akinsho/bufferline.nvim';
 	'kyazdani42/nvim-tree.lua';
-	"m4xshen/autoclose.nvim";
 	-- lang
 	'nvim-treesitter/nvim-treesitter';
 	'lukas-reineke/indent-blankline.nvim';
