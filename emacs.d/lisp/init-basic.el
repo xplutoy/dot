@@ -1,111 +1,48 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(setq frame-title-format '("%b"))
+;; auto revert
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode 1)
 
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(when (fboundp 'fringe-mode)
-  (fringe-mode 4))
-(menu-bar-mode -1)
-;; (setq initial-buffer-choice t)
+;; recentf
+(setq recentf-max-saved-items 100)
+(setq recentf-exclude '(
+                        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                        "^/tmp/"))
+(setq recentf-auto-cleanup 60)
+(recentf-mode 1)
 
-(setq-default major-mode 'text-mode
-              fill-column 78
-              tab-width 4
-              indent-tabs-mode nil)
+;; savelist
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history t)
+(savehist-mode 1)
+(save-place-mode 1)
 
-(dolist (c '(narrow-to-region
-             narrow-to-page
-             upcase-region
-             downcase-region
-             dired-find-alternate-file))
-  (put c 'disabled nil))
-(dolist (c '(overwrite-mode))
-  (put c 'disabled t))
-
-(setq inhibit-compacting-font-caches t
-      delete-by-moving-to-trash  t)
-
-(setq-default abbrev-mode t)
-(setq kill-buffer-delete-auto-save-files 1)
-(setq ring-bell-function 'ignore)
-(setq use-short-answers t)
-(setq use-dialog-box nil)
-;; (setq mode-line-compact t)
-(setq apropos-sort-by-scores t)
+;; auto-save
 (setq auto-save-default t)
+(setq delete-auto-save-files t)
+(setq kill-buffer-delete-auto-save-files 1)
 (setq auto-save-no-message t)
+(setq auto-save-visited-interval 10)
+(auto-save-visited-mode 1)
+
+;; backup
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))))
-(setq kill-do-not-save-duplicates t)
-(setq delete-auto-save-files t)  ;; when save or kill buffer
-(setq isearch-allow-motion t)
-(setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
-(setq create-lockfiles nil)
-(setq require-final-newline t)
 
-(if (> emacs-major-version 28)
-    (pixel-scroll-precision-mode 1)
-  ;; Better scroll behavior
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
-  (setq mouse-wheel-progressive-speed nil)
-  )
-
-(setq mouse-yank-at-point t)
-(setq x-underline-at-descent-line t)
-
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-i") 'imenu)
-
+;; tab-bar
+(setq tab-bar-show 1
+      tab-bar-new-button-show nil
+      tab-bar-new-tab-to 'right
+      tab-bar-close-button-show nil)
+(tab-bar-mode 1)
+(tab-bar-history-mode 1)
 (global-set-key (kbd "C-<tab>") 'tab-next)
 (global-set-key (kbd "C-S-<tab>") 'tab-previous)
 
-(defun yx-global-inbuilt-mirror-mode-setup ()
-  (global-tab-line-mode -1)
-  (electric-pair-mode 1)
-  (windmove-default-keybindings)
-  (delete-selection-mode 1)
-  (global-superword-mode 1)
-  (repeat-mode 1)
-  (winner-mode 1)
-  (global-so-long-mode 1)
-  (global-hl-line-mode 1)
-  (blink-cursor-mode -1)
-  (midnight-mode 1)
-  (file-name-shadow-mode 1) ;; @see https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer-File.html
-
-  ;; auto revert
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode 1)
-  ;; recentf
-  (setq recentf-max-saved-items 100)
-  (setq recentf-exclude '(
-                          "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                          "^/tmp/"))
-  (setq recentf-auto-cleanup 60)
-  (recentf-mode 1)
-  ;; savelist
-  (setq history-delete-duplicates t)
-  (setq savehist-save-minibuffer-history t)
-  (savehist-mode 1)
-  (save-place-mode 1)
-  ;; auto-save
-  (auto-save-visited-mode 1)
-  (setq auto-save-visited-interval 10)
-  ;; tab-bar
-  (setq tab-bar-show 1
-        tab-bar-new-button-show nil
-        tab-bar-new-tab-to 'right
-        tab-bar-close-button-show nil)
-  (tab-bar-mode 1)
-  (tab-bar-history-mode 1)
-  ;; minibuffer
-  (setq enable-recursive-minibuffers t)
-  (minibuffer-depth-indicate-mode 1)
-  (minibuffer-electric-default-mode 1)
-  )
-(add-hook 'after-init-hook 'yx-global-inbuilt-mirror-mode-setup)
+;; minibuffer
+(setq enable-recursive-minibuffers t)
+(minibuffer-depth-indicate-mode 1)
+(minibuffer-electric-default-mode 1)
 
 ;; completion
 (setq completion-ignore-case t
@@ -114,34 +51,42 @@
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
 
+;; isearch
 (setq-default case-fold-search t)
-(setq echo-keystrokes 0.25)
-(setq kill-ring-max 60)
+(setq isearch-allow-motion t)
+(setq apropos-sort-by-scores t)
+
+;; imenu
+(global-set-key (kbd "M-i") 'imenu)
+
+;; mouse
+(setq mouse-yank-at-point t)
+(if (> emacs-major-version 28)
+    (pixel-scroll-precision-mode 1)
+  ;; Better scroll behavior
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+  (setq mouse-wheel-progressive-speed nil)
+  )
+
 ;; eww
+(setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
 ;; (with-eval-after-load 'eww
 ;;   ;; eww-auto-rename-buffe
 ;;   )
-(dolist (m '(electric-pair-local-mode
-             display-line-numbers-mode
-             show-paren-mode
-             hs-minor-mode))
-  (add-hook 'prog-mode-hook m))
-(add-hook 'prog-mode-hook
-          #'(lambda ()
-              (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
 ;; desktop.el
-(setq desktop-save t)
-(setq sesktop-load-locked-desktop nil)
-(setq desktop-dirname (concat user-emacs-directory "/desktop.saved"))
-(setq desktop-path (list desktop-dirname))
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (let ((desktop-id (if (and (featurep 'server)  server-process) (concat "." server-name) "")))
-              (setq desktop-base-file-name (concat "emacs.desktop" desktop-id)
-                    desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))
-            (desktop-save-mode 1)
-            (desktop-read)))
+(setq desktop-save t
+      desktop-auto-save-timeout   60
+      sesktop-load-locked-desktop nil
+      desktop-files-not-to-save   "^$"
+      desktop-dirname (concat user-emacs-directory "/desktop.saved")
+      desktop-path (list desktop-dirname))
+(let ((desktop-id (if (and (featurep 'server)  server-process) (concat "." server-name) "")))
+  (setq desktop-base-file-name (concat "emacs.desktop" desktop-id)
+        desktop-base-lock-name (concat "emacs.desktop" desktop-id ".lock")))
+(when (daemonp)
+  (desktop-save-mode 1)
+  (desktop-read))
 
 ;; diary calendar
 (setq calendar-week-start-day 1)
@@ -207,7 +152,7 @@
       bibtex-align-at-equal-sign t)
 (add-hook 'bibtex-mode-hook 'flyspell-mode)
 
-;; text-mode-comm-setup
+;; text-mode
 (add-hook 'text-mode-hook
           #'(lambda ()
               (setq word-wrap t
@@ -218,18 +163,34 @@
               (variable-pitch-mode 1)
               ))
 
-;;user defined
-;;scroll 1/3 page
-(defun previous-multilines ()
-  "scroll down multiple lines"
-  (interactive)
-  (scroll-down (/ (window-body-height) 3)))
-(defun next-multilines ()
-  "scroll up multiple lines"
-  (interactive)
-  (scroll-up (/ (window-body-height) 3)))
-(global-set-key "\M-n" 'next-multilines)
-(global-set-key "\M-p" 'previous-multilines)
+;; prog-mode
+(setq require-final-newline t)
+(add-hook 'prog-mode-hook
+          #'(lambda ()
+              (display-line-numbers-mode 1)
+              (electric-pair-local-mode 1)
+              (show-paren-mode 1)
+              (hs-minor-mode 1)
+              (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
+;; misc global minor mode
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(fringe-mode 4)
+(menu-bar-mode -1)
+(global-tab-line-mode -1)
+(electric-pair-mode 1)
+(windmove-default-keybindings)
+(delete-selection-mode 1)
+(global-superword-mode 1)
+(repeat-mode 1)
+(winner-mode 1)
+(global-so-long-mode 1)
+(global-hl-line-mode 1)
+(blink-cursor-mode -1)
+(midnight-mode 1)
+(file-name-shadow-mode 1) ;; @see https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer-File.html
+(auto-compression-mode 1)
 
+;; init-basic end ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-basic)

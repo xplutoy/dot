@@ -2,10 +2,10 @@
 export ZDOTDIR=$HOME                        # default:$HOME
 export EDITOR='nvim'
 export VISUAL='nvim'
-export fpath=($ZDOTDIR/.zsh $fpath)         # add own functions folder to fpath 
-
 export YX_DOTDIR=$HOME/dot
 export YX_ORGDIR=$HOME/org
+export fpath=($ZDOTDIR/.zsh $fpath)
+export fpath=($YX_DOTDIR/zsh.d $fpath)
 
 # line edit
 bindkey -e

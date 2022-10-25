@@ -37,6 +37,7 @@
         ("http://blog.lujun9972.win/emacs-document/rss.xml" emacs)
         ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech)
         ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
+        ("https://emacs.stackexchange.com/feeds" emacs)
 
         ("https://wangyurui.com/feed.xml" 思考 人生 社会)
         ("http://www.4sbooks.com/feed" 人文 四季书评)

@@ -53,4 +53,38 @@
 (add-hook 'window-setup-hook #'yx-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'yx-setup-fonts)
 
-(provide 'init-font)
+;; theme
+;; 1, monokai-theme
+;; 2, ef-themes
+(yx-require-package 'ef-themes)
+(setq ef-themes-mixed-fonts t
+      ef-themes-variable-pitch-ui t)
+(setq ef-themes-headings
+      '((0 . (light variable-pitch 1.5))
+        (1 . (light variable-pitch 1.3))
+        (2 . (variable-pitch 1.1))
+        (t . (variable-pitch))))
+(setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
+;;no need mode line.
+(defun yx-mode-line-setup ()
+  (interactive)
+  (let ((bg (face-attribute 'mode-line :background))
+        (ibg (face-attribute 'mode-line-inactive :background)))
+    (set-face-attribute 'mode-line nil
+                        :foreground bg
+                        :height 0.1
+                        :box nil)
+    (set-face-attribute 'mode-line-inactive nil
+                        :foreground ibg
+                        :height 0.1
+                        :box nil
+                        :inherit 'unspecified)
+    )
+  )
+(add-hook 'ef-themes-toggle #'yx-mode-line-setup)
+(add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
+(mapc #'disable-theme custom-enabled-themes)
+(ef-themes-select 'ef-summer)
+
+;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(provide 'init-ui)

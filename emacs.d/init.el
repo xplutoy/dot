@@ -1,12 +1,42 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+(setq-default major-mode 'fundamental-mode
+              fill-column 78
+              tab-width 4
+              indent-tabs-mode nil
+              cursor-type 'box
+              abbrev-mode t)
+
+;; custom.el
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; const
 (defconst ON-LINUX   (eq system-type 'gnu/linux))
 (defconst ON-MAC     (eq system-type 'darwin))
 (defconst ON-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 
-;; custom.el
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-compacting-font-caches t
+      frame-title-format '("%b")
+      frame-resize-pixelwise t
+      frame-inhibit-implied-resize t)
+;; (setq native-comp-async-report-warnings-errors 'silent)
+
+(setq use-short-answers t
+      echo-keystrokes 0.25
+      ring-bell-function 'ignore
+      use-dialog-box nil
+      create-lockfiles nil
+      load-prefer-newer t)
+
+(setq delete-by-moving-to-trash  ON-MAC
+      kill-do-not-save-duplicates t)
 
 ;; elpa-init
 (require 'package)
@@ -40,22 +70,15 @@
 
 (yx-add-to-load-path-r (concat user-emacs-directory "lisp"))
 
-(add-hook 'after-init-hook  #'(lambda ()
-                                (require 'server)
-                                (unless (or (bound-and-true-p server-process)
-                                            (server-running-p))
-                                  (server-start))))
-
+(require 'init-ui)
 (add-hook 'emacs-startup-hook  #'(lambda ()
-                                   (message "Emacs loaded in %s."
-                                            (emacs-init-time))))
-
-(require 'init-font)
-(require 'init-basic)
-(require 'init-org)
-(require 'init-elfeed)
-(require 'init-misc)
-(require 'init-completion)
-(require 'init-ide)
-(require 'init-python)
-;; (require 'init-company)
+                                   (message "Emacs loaded in %s." (emacs-init-time))
+                                   (require 'init-basic)
+                                   (require 'init-org)
+                                   (require 'init-elfeed)
+                                   (require 'init-misc)
+                                   (require 'init-completion)
+                                   (require 'init-ide)
+                                   (require 'init-python)
+                                   ;; (require 'init-company)
+                                   ))

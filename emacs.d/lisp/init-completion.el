@@ -3,26 +3,21 @@
 ;; minibuffer enhance
 ;; vertico ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (yx-require-package 'vertico)
-(add-hook 'after-init-hook 'vertico-mode)
-
+(vertico-mode 1)
 (with-eval-after-load 'vertico
   (setq vertico-cycle t)
   (setq vertico-scroll-margin 1)
   (setq vertico-resize t)
-
   ;; vertico-directory
   (define-key vertico-map "\r" #'vertico-directory-enter)
   (define-key vertico-map "\d" #'vertico-directory-delete-char)
   (define-key vertico-map "\M-\d" #'vertico-directory-delete-word)
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-
   ;; verico-mouse
   (vertico-mouse-mode)
-
   ;; vertico-quick
   (define-key vertico-map "\M-q" #'vertico-quick-insert)
   (define-key vertico-map "\C-q" #'vertico-quick-exit)
-
   )
 
 ;; orderless ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -182,28 +177,26 @@
 
 ;; corfu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (yx-require-package 'corfu)
-(defun yx-corfu-setup ()
-  (setq corfu-auto t)  ;; set befor global-corfu-mode
-  (setq corfu-cycle t)
-  (setq corfu-quit-at-boundary nil)
-  (setq corfu-quit-no-match 'separator)
-  (setq corfu-auto-delay 0.1)
-  (setq corfu-auto-prefix 1)
-  (setq corfu-echo-documentation nil)
-  (add-hook 'eshell-mode-hook #'(lambda ()
-                                  (setq-local corfu-auto nil)
-                                  (corfu-mode)))
-  (add-hook 'minibuffer-setup-hook #' (lambda ()
-                                        (unless (bound-and-true-p vertico--input)
-                                          (corfu-mode 1))))
+(setq corfu-auto t)  ;; set befor global-corfu-mode
+(setq corfu-cycle t)
+(setq corfu-quit-at-boundary nil)
+(setq corfu-quit-no-match 'separator)
+(setq corfu-auto-delay 0.1)
+(setq corfu-auto-prefix 1)
+(setq corfu-echo-documentation nil)
+(add-hook 'eshell-mode-hook #'(lambda ()
+                                (setq-local corfu-auto nil)
+                                (corfu-mode)))
+(add-hook 'minibuffer-setup-hook #' (lambda ()
+                                      (unless (bound-and-true-p vertico--input)
+                                        (corfu-mode 1))))
+(with-eval-after-load 'corfu
+  (define-key corfu-map (kbd "SPC") #'corfu-insert-separator)
+  ;; corfu-quick
+  (define-key corfu-map "\M-q" #'corfu-quick-complete)
+  (define-key corfu-map "\C-q" #'corfu-quick-insert))
+(global-corfu-mode 1)
 
-  (with-eval-after-load 'corfu
-    (define-key corfu-map (kbd "SPC") #'corfu-insert-separator)
-    ;; corfu-quick
-    (define-key corfu-map "\M-q" #'corfu-quick-complete)
-    (define-key corfu-map "\C-q" #'corfu-quick-insert))
-  (global-corfu-mode 1))
-(add-hook 'after-init-hook #'yx-corfu-setup)
 
 ;; corfu-doc
 (yx-require-package 'corfu-doc)
