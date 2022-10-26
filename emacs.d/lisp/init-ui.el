@@ -1,4 +1,11 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
+;; ui
+(when (display-graphic-p)
+  (fringe-mode 4)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+(menu-bar-mode -1)
+
 ;;; @see https://github.com/seagle0128/.emacs.d/**/custom-example.el
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."

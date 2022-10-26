@@ -1,6 +1,9 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 ;; org
 (require 'org)
+(defvar yx-org-root "~/personal/org")
+(unless (file-directory-p yx-org-root)
+  (make-directory yx-org-root t))
 (setq org-directory "~/personal/org")
 (setq diary-file (concat org-directory "/diary"))
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
@@ -24,9 +27,7 @@
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-(setq org-priority-faces '((?A :foreground "red")
-			               (?B :foreground "orange")
-			               (?C :foreground "yellow")))
+
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
          "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
@@ -43,23 +44,27 @@
       org-refile-allow-creating-parent-nodes 'confirm
       org-log-refile nil)
 
+;; org ui
 (setq org-startup-folded "content"
       org-startup-indented t
       org-hide-leading-stars t
-      org-hidden-keywords t
-      org-hide-emphasis-markers t
+      org-hidden-keywords nil
+      org-hide-emphasis-markers nil
       org-pretty-entities t
       org-use-sub-superscripts "{}"
       ;; org-odd-levels-only t
       org-hide-block-startup t
-      org-startup-with-inline-images t
       ;; org-auto-align-tags nil
-      org-image-actual-width '(300))
-
-(setq org-fontify-done-headline t
+      org-list-description-max-indent 4
+      org-fontify-done-headline t
       org-src-fontify-natively t
+      org-fontify-quote-and-verse-blocks t
+      org-fontify-whole-heading-line t
       org-src-preserve-indentation t
-      )
+      org-startup-with-inline-images t
+      org-priority-faces '((?a . error) (?b . warning) (?c . success))
+      org-startup-with-inline-images t
+      org-image-actual-width '(600))
 
 (setq org-log-done 'time
       org-log-repeat 'time

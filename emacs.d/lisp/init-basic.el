@@ -170,6 +170,7 @@
 (setq require-final-newline t)
 (add-hook 'prog-mode-hook
           #'(lambda ()
+              (subword-mode 1)
               (display-line-numbers-mode 1)
               (electric-pair-local-mode 1)
               (show-paren-mode 1)
@@ -177,16 +178,12 @@
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
 
 ;; epa
-(setq epa-file-encrypt-to '("xueyang.cs@foxmail.com"))
+(setq epa-file-encrypt-to nil)
 (setq epa-file-inhibit-auto-save t
-      epa-file-cache-passphrase-for-symmetric-encryption t)
+      epa-file-cache-passphrase-for-symmetric-encryption nil)
 (setq epa-pinentry-mode 'loopback)
 
 ;; misc global minor mode
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(fringe-mode 4)
-(menu-bar-mode -1)
 (global-tab-line-mode -1)
 (electric-pair-mode 1)
 (windmove-default-keybindings)

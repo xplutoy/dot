@@ -22,6 +22,7 @@
 
 (setq inhibit-splash-screen t
       inhibit-startup-message t
+      initial-scratch-message nil
       inhibit-compacting-font-caches t
       frame-title-format '("%b")
       frame-resize-pixelwise t
@@ -30,6 +31,7 @@
 
 (setq use-short-answers t
       echo-keystrokes 0.25
+      visible-bell t
       ring-bell-function 'ignore
       use-dialog-box nil
       create-lockfiles nil
