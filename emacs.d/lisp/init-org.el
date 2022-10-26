@@ -1,9 +1,7 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 ;; org
-(yx-delay-run 1 #'(lambda ()
-                    (require 'org)))
-
-(setq org-directory "~/org")
+(require 'org)
+(setq org-directory "~/personal/org")
 (setq diary-file (concat org-directory "/diary"))
 (setq org-default-notes-file (concat org-directory "/gtd.org"))
 (setq org-agenda-files '("gtd.org"))
@@ -51,6 +49,7 @@
       org-hidden-keywords t
       org-hide-emphasis-markers t
       org-pretty-entities t
+      org-use-sub-superscripts "{}"
       ;; org-odd-levels-only t
       org-hide-block-startup t
       org-startup-with-inline-images t

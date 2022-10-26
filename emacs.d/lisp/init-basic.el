@@ -163,6 +163,9 @@
               (variable-pitch-mode 1)
               ))
 
+;; elisp
+(find-function-setup-keys)
+
 ;; prog-mode
 (setq require-final-newline t)
 (add-hook 'prog-mode-hook
@@ -172,6 +175,12 @@
               (show-paren-mode 1)
               (hs-minor-mode 1)
               (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
+
+;; epa
+(setq epa-file-encrypt-to '("xueyang.cs@foxmail.com"))
+(setq epa-file-inhibit-auto-save t
+      epa-file-cache-passphrase-for-symmetric-encryption t)
+(setq epa-pinentry-mode 'loopback)
 
 ;; misc global minor mode
 (scroll-bar-mode -1)
