@@ -20,42 +20,32 @@
              return (set-face-attribute 'default nil
                                         :family font
                                         :height 160))
-
     (cl-loop for font in '("Inconsolata" "Source Code Pro" "Fira Code" "Menlo" "Monaco")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch nil
                                         :family font
                                         :height 1.0))
-
     (cl-loop for font in '("Source Serif Pro")
              when (font-installed-p font)
              return (set-face-attribute 'variable-pitch nil
                                         :family font
                                         :height 1.0))
-
     (cl-loop for font in '("Latin Modern Mono")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch-serif nil
                                         :family font
                                         :height 1.0))
-
-    ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
              when (font-installed-p font)
              return (set-fontset-font t 'symbol (font-spec :family font)))
-
-    ;; Emoji
     (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
              when (font-installed-p font)
              return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
-
-    ;; Specify font for Chinese characters
     (cl-loop for font in '("LXGW WenKai Mono" "PingFang SC" "STFangsong")
              when (font-installed-p font)
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.05))) ;; 1.05 magic number
                       (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
-
 (yx-setup-fonts)
 (add-hook 'window-setup-hook #'yx-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'yx-setup-fonts)
@@ -71,27 +61,32 @@
         (1 . (light variable-pitch 1.3))
         (2 . (variable-pitch 1.1))
         (t . (variable-pitch))))
-(setq ef-themes-to-toggle '(ef-duo-light ef-winter)) ;; use ef-themes-toggle to switch
-;;no need mode line.
-(defun yx-mode-line-setup ()
-  (interactive)
-  (let ((bg (face-attribute 'mode-line :background))
-        (ibg (face-attribute 'mode-line-inactive :background)))
-    (set-face-attribute 'mode-line nil
-                        :foreground bg
-                        :height 0.1
-                        :box nil)
-    (set-face-attribute 'mode-line-inactive nil
-                        :foreground ibg
-                        :height 0.1
-                        :box nil
-                        :inherit 'unspecified)
-    )
-  )
-(add-hook 'ef-themes-toggle #'yx-mode-line-setup)
-(add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
 (mapc #'disable-theme custom-enabled-themes)
+(setq ef-themes-to-toggle '(ef-duo-light ef-winter))
 (ef-themes-select 'ef-winter)
+;;no need mode line.
+(if (not (display-graphic-p))
+  (ef-themes-select 'ef-dark)
+  ;; only graphic work
+  (ef-themes-select 'ef-winter)
+  (defun yx-mode-line-setup ()
+    (let ((bg (face-attribute 'mode-line :background))
+          (ibg (face-attribute 'mode-line-inactive :background)))
+      (set-face-attribute 'mode-line nil
+                          :foreground bg
+                          :height 0.1
+                          :box nil)
+      (set-face-attribute 'mode-line-inactive nil
+                          :foreground ibg
+                          :height 0.1
+                          :box nil
+                          :inherit 'unspecified)
+      )
+    )
+  (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
+  (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
+)
+
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)
