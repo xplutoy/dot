@@ -52,6 +52,8 @@
       read-file-name-completion-ignore-case t)
 
 ;; isearch
+(setq isearch-lazy-count t
+      lazy-count-prefix-format "%s/%s ")
 (setq-default case-fold-search t)
 (setq isearch-allow-motion t)
 (setq apropos-sort-by-scores t)
@@ -110,7 +112,8 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'top)
 
-;; flyspell
+;; ispell
+(setq ispell-dictionary "en_US")
 (cond
  ((executable-find "aspell")
   (setq ispell-list-command "--list") ;; @see https://www.emacswiki.org/emacs/FlySpell
@@ -166,16 +169,24 @@
 ;; elisp
 (find-function-setup-keys)
 
+;; paren
+(setq show-paren-when-point-inside-paren t
+      show-paren-when-point-in-periphery t)
+(show-paren-mode 1)
+
 ;; prog-mode
 (setq require-final-newline t)
 (add-hook 'prog-mode-hook
           #'(lambda ()
+              ;; (elide-head-mode 1) emacs 29
               (subword-mode 1)
               (display-line-numbers-mode 1)
               (electric-pair-local-mode 1)
-              (show-paren-mode 1)
-              (hs-minor-mode 1)
-              (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)))
+              (hs-minor-mode 1)))
+
+;; whitespace
+(setq show-trailing-whitespace t)
+(add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)
 
 ;; epa
 (setq epa-file-encrypt-to nil)
