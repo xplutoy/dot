@@ -30,13 +30,14 @@
 
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
+         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?")
         ("p" "Project" entry (file+headline org-default-notes-file "Projects")
-         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?" :empty-lines-after 1)
+         "* TODO [#B] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n %i\n%?")
         ("h" "Habit" entry (file+headline org-default-notes-file "Habits")
          "* NEXT [#B] %^{Title}\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n" :empty-lines-after 1)))
 
 (setq org-refile-targets '((nil :maxlevel . 2)
+                           ("daily/2022-10-27.org" :maxlevel . 2)
                            (org-agenda-files :maxlevel . 2))
       org-refile-use-cache nil
       org-refile-use-outline-path t

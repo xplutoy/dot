@@ -91,7 +91,7 @@
 (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
 (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
 (mapc #'disable-theme custom-enabled-themes)
-(ef-themes-select 'ef-summer)
+(ef-themes-select 'ef-winter)
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)
