@@ -48,6 +48,7 @@
         ("https://feedx.fun/rss/wsj.xml" 新闻)
 
         ("https://linux.cn/rss.xml" linux 技术)
+        ("https://linuxhandbook.com/rss/" linux)
         ("http://www.ruanyifeng.com/blog/atom.xml" 技术 软件)
 
         ("https://api.feeddd.org/feeds/613381f91269c358aa0eac99" 机器之心 ai)
