@@ -6,6 +6,7 @@
   (add-hook m #'eglot-ensure))
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '(python-mode "pyls"))
   )
 
 (yx-require-package 'yasnippet-snippets)
