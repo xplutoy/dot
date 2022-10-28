@@ -18,23 +18,19 @@
     (cl-loop for font in '("Inconsolata" "Source Code Pro" "Fira Code" "Menlo" "Monaco")
              when (font-installed-p font)
              return (set-face-attribute 'default nil
-                                        :family font
-                                        :height 160))
+                                        :family font :height 160))
     (cl-loop for font in '("Inconsolata" "Source Code Pro" "Fira Code" "Menlo" "Monaco")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch nil
-                                        :family font
-                                        :height 1.0))
+                                        :family font :height 1.0))
     (cl-loop for font in '("Source Serif Pro")
              when (font-installed-p font)
              return (set-face-attribute 'variable-pitch nil
-                                        :family font
-                                        :height 1.0))
+                                        :family font :height 1.0))
     (cl-loop for font in '("Latin Modern Mono")
              when (font-installed-p font)
              return (set-face-attribute 'fixed-pitch-serif nil
-                                        :family font
-                                        :height 1.0))
+                                        :family font :height 1.0))
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
              when (font-installed-p font)
              return (set-fontset-font t 'symbol (font-spec :family font)))
@@ -66,7 +62,7 @@
 (ef-themes-select 'ef-winter)
 ;;no need mode line.
 (if (not (display-graphic-p))
-  (ef-themes-select 'ef-dark)
+    (ef-themes-select 'ef-dark)
   ;; only graphic work
   (ef-themes-select 'ef-winter)
   (defun yx-mode-line-setup ()
@@ -83,10 +79,10 @@
                           :inherit 'unspecified)
       )
     )
+  (yx-mode-line-setup)
   (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
   (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
-)
-
+  )
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)

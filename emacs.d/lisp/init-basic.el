@@ -1,4 +1,35 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+;; windows & buffer
+(global-set-key (kbd "C-S-w") 'kill-buffer-and-window)
+(setq switch-to-buffer-obey-display-actions t
+      switch-to-buffer-in-dedicated-window 'pop)
+(windmove-default-keybindings)
+;; @see https://www.masteringemacs.org/article/demystifying-emacs-window-manager
+(defun yx-split-below (arg)
+  (interactive "P")
+  (split-window (if arg (frame-root-window)
+                  (window-parent (selected-window)))
+                nil 'below nil))
+(defun yx-split-right (arg)
+  (interactive "P")
+  (split-window (if arg (frame-root-window)
+                  (window-parent (selected-window)))
+                nil 'right nil))
+(defun yx-toggle-dedicated ()
+  "Toggles window dedication in the selected window."
+  (interactive)
+  (set-window-dedicated-p (selected-window)
+                          (not (window-dedicated-p (selected-window)))))
+
+(setq window-sides-slots '(0 0 1 0))
+(add-to-list 'display-buffer-alist
+             `(,(rx (| "*compilation*" "*grep*" "*info*" "*Help*"))
+               display-buffer-in-side-window
+               (side . bottom)
+               (slot . 0)
+               ;; (window-parameters . ((no-delete-other-windows . t)))
+               (window-height . 0.45)))
+
 ;; auto revert
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode 1)
@@ -67,6 +98,20 @@
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
   (setq mouse-wheel-progressive-speed nil)
   )
+
+;; eshell
+;; @see https://github.com/manateelazycat/aweshell
+(defun yxeshell-clear-buffer ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+(define-key eshell-mode-map (kbd "C-l") #'yxeshell-clear-buffer )
+(add-to-list 'display-buffer-alist
+             '("\\*e?shell\\*" display-buffer-in-direction
+               (direction . bottom)
+               (window . root)
+               (window-height . 0.45)))
 
 ;; eww
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
@@ -186,7 +231,6 @@
 ;; misc global minor mode
 (global-tab-line-mode -1)
 (electric-pair-mode 1)
-(windmove-default-keybindings)
 (delete-selection-mode 1)
 (global-superword-mode 1)
 (repeat-mode 1)
