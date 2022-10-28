@@ -1,4 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+;; exec-path-from-shell
+(yx-require-package 'exec-path-from-shell)
+(when (or (daemonp) (display-graphic-p))
+  (setq exec-path-from-shell-arguments nil)
+  (exec-path-from-shell-initialize)
+  )
+
 ;; ibuffer-vc
 (yx-require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook
