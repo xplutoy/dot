@@ -1,20 +1,17 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(setq-default major-mode 'fundamental-mode
-              fill-column 78
-              tab-width 4
-              indent-tabs-mode nil
-              cursor-type 'box
-              abbrev-mode t)
-
-;; custom.el
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
+;; yx custom
+(defvar yx-org-root "~/personal/org/")
+(defvar yx-share-data-path "~/personal/local.d/share/")
 
 ;; const
 (defconst ON-LINUX   (eq system-type 'gnu/linux))
 (defconst ON-MAC     (eq system-type 'darwin))
 (defconst ON-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
+
+;; custom.el
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
@@ -34,8 +31,8 @@
       visible-bell t
       ring-bell-function 'ignore
       use-dialog-box nil
-      create-lockfiles nil
-      load-prefer-newer t)
+      load-prefer-newer nil
+      create-lockfiles nil)
 
 (setq delete-by-moving-to-trash  ON-MAC
       kill-do-not-save-duplicates t)

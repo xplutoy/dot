@@ -1,12 +1,9 @@
 ;;; -*- lexical-binding: t no-byte-compile: t -*-
 ;; org
 (require 'org)
-(defvar yx-org-root "~/personal/org")
-(unless (file-directory-p yx-org-root)
-  (make-directory yx-org-root t))
-(setq org-directory "~/personal/org")
-(setq diary-file (concat org-directory "/diary"))
-(setq org-default-notes-file (concat org-directory "/gtd.org"))
+(setq org-directory yx-org-root)
+(setq diary-file (concat org-directory "diary"))
+(setq org-default-notes-file (concat org-directory "gtd.org"))
 (setq org-agenda-files '("gtd.org"))
 
 (setq org-agenda-include-diary t)
@@ -107,6 +104,7 @@
   (define-key org-mode-map (kbd "C-c n A") 'org-roam-alias-remove)
 
   (setq org-roam-directory (file-truename org-directory))
+  (setq org-roam-db-location (concat yx-share-data-path "org-roam.db"))
   (setq org-roam-completion-everywhere t)
   (setq org-roam-capture-templates
         '(("n" "note" plain "%?"

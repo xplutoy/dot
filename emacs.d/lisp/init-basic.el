@@ -1,4 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+(setq-default major-mode 'fundamental-mode
+              fill-column 78
+              tab-width 4
+              indent-tabs-mode nil
+              cursor-type 'box
+              abbrev-mode t)
+
 ;; windows & buffer
 (global-set-key (kbd "C-S-w") 'kill-buffer-and-window)
 (setq switch-to-buffer-obey-display-actions t
@@ -101,12 +108,13 @@
 
 ;; eshell
 ;; @see https://github.com/manateelazycat/aweshell
-(defun yxeshell-clear-buffer ()
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input)))
-(define-key eshell-mode-map (kbd "C-l") #'yxeshell-clear-buffer )
+(with-eval-after-load 'eshell
+  (defun yxeshell-clear-buffer ()
+    (interactive)
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)))
+  (define-key eshell-mode-map (kbd "C-l") #'yxeshell-clear-buffer ))
 (add-to-list 'display-buffer-alist
              '("\\*e?shell\\*" display-buffer-in-direction
                (direction . bottom)
@@ -115,9 +123,14 @@
 
 ;; eww
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
+(setq browse-url-generic-program
+     (cond
+      (ON-MAC "open")
+      (ON-LINUX (executable-find "firefox"))
+      (t nil)))
 ;; (with-eval-after-load 'eww
 ;;   ;; eww-auto-rename-buffe
-;;   )
+;; )
 
 ;; desktop.el
 (setq desktop-save t
