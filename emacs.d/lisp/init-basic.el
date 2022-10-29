@@ -11,7 +11,6 @@
 (global-set-key (kbd "C-S-w") 'kill-buffer-and-window)
 (setq switch-to-buffer-obey-display-actions t
       switch-to-buffer-in-dedicated-window 'pop)
-(windmove-default-keybindings)
 ;; @see https://www.masteringemacs.org/article/demystifying-emacs-window-manager
 (defun yx-split-below (arg)
   (interactive "P")
@@ -29,26 +28,38 @@
   (set-window-dedicated-p (selected-window)
                           (not (window-dedicated-p (selected-window)))))
 
-(setq window-sides-slots '(0 0 1 0))
+(setq window-sides-slots '(3 3 3 3))
 (add-to-list 'display-buffer-alist
-             `(,(rx (| "*compilation*" "*grep*" "*info*" "*Help*"))
+             `(,(rx (| "*compilation*" "*grep*" "*info*"))
                display-buffer-in-side-window
                (side . bottom)
-               (slot . 0)
-               ;; (window-parameters . ((no-delete-other-windows . t)))
+               (height . 0.45)
                (window-height . 0.45)))
+(add-to-list 'display-buffer-alist
+             `(,(rx (| "*Help*" "*Dictionary*"))
+               display-buffer-in-side-window
+               (side . right)
+               (window-width . 60)))
+
+;; winmove
+(setq windmove-wrap-around t)
+(windmove-default-keybindings)
 
 ;; auto revert
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode 1)
 
 ;; recentf
-(setq recentf-max-saved-items 100)
+(recentf-mode 1)
+(setq recentf-max-saved-items 80)
 (setq recentf-exclude '(
                         "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
                         "^/tmp/"))
-(setq recentf-auto-cleanup 60)
-(recentf-mode 1)
+(setq recentf-auto-cleanup 120)
+(advice-add 'recentf-cleanup :around #'(lambda (function)
+                                         (let ((inhibit-message  t))
+                                           (funcall function)))    
+            )
 
 ;; savelist
 (setq history-delete-duplicates t)
@@ -92,6 +103,7 @@
 
 ;; isearch
 (setq isearch-lazy-count t
+      lazy-highlight-no-delay-length 3
       lazy-count-prefix-format "%s/%s ")
 (setq-default case-fold-search t)
 (setq isearch-allow-motion t)
@@ -109,8 +121,14 @@
   (setq mouse-wheel-progressive-speed nil)
   )
 
+;; dictionary
+(global-set-key (kbd "C-c d") #'dictionary-search)
+(setq dictionary-use-single-buffer t)
+(setq dictionary-server "dict.tw")
 
 ;; eww
+(setq-default shr-inhibit-images t
+              shr-use-fonts nil)
 (setq browse-url-browser-function 'eww-browse-url)  ;; in emacs use eww as web browser
 (setq browse-url-generic-program
      (cond

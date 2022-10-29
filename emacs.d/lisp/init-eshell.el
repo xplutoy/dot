@@ -6,16 +6,11 @@
                (window . root)
                (window-height . 0.45)))
 
-(defun yx-eshell-toggle ()
-  "eshell toggle"
-  (interactive)
-  (if (equal major-mode 'eshell-mode)
-      (quit-window)
-    (eshell))
-  )
-(global-set-key (kbd "C-,") #'yx-eshell-toggle)
-
-(setq eshell-prefer-lisp-functions t)
+(setq eshell-highlight-prompt nil
+      eshell-prefer-lisp-functions t
+      eshell-hist-ignoredups t
+      eshell-save-history-on-exit t
+      eshell-destroy-buffer-when-process-dies t)
 ;; @see https://github.com/manateelazycat/aweshell
 (with-eval-after-load 'eshell
   (defun yx-eshell-clear-buffer ()
@@ -107,9 +102,48 @@ more-helpful local prompt."
      (propertize (if (= (user-uid) 0) " #" " $") 'face `(:weight ultra-bold))
      ;; (propertize " └→" 'face (if (= (user-uid) 0) `(:weight ultra-bold :foreground "red") `(:weight ultra-bold)))
      (propertize " "    'face `(:weight bold)))))
-
-(setq eshell-highlight-prompt nil)
 (setq-default eshell-prompt-function #'eshell/eshell-local-prompt-function)
 
+;; pcomplete git for eshell
+;; @see https://www.masteringemacs.org/article/pcomplete-context-sensitive-completion-emacs
+(defconst pcmpl-git-commands
+  '("add" "bisect" "branch" "checkout" "clone" "commit" "diff" "fetch" "grep"
+    "init" "log" "merge" "mv" "pull" "push" "rebase" "reset" "rm" "show" "status" "tag" )
+  "List of `git' commands.")
+
+(defvar pcmpl-git-ref-list-cmd "git for-each-ref refs/ --format='%(refname)'"
+  "The `git' command to run to get a list of refs.")
+
+(defun pcmpl-git-get-refs (type)
+  "Return a list of `git' refs filtered by TYPE."
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (let ((ref-list))
+      (while (re-search-forward (concat "^refs/" type "/\\(.+\\)$") nil t)
+        (add-to-list 'ref-list (match-string 1)))
+      ref-list)))
+
+(defun pcomplete/git ()
+  "Completion for `git'."
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-git-commands)
+  ;; complete files/dirs forever if the command is `add' or `rm'
+  (cond
+   ((pcomplete-match (regexp-opt '("add" "rm")) 1)
+    (while (pcomplete-here (pcomplete-entries))))
+   ;; provide branch completion for the command `checkout'.
+   ((pcomplete-match "checkout" 1)
+    (pcomplete-here* (pcmpl-git-get-refs "heads")))))
+
+;; eshell-toggle
+(defun eshell/yx-eshell-toggle ()
+  "eshell toggle"
+  (interactive)
+  (if (equal major-mode 'eshell-mode)
+      (quit-window)
+    (eshell))
+  )
+(global-set-key (kbd "C-,") #'eshell/yx-eshell-toggle)
 
 (provide 'init-eshell)

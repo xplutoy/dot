@@ -27,7 +27,7 @@
         ("https://lobste.rs/t/python.rss" python)
         ("https://lobste.rs/t/emacs.rss" emacs)
         ("https://emacstalk.github.io/podcast/index.xml" emacs)
-        ;; ("http://xahlee.info/emacs/emacs/blog.xml" emacs)
+        ("http://xahlee.info/emacs/emacs/blog.xml" emacs)
         ("https://lucidmanager.org/categories/productivity//index.xml" emacs)
         ("https://emacsredux.com/atom.xml" emacs)
         ("https://sachachua.com/blog/category/emacs/feed/" emacs)
@@ -36,11 +36,12 @@
         ("http://blog.lujun9972.win/emacs-document/rss.xml" emacs)
         ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech)
         ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
+        ("http://www.howardism.org/index.xml" emacs)
 
         ("https://wangyurui.com/feed.xml" 思考 人生 社会)
         ("http://www.4sbooks.com/feed" 人文 四季书评)
 
-        ;; ("https://www.tmtpost.com/feed" 科技 商业)
+        ("https://www.tmtpost.com/feed" 科技 商业)
         ("https://36kr.com/feed" 商业)
         ("http://feeds.initium.news/theinitium" 新闻)
         ("https://wanqu.co/feed" 创业 技术)
