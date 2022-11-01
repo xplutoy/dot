@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 ;; yx custom
+(setq user-full-name "yangxue")
+(setq user-mail-address "yangxue.cs@foxmail.com")
 (defvar yx-org-root "~/personal/org/")
 (defvar yx-share-data-path "~/personal/local.d/share/")
 
@@ -19,7 +21,7 @@
 
 (setq inhibit-splash-screen t
       inhibit-startup-message t
-      initial-scratch-message nil
+      ;; initial-scratch-message nil
       inhibit-compacting-font-caches t
       frame-title-format '("%b")
       frame-resize-pixelwise t
@@ -78,6 +80,7 @@
                                    (require 'init-completion)
                                    (require 'init-eshell)
                                    (require 'init-org)
+                                   (require 'init-mail)
                                    (require 'init-elfeed)
                                    (require 'init-ide)
                                    (require 'init-python)

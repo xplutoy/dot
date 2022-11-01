@@ -30,12 +30,6 @@
 
 (setq window-sides-slots '(3 3 3 3))
 (add-to-list 'display-buffer-alist
-             `(,(rx (| "*compilation*" "*grep*" "*info*"))
-               display-buffer-in-side-window
-               (side . bottom)
-               (height . 0.45)
-               (window-height . 0.45)))
-(add-to-list 'display-buffer-alist
              `(,(rx (| "*Help*" "*Dictionary*"))
                display-buffer-in-side-window
                (side . right)
@@ -252,10 +246,14 @@
 (add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)
 
 ;; epa
-(setq epa-file-encrypt-to nil)
+(setq epa-file-encrypt-to nil
+      epa-file-select-keys nil) 
 (setq epa-file-inhibit-auto-save t
-      epa-file-cache-passphrase-for-symmetric-encryption nil)
+      epa-file-cache-passphrase-for-symmetric-encryption t)
 (setq epa-pinentry-mode 'loopback)
+
+;; auth-sources
+(setq auth-sources '("~/.authinfo" "~/.authinfo.gpg"))
 
 ;; misc global minor mode
 (global-tab-line-mode -1)

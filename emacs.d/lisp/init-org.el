@@ -56,10 +56,9 @@
       org-list-description-max-indent 4
       org-fontify-done-headline t
       org-src-fontify-natively t
+      org-src-preserve-indentation t
       org-fontify-quote-and-verse-blocks t
       org-fontify-whole-heading-line t
-      org-src-preserve-indentation t
-      org-startup-with-inline-images t
       org-priority-faces '((?a . error) (?b . warning) (?c . success))
       org-startup-with-inline-images t
       org-image-actual-width '(600))
@@ -84,6 +83,10 @@
         ("w" todo "WAITING")
         ("W" todo-tree "WAITING")
         ("n" todo "NEXT")))
+;;org-babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages  '((python . t)
+                              (emacs-lisp . t)))
 
 ;; org-roam
 (yx-require-package 'org-roam)

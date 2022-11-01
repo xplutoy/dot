@@ -1,0 +1,32 @@
+IMAPAccount qqmail
+Host imap.qq.com
+User yangxue.cs@foxmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/personal/qqmail.pass.gpg"
+SSLType IMAPS
+
+IMAPStore qqmail-remote
+Account qqmail
+
+MaildirStore qqmail-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/mail/qqmail/
+Inbox ~/mail/qqmail/Inbox
+
+Channel sync-qqmail-inbox
+Far :qqmail-remote:"INBOX"
+Near :qqmail-local:INBOX
+Create Near
+SyncState *
+CopyArrivalDate yes
+
+Channel sync-qqmail-sent
+Far :qqmail-remote:"Sent Messages"
+Near :qqmail-local:Sent
+Create Near
+SyncState *
+CopyArrivalDate yes
+
+Group qqmail
+Channel sync-qqmail-inbox
+Channel sync-qqmail-sent
