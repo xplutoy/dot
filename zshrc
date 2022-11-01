@@ -1,12 +1,3 @@
-# env variable settings
-export ZDOTDIR=$HOME                        # default:$HOME
-export EDITOR='nvim'
-export VISUAL='nvim'
-export YX_DOTDIR=$HOME/dot
-export YX_ORGDIR=$HOME/org
-export fpath=($ZDOTDIR/.zsh $fpath)
-export fpath=($YX_DOTDIR/zsh.d $fpath)
-
 # line edit
 bindkey -e
 export KEYTIMEOUT=1
@@ -28,6 +19,8 @@ setopt PUSHD_IGNORE_DUPS                    # Do not store duplicates in the sta
 setopt PUSHD_SILENT                         # Do not print the directory stack after pushd or popd
 
 # 别名
+alias cp='cp -i'
+alias mv='mv -i'
 alias :q=exit
 alias ..='cd ..'
 alias ls='ls --color=auto'
@@ -36,7 +29,8 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias em='emacs --no-desktop -nw "$@"'
 alias ec='TERM=xterm-256color emacsclient -s server -t "$@"'
-
+alias notmuch-delete='notmuch search --output=files tag:deleted | xargs rm'
+alias mail-sync='mbsync -a;mpop -a'
 
 # alias for git
 alias ga='git add'
@@ -100,3 +94,4 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
 	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 fi
+

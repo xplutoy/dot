@@ -251,9 +251,15 @@
 (setq epa-file-inhibit-auto-save t
       epa-file-cache-passphrase-for-symmetric-encryption t)
 (setq epa-pinentry-mode 'loopback)
-
 ;; auth-sources
-(setq auth-sources '("~/.authinfo" "~/.authinfo.gpg"))
+;; (setq auth-source-debug 'trivia)
+(let ((dir (getenv "PASSWORD_STORE_DIR")))
+  (when dir
+    (setq auth-source-pass-filename dir))
+  )
+;; TODO how to set pass for auth-source
+(setq auth-sources `(password-store
+                     ,(concat user-emacs-directory "authinfo.gpg")))
 
 ;; misc global minor mode
 (global-tab-line-mode -1)

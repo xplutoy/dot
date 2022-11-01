@@ -16,7 +16,6 @@
         ("https://protesilaos.com/codelog.xml" emacs)
         ("http://pragmaticemacs.com/feed/" emacs)
         ("https://karthinks.com/index.xml" hack tool)
-        ("https://www.zhihu.com/rss")
         ("https://blog.evjang.com/feeds/posts/default" tech)
         ("https://ruder.io/rss/index.rss" ai nlp)
         ("https://www.inference.vc/rss" ai)
@@ -38,9 +37,12 @@
         ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
         ("http://www.howardism.org/index.xml" emacs)
 
+        ("https://www.agwa.name/blog/feed" crypto)
+
         ("https://wangyurui.com/feed.xml" 思考 人生 社会)
         ("http://www.4sbooks.com/feed" 人文 四季书评)
 
+        ("https://www.zhihu.com/rss")
         ("https://www.tmtpost.com/feed" 科技 商业)
         ("https://36kr.com/feed" 商业)
         ("http://feeds.initium.news/theinitium" 新闻)

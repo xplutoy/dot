@@ -15,13 +15,11 @@
               (ibuffer-do-sort-by-alphabetic))))
 
 (yx-require-package 'which-key)
-(add-hook 'after-init-hook
-          #'(lambda ()
-              (setq which-key-idle-delay 1.5) ;; whick-key文挡上说必须在load之前设置
-              (setq which-key-idle-secondary-delay 0.05)
-              (setq which-key-popup-type 'minibuffer)
-              (which-key-mode 1)
-              ))
+(setq which-key-idle-delay 1.0) ;; whick-key文挡上说必须在load之前设置
+(setq which-key-idle-secondary-delay 0.05)
+(which-key-setup-side-window-right-bottom)
+;; (setq which-key-popup-type 'minibuffer)
+(which-key-mode 1)
 
 ;; buffer-move
 (yx-require-package 'buffer-move)
@@ -35,7 +33,7 @@
 
 (yx-require-package 'posframe)  ;; sdcv dep
 ;; sdcv @https://github.com/manateelazycat/sdcv
-(yx-delay-run 2 #'(lambda ()
+(yx-delay-run 1 #'(lambda ()
                     (add-to-list 'load-path (concat user-emacs-directory "nonelpa/sdcv"))
                     (require 'sdcv)
                     (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
@@ -73,13 +71,12 @@
 
 ;; cal-china-x
 (yx-require-package 'cal-china-x)
-(yx-delay-run 2 #'(lambda ()
-                    (require 'cal-china-x)
-                    (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
-                    (setq calendar-holidays (append cal-china-x-important-holidays
-                                                    cal-china-x-general-holidays
-                                                    holiday-general-holidays
-                                                    holiday-christian-holidays))))
+(require 'cal-china-x)
+(setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+(setq calendar-holidays (append cal-china-x-important-holidays
+                                cal-china-x-general-holidays
+                                holiday-general-holidays
+                                holiday-christian-holidays))
 
 
 (provide 'init-misc)
