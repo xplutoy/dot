@@ -11,12 +11,12 @@ Account qqmail
 MaildirStore qqmail-local
 SubFolders Verbatim
 # The trailing "/" is important
-Path ~/mail/qqmail/
-Inbox ~/mail/qqmail/Inbox
+Path ~/personal/mail/qqmail/
+Inbox ~/personal/mail/qqmail/INBOX
 
 Channel sync-qqmail-inbox
 Far :qqmail-remote:"INBOX"
-Near :qqmail-local:Inbox
+Near :qqmail-local:INBOX
 Create Near
 SyncState *
 CopyArrivalDate yes
@@ -30,4 +30,4 @@ CopyArrivalDate yes
 
 Group qqmail
 Channel sync-qqmail-inbox
-Channel sync-qqmail-sent
+# Channel sync-qqmail-sent

@@ -43,6 +43,7 @@
       org-log-refile nil)
 
 ;; org ui
+(setq org-ellipsis "⤵")
 (setq org-startup-folded "content"
       org-startup-indented t
       org-hide-leading-stars t

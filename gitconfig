@@ -1,0 +1,16 @@
+[user]
+	email = yangxue.cs@foxmail.com
+	name = yx
+	signingkey = 67B86CB8A5630C51!
+[pull]
+	rebase = true
+[core]
+	quotepath = false
+	excludesfile = /Users/yx/dot/gitignore_global
+[color]
+    interactive = true
+    branch = true
+    status = true
+    diff = true
+[commit]
+	gpgSign = true

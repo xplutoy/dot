@@ -32,8 +32,7 @@
       gnus-summary-same-subject ""
       gnus-summary-gather-subject-limit 'fuzzy
       )
-(setq gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date
-                                   (not gnus-thread-sort-by-number))
+(setq gnus-thread-sort-functions '(gnus-thread-sort-by-subject gnus-thread-sort-by-number)
       gnus-thread-hide-subtree t
       gnus-thread-ignore-subject t
       gnus-fetch-old-headers t

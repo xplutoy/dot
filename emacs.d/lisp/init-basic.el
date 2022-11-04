@@ -169,6 +169,9 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'top)
 
+;; remember
+(setq remember-handler-functions '(remember-diary-extract-entries))
+
 ;; ispell
 (setq ispell-dictionary "en_US")
 (cond
@@ -251,15 +254,14 @@
 (setq epa-file-inhibit-auto-save t
       epa-file-cache-passphrase-for-symmetric-encryption t)
 (setq epa-pinentry-mode 'loopback)
-;; auth-sources
-;; (setq auth-source-debug 'trivia)
+;; auth-sources-pass and other
+;; (setq auth-source-debug 'trivia)  ;; debug
 (let ((dir (getenv "PASSWORD_STORE_DIR")))
   (when dir
     (setq auth-source-pass-filename dir))
   )
-;; TODO how to set pass for auth-source
-(setq auth-sources `(password-store
-                     ,(concat user-emacs-directory "authinfo.gpg")))
+(auth-source-pass-enable)
+(add-to-list 'auth-sources (concat user-emacs-directory "authinfo.gpg"))
 
 ;; misc global minor mode
 (global-tab-line-mode -1)
