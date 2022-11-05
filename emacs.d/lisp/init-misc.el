@@ -3,8 +3,7 @@
 (yx-require-package 'exec-path-from-shell)
 (when (or (daemonp) (display-graphic-p))
   ;; (setq exec-path-from-shell-arguments nil)
-  (exec-path-from-shell-initialize)
-  )
+   (exec-path-from-shell-initialize))
 
 ;; ibuffer-vc
 (yx-require-package 'ibuffer-vc)

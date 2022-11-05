@@ -25,3 +25,4 @@ emacs.d/librime/*
 emacs.d/elfeed-db/*
 emacs.d/network-security.data
 emacs.d/desktop.saved/*
+newsrc-dribble

@@ -252,7 +252,7 @@
 (setq epa-file-encrypt-to nil
       epa-file-select-keys nil) 
 (setq epa-file-inhibit-auto-save t
-      epa-file-cache-passphrase-for-symmetric-encryption t)
+      epa-file-cache-passphrase-for-symmetric-encryption nil)
 (setq epa-pinentry-mode 'loopback)
 ;; auth-sources-pass and other
 ;; (setq auth-source-debug 'trivia)  ;; debug
@@ -260,7 +260,7 @@
   (when dir
     (setq auth-source-pass-filename dir))
   )
-(auth-source-pass-enable)
+;; (auth-source-pass-enable)
 (add-to-list 'auth-sources (concat user-emacs-directory "authinfo.gpg"))
 
 ;; misc global minor mode

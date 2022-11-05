@@ -3,6 +3,7 @@
 (setq mail-yank-prefix "> ")
 (setq mail-user-agent 'gnus-user-agent)
 
+(setq message-directory "~/personal/mail/")
 (setq message-send-mail-function 'message-send-mail-with-sendmail
       sendmail-program "/usr/local/bin/msmtp" 
       mail-specify-envelope-from t
@@ -22,8 +23,18 @@
 
 ;; notmuch
 (yx-require-package 'notmuch)
+(setq notmuch-show-logo nil
+      notmuch-show-all-tags-list  t)
+(setq notmuch-hello-auto-refresh t
+      notmuch-hello-recent-searches-max 20)
 (setq notmuch-address-command 'internal)
 (setq notmuch-crypto-process-mime t)
+
+;; gnus
+(setq gnus-inhibit-startup-message t
+      gnus-init-file (concat user-emacs-directory "gnus.el")
+      gnus-startup-file (concat user-emacs-directory "newsrc")
+      gnus-directory (concat user-emacs-directory "News"))
 
 
 (provide 'init-mail)
