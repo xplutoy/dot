@@ -39,22 +39,17 @@
 
         ("https://www.agwa.name/blog/feed" crypto)
 
+        ("https://news.ycombinator.com/rss" hacker)
+        ("https://www.reddit.com/r/programming.rss" programming)
+        ("https://www.reddit.com/r/emacs.rss" emacs)
+        ("https://www.reddit.com/r/python.rss" python)
+        
         ("https://wangyurui.com/feed.xml" 思考 人生 社会)
         ("http://www.4sbooks.com/feed" 人文 四季书评)
-
-        ("https://www.zhihu.com/rss")
-        ("https://www.tmtpost.com/feed" 科技 商业)
-        ("https://36kr.com/feed" 商业)
         ("http://feeds.initium.news/theinitium" 新闻)
-        ("https://wanqu.co/feed" 创业 技术)
 
-        ("https://linux.cn/rss.xml" linux 技术)
         ("https://linuxhandbook.com/rss/" linux)
-        ("http://www.ruanyifeng.com/blog/atom.xml" 技术 软件)
-
-        ("https://api.feeddd.org/feeds/613381f91269c358aa0eac99" 机器之心 ai)
-        ("https://api.feeddd.org/feeds/621321d4dca58a380c66b2ef" 每周论文 ai)
-        )
+        ("http://www.ruanyifeng.com/blog/atom.xml" 技术 软件))
       )
 
 (provide 'init-elfeed)

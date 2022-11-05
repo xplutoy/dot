@@ -27,12 +27,17 @@
         ))
 
 (setq nnmail-split-fancy
-      '(| (: nnmail-split-fancy-with-parent)
-          (any ".*help-gnu-emacs@gnu.org" "INBOX.help-gnu-emacs")
+      '(| (any ".*help-gnu-emacs@.*" "INBOX.help-gnu-emacs")
+          (any ".*lua-l@.*" "INBOX.lua-l")
+          (any ".*arch-general@.*" "INBOX.arch-general")
+          (: nnmail-split-fancy-with-parent)
           "INBOX.misc"
           ))
 
 (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+(setq gnus-large-newsgroup 500
+      gnus-auto-select-first nil
+      gnus-newsgroup-maximum-articles 200)
 
 (setq nnmail-treat-duplicates 'delete
       nnmail-split-fancy-match-partial-words t
@@ -44,11 +49,12 @@
 
 (setq gnus-user-date-format-alist '((t . "%m-%d %H:%M"))
       gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
-      gnus-summary-display-arrow t
+      gnus-summary-display-arrow nil
       gnus-summary-gather-subject-limit 'fuzzy
       )
 
-(setq gnus-thread-sort-functions '(gnus-thread-sort-by-subject gnus-thread-sort-by-number)
+(setq gnus-thread-sort-functions '(gnus-thread-sort-by-subject
+                                   gnus-thread-sort-by-most-recent-number)
       gnus-thread-hide-subtree t
       gnus-thread-ignore-subject t
       gnus-fetch-old-headers t
@@ -56,6 +62,6 @@
 
 (setq gnus-always-read-dribble-file t)
 
-;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-(gnus-demon-add-handler 'gnus-demon-scan-news 5 5)
-(gnus-demon-init)
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+(add-hook 'kill-emacs-hook 'gnus-group-save-newsrc)
+;; (gnus-demon-add-handler 'gnus-demon-scan-news 10 10)

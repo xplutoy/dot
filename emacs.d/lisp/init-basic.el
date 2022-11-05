@@ -151,8 +151,10 @@
 (setq calendar-week-start-day 1)
 (setq calendar-latitude 31
       calendar-longitude 103)
+(setq calendar-time-zone +8)
 (setq calendar-mark-holidays-flag t
       calendar-mark-diary-entries-flag t)
+(add-hook 'calendar-today-visible-hook 'calendar-mark-today)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -252,7 +254,7 @@
 (setq epa-file-encrypt-to nil
       epa-file-select-keys nil) 
 (setq epa-file-inhibit-auto-save t
-      epa-file-cache-passphrase-for-symmetric-encryption nil)
+      epa-file-cache-passphrase-for-symmetric-encryption t)
 (setq epa-pinentry-mode 'loopback)
 ;; auth-sources-pass and other
 ;; (setq auth-source-debug 'trivia)  ;; debug
