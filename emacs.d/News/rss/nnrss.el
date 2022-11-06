@@ -1,0 +1,3 @@
+;; -*- coding: utf-8-emacs; -*-
+(setq nnrss-group-alist '(("机器之心" "https://api.feeddd.org/feeds/613381f91269c358aa0eac99" "") ("南方周末" "https://api.feeddd.org/feeds/613381fa1269c358aa0eadb1" "") ("36氪" "https://api.feeddd.org/feeds/6131e1441269c358aa0e2141" "")))
+(setq nnrss-server-data '(("南方周末" 100) ("聪明投资者" 0 nil) ("知乎每日精选" 11 "https://linux.cn/rss.xml") ("钛媒体：引领未来商业与生活新知" 0 nil) ("36氪" 100 nil) ("机器之心" 100 nil) ("PaperWeekly" 0 nil) ("Linux 中国◆开源社区" 11 "https://linux.cn/rss.xml")))

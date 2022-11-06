@@ -1,3 +1,4 @@
+;; (setq gnus-verbose 10)
 (setq gnus-select-method '(nnnil ""))
 (setq gnus-secondary-select-methods
       '(
@@ -15,7 +16,7 @@
       )
 
 (setq nntp-connection-timeout 5
-      nntp-nov-is-evil t)
+      nntp-maximum-request 1)
 
 (setq mail-sources
       '((imap :server "imap.qq.com"
@@ -66,6 +67,9 @@
 (setq gnus-suppress-duplicates t
       gnus-save-duplicate-list t
       gnus-duplicate-list-length 50000)
+
+;; @see https://mail.gnu.org/archive/html/info-gnus-english/2009-01/msg00053.html
+(setq nnrss-ignore-article-fields '(description guid pubData dc:creator link))
 
 (setq mm-sign-option nil
       mm-verify-option 'always)
