@@ -14,7 +14,8 @@
         )
       )
 
-(setq nntp-connection-timeout 5)
+(setq nntp-connection-timeout 5
+      nntp-nov-is-evil t)
 
 (setq mail-sources
       '((imap :server "imap.qq.com"
@@ -61,6 +62,13 @@
       )
 
 (setq gnus-always-read-dribble-file t)
+
+(setq gnus-suppress-duplicates t
+      gnus-save-duplicate-list t
+      gnus-duplicate-list-length 50000)
+
+(setq mm-sign-option nil
+      mm-verify-option 'always)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 (add-hook 'kill-emacs-hook 'gnus-group-save-newsrc)
