@@ -1,4 +1,11 @@
 ;; (setq gnus-verbose 10)
+(setq gnus-check-new-newsgroups nil
+      gnus-save-killed-list nil
+      gnus-save-newsrc-file nil
+      gnus-read-newsrc-file nil
+      gnus-always-read-dribble-file nil
+      gnus-inhibit-startup-message t)
+
 (setq gnus-select-method '(nnnil ""))
 (setq gnus-secondary-select-methods
       '(
@@ -62,11 +69,9 @@
       gnus-fetch-old-headers t
       )
 
-(setq gnus-always-read-dribble-file t)
-
 (setq gnus-suppress-duplicates t
       gnus-save-duplicate-list t
-      gnus-duplicate-list-length 50000)
+      gnus-duplicate-list-length 5000)
 
 ;; @see https://mail.gnu.org/archive/html/info-gnus-english/2009-01/msg00053.html
 (setq nnrss-ignore-article-fields '(description guid pubData dc:creator link))
