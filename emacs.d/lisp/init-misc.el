@@ -39,6 +39,7 @@
                           sdcv-dictionary-complete-list (list "朗道英汉字典5.0")
                           sdcv-dictionary-data-dir "/Users/yx/.config/stardict/dic") ; set local sdcv dict dir
                     (global-set-key (kbd "M-s s") 'sdcv-search-pointer+)
+                    (global-set-key (kbd "M-s S") 'sdcv-search-input)
                     ))
 
 (when ON-MAC

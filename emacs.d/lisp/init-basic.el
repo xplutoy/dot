@@ -30,7 +30,7 @@
 
 (setq window-sides-slots '(3 3 3 3))
 (add-to-list 'display-buffer-alist
-             `(,(rx (| "*Help*" "*Dictionary*"))
+             `(,(rx (| "*Help*" "*Dictionary*" "*SDCV*"))
                display-buffer-in-side-window
                (side . right)
                (window-width . 60)))

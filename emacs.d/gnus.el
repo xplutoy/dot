@@ -17,6 +17,7 @@
                 (nnimap-server-port 993)
                 (nnimap-inbox "INBOX")
                 (nnimap-stream ssl)
+                (nnimap-expunge 'never)
                 (nnimap-split-methods default)
                 (nnimap-search-engine imap))
         )
