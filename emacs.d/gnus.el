@@ -3,7 +3,7 @@
       gnus-save-killed-list nil
       gnus-save-newsrc-file nil
       gnus-read-newsrc-file nil
-      gnus-always-read-dribble-file nil
+      gnus-always-read-dribble-file t
       gnus-inhibit-startup-message t)
 
 (setq gnus-select-method '(nnnil ""))
@@ -40,6 +40,9 @@
       '(| (any ".*help-gnu-emacs@.*" "INBOX.help-gnu-emacs")
           (any ".*lua-l@.*" "INBOX.lua-l")
           (any ".*arch-general@.*" "INBOX.arch-general")
+          (any ".*python-list@.*" "INBOX.python-list")
+          (any ".*@haskell.org" "INBOX.haskell-list")
+          (any ".*@redditmail.com" "INBOX.reddit")
           (: nnmail-split-fancy-with-parent)
           "INBOX.misc"
           ))
@@ -82,4 +85,4 @@
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 (add-hook 'kill-emacs-hook 'gnus-group-save-newsrc)
-;; (gnus-demon-add-handler 'gnus-demon-scan-news 10 10)
+(gnus-demon-add-handler 'gnus-demon-scan-news 10 10)

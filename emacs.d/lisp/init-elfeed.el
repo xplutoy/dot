@@ -36,6 +36,10 @@
         ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech)
         ("https://linuxtoy.org/feeds/all.atom.xml" linux tool)
         ("http://www.howardism.org/index.xml" emacs)
+        ("https://manateelazycat.github.io/feed.xml" emacs)
+
+        ("https://tboox.org/feed.xml" c/c++)
+        ("https://blog.codingnow.com/atom.xml" tech c/c++)
 
         ("https://www.agwa.name/blog/feed" crypto)
 
