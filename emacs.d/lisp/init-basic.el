@@ -240,7 +240,7 @@
 (setq require-final-newline t)
 (add-hook 'prog-mode-hook
           #'(lambda ()
-              ;; (elide-head-mode 1) emacs 29
+              (elide-head-mode 1) ;; emacs 29
               (subword-mode 1)
               (display-line-numbers-mode 1)
               (electric-pair-local-mode 1)

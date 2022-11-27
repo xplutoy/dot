@@ -5,6 +5,7 @@
   (add-to-list var '(tool-bar-lines . 0))
   (add-to-list var '(vertical-scroll-bars))
   (add-to-list var '(horizontal-scroll-bars))
+  (add-to-list var '(undecorated-round . t))
   (add-to-list var '(fullscreen . maximized)))
 
 (setq package-enable-at-startup nil)
