@@ -1,6 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (add-hook 'python-mode-hook
           #'(lambda()
+              (setq tab-width 4)
               (setq imenu-create-index-function #'python-imenu-create-flat-index)
               ))
 

@@ -28,8 +28,10 @@
   (setq vterm-kill-buffer-on-exit t)
   (add-to-list 'display-buffer-alist
                '("\\*vterm\\*" (display-buffer-reuse-mode-window
-                                display-buffer-in-new-tab)
-                 (inhibit-same-window . nil)
+                                display-buffer-in-side-window)
+                 (side . bottom)
+                 (dedicated . t)
+                 (window-height . 0.4)
                  (mode vterm-mode vterm-copy-mode)))
   )
 

@@ -2,7 +2,7 @@
 
 (setq-default major-mode 'fundamental-mode
               fill-column 78
-              tab-width 4
+              tab-width 8
               indent-tabs-mode nil
               cursor-type 'box
               abbrev-mode t)

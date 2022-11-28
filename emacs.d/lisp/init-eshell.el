@@ -1,10 +1,10 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 ;; eshell
 (add-to-list 'display-buffer-alist
-             '("\\*e?shell\\*" display-buffer-in-direction
-               (direction . bottom)
-               (window . root)
-               (window-height . 0.45)))
+             '("\\*e?shell\\*" (display-buffer-reuse-window display-buffer-in-side-window)
+               (side . bottom)
+               (dedicated . t)
+               (window-height . 0.4)))
 
 (setq eshell-highlight-prompt nil
       eshell-prefer-lisp-functions t
