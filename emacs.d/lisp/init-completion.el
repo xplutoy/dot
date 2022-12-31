@@ -196,17 +196,10 @@
   (define-key corfu-map "\M-q" #'corfu-quick-complete)
   (define-key corfu-map "\C-q" #'corfu-quick-insert))
 (global-corfu-mode 1)
-
-
-;; corfu-doc
-(yx-require-package 'corfu-doc)
-(add-hook 'corfu-mode-hook #'corfu-doc-mode)
-(with-eval-after-load 'corfu-doc
-  (setq corfu-doc-auto nil)
-  (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down) ;; corfu-next
-  (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)  ;; corfu-previous
-  (define-key corfu-map (kbd "M-d") #'corfu-doc-toggle)
-  )
+;; corfu plugin
+(corfu-popupinfo-mode 1)
+(corfu-echo-mode 1)
+(corfu-indexed-mode 1)
 
 ;; kind-icon
 (yx-require-package 'kind-icon)

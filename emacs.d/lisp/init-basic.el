@@ -278,6 +278,7 @@
 (midnight-mode 1)
 (file-name-shadow-mode 1) ;; @see https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer-File.html
 (auto-compression-mode 1)
+(pixel-scroll-precision-mode 1)
 
 ;; init-basic end ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-basic)

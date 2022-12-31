@@ -26,6 +26,7 @@ emacs.d/elfeed-db/*
 emacs.d/network-security.data
 emacs.d/desktop.saved/*
 emacs.d/News/*
+emacs.d/transient/*
 newsrc-dribble
 newsrc.eld
 emacs.d/newsticker
