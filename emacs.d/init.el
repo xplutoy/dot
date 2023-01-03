@@ -50,14 +50,16 @@
         ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/stable-melpa/")
         ))
 (setq package-quickstart t)
+(package-initialize)
 (add-hook 'kill-emacs-hook 'package-quickstart-refresh)
 
 ;;help function
 (defmacro yx-require-package (package)
   "Only install the package if it is not already installed."
   `(progn
-     (unless (package-installed-p ,package) (package-install ,package))
-     (package-activate ,package)))
+     (unless (package-installed-p ,package)
+       (package-install ,package)
+       (package-activate ,package))))
 
 (defun yx-add-to-load-path-r (dir)
   (let ((default-directory  dir))

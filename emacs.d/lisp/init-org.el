@@ -159,5 +159,17 @@
         org-appear-inside-latex t))
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+;; deft
+(use-package deft
+  :bind ("C-c C-d" . deft)
+  :commands (deft)
+  :init (setq deft-extensions '("org" "md")
+              deft-directory "~/personal/org"
+              deft-recursive t
+              deft-text-mode 'org-mode
+              deft-use-filename-as-title t
+              deft-use-filter-string-for-filename t)
+  )
+
 ;; end init-org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-org)
