@@ -1,12 +1,15 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+;; python
 (add-hook 'python-mode-hook
           #'(lambda()
               (setq tab-width 4)
               (setq imenu-create-index-function #'python-imenu-create-flat-index)
               ))
 
-(yx-require-package 'pyvenv)
-(yx-require-package 'pyvenv-auto)
+(use-package pyvenv)
+(use-package pyvenv-auto)
 (add-hook 'python-mode-hook #'pyvenv-auto-mode)
 
-(provide 'init-python)
+;; c/c++
+
+(provide 'init-lang)

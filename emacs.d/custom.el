@@ -16,7 +16,7 @@
      (:name "all mail" :query "*" :key "a")
      (:name "deleted" :query "+deleted")))
  '(package-selected-packages
-   '(deft exec-path-from-shell org-appear mixed-pitch yasnippet-snippets which-key terminal-focus-reporting showtip restart-emacs pyvenv-auto pos-tip persist elfeed consult-yasnippet consult-dir buffer-move)))
+   '(pyvenv vterm notmuch org-roam cape kind-icon corfu consult-project-extra embark-consult embark orderless vertico rime posframe ibuffer-vc consult-eglot deft exec-path-from-shell org-appear mixed-pitch yasnippet-snippets which-key terminal-focus-reporting showtip restart-emacs pyvenv-auto pos-tip persist elfeed consult-yasnippet consult-dir buffer-move)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

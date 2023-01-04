@@ -21,20 +21,21 @@
 (setq mml-secure-openpgp-sign-with-sender t)
 (setq mml-secure-openpgp-encrypt-to-self t)
 
-;; notmuch
-(yx-require-package 'notmuch)
-(setq notmuch-show-logo nil
-      notmuch-show-all-tags-list  t)
-(setq notmuch-hello-auto-refresh t
-      notmuch-hello-recent-searches-max 20)
-(setq notmuch-address-command 'internal)
-(setq notmuch-crypto-process-mime t)
-
 ;; gnus
 (setq gnus-inhibit-startup-message t
       gnus-init-file (concat user-emacs-directory "gnus.el")
       gnus-startup-file (concat user-emacs-directory "newsrc")
       gnus-directory (concat user-emacs-directory "News"))
+
+;; notmuch
+(use-package notmuch
+  :init
+  (setq notmuch-show-logo nil
+        notmuch-show-all-tags-list  t
+        notmuch-hello-auto-refresh t
+        notmuch-hello-recent-searches-max 20
+        notmuch-address-command 'internal
+        notmuch-crypto-process-mime t))
 
 
 (provide 'init-mail)

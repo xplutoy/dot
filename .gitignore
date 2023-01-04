@@ -30,3 +30,4 @@ emacs.d/transient/*
 newsrc-dribble
 newsrc.eld
 emacs.d/newsticker
+emacs.d/multisession

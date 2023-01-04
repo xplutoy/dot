@@ -1,12 +1,6 @@
-;;; -*- lexical-binding: t no-byte-compile: t -*-
-;; ui
-(when (display-graphic-p)
-  (fringe-mode 4)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
-(menu-bar-mode -1)
+;; -*- lexical-binding: t no-byte-compile: t -*-
 
-;;; @see https://github.com/seagle0128/.emacs.d/**/custom-example.el
+;; @see https://github.com/seagle0128/.emacs.d/**/custom-example.el
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
@@ -49,40 +43,42 @@
 ;; theme
 ;; 1, monokai-theme
 ;; 2, ef-themes
-(yx-require-package 'ef-themes)
-(setq ef-themes-mixed-fonts t
-      ef-themes-variable-pitch-ui t)
-(setq ef-themes-headings
-      '((0 . (light variable-pitch 1.5))
-        (1 . (light variable-pitch 1.3))
-        (2 . (variable-pitch 1.1))
-        (t . (variable-pitch))))
-(mapc #'disable-theme custom-enabled-themes)
-(setq ef-themes-to-toggle '(ef-duo-light ef-winter))
-(ef-themes-select 'ef-winter)
-;;no need mode line.
-(if (not (display-graphic-p))
-    (ef-themes-select 'ef-dark)
-  ;; only graphic work
+(use-package ef-themes
+  :init
+  (setq ef-themes-mixed-fonts t
+        ef-themes-variable-pitch-ui t
+        ef-themes-headings '((0 . (light variable-pitch 1.5))
+                             (1 . (light variable-pitch 1.3))
+                             (2 . (variable-pitch 1.1))
+                             (t . (variable-pitch))))
+  (mapc #'disable-theme custom-enabled-themes)
+  (setq ef-themes-to-toggle '(ef-duo-light ef-winter))
+  
+  :config
   (ef-themes-select 'ef-winter)
-  (defun yx-mode-line-setup ()
-    (let ((bg (face-attribute 'mode-line :background))
-          (ibg (face-attribute 'mode-line-inactive :background)))
-      (set-face-attribute 'mode-line nil
-                          :foreground bg
-                          :height 0.1
-                          :box nil)
-      (set-face-attribute 'mode-line-inactive nil
-                          :foreground ibg
-                          :height 0.1
-                          :box nil
-                          :inherit 'unspecified)
+  ;;no need mode line.
+  (if (not (display-graphic-p))
+      (ef-themes-select 'ef-dark)
+    ;; only graphic work
+    (ef-themes-select 'ef-winter)
+    (defun yx-mode-line-setup ()
+      (let ((bg (face-attribute 'mode-line :background))
+            (ibg (face-attribute 'mode-line-inactive :background)))
+        (set-face-attribute 'mode-line nil
+                            :foreground bg
+                            :height 0.1
+                            :box nil)
+        (set-face-attribute 'mode-line-inactive nil
+                            :foreground ibg
+                            :height 0.1
+                            :box nil
+                            :inherit 'unspecified)
+        )
       )
-    )
-  (yx-mode-line-setup)
-  (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
-  (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
-  )
+    (yx-mode-line-setup)
+    (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
+    (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
+    ))
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)

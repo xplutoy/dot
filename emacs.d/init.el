@@ -39,6 +39,12 @@
 (setq delete-by-moving-to-trash  ON-MAC
       kill-do-not-save-duplicates t)
 
+;; mouse support in terminal
+(unless (display-graphic-p)
+  (if ON-LINUX
+    (gpm-mouse-mode 1)
+  (xterm-mouse-mode 1)))
+
 ;; elpa-init
 (require 'package)
 (setq package-archives
@@ -51,40 +57,28 @@
         ))
 (setq package-quickstart t)
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 (add-hook 'kill-emacs-hook 'package-quickstart-refresh)
 
 ;;help function
-(defmacro yx-require-package (package)
-  "Only install the package if it is not already installed."
-  `(progn
-     (unless (package-installed-p ,package)
-       (package-install ,package)
-       (package-activate ,package))))
-
 (defun yx-add-to-load-path-r (dir)
   (let ((default-directory  dir))
     (normal-top-level-add-to-load-path '("."))
     (normal-top-level-add-subdirs-to-load-path))
   )
-
-(defun yx-delay-run (seconds func)
-  "After SECONDS, run function FUNC once."
-  (run-with-idle-timer seconds nil func))
-
 (yx-add-to-load-path-r (concat user-emacs-directory "lisp"))
 
 (require 'init-ui)
+(require 'init-basic)
+(require 'init-completion)
 (add-hook 'emacs-startup-hook  #'(lambda ()
-                                   (message "Emacs loaded in %s." (emacs-init-time))
-                                   (require 'subr-x)
-                                   (require 'init-basic)
                                    (require 'init-misc)
-                                   (require 'init-completion)
                                    (require 'init-eshell)
                                    (require 'init-org)
                                    (require 'init-mail)
                                    (require 'init-elfeed)
                                    (require 'init-ide)
-                                   (require 'init-python)
-                                   ;; (require 'init-company)
+                                   (require 'init-lang)
+                                   (message "Emacs loaded in %s." (emacs-init-time))
                                    ))

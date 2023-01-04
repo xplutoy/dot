@@ -1,31 +1,24 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(yx-require-package 'eglot)
-(dolist (m '(python-mode-hook
-             c-mode-hook
-             c++-mode-hook))
-  (add-hook m #'eglot-ensure))
-(with-eval-after-load 'eglot
+(use-package eglot
+  :ensure nil
+  :init
+  (dolist (m '(python-mode-hook c-mode-hook c++-mode-hook))
+    (add-hook m #'eglot-ensure))
+  :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '(python-mode "pyls"))
   )
 
-(yx-require-package 'yasnippet-snippets)
-(yx-require-package 'yasnippet)
-(add-hook 'prog-mode-hook 'yas-minor-mode)
-(with-eval-after-load 'yasnippet
-  ;; unbind <TAB> completion
-  (define-key yas-minor-mode-map [(tab)]        nil)
-  (define-key yas-minor-mode-map (kbd "TAB")    nil)
-  (define-key yas-minor-mode-map (kbd "<tab>")  nil)
-  ;; bind
-  (define-key yas-minor-mode-map (kbd "S-<tab>") 'yas-expand)
+(use-package yasnippet-snippets)
+(use-package yasnippet
+  :hook (prog-mode-hook . yas-minor-mode)
   )
 
 ;; vterm ;;;;;;;;;;;;;;;
-(yx-require-package 'vterm)
-(with-eval-after-load 'vterm
-  (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+(use-package vterm
+  :init
   (setq vterm-kill-buffer-on-exit t)
+  :config
   (add-to-list 'display-buffer-alist
                '("\\*vterm\\*" (display-buffer-reuse-mode-window
                                 display-buffer-in-side-window)
@@ -33,6 +26,8 @@
                  (dedicated . t)
                  (window-height . 0.4)
                  (mode vterm-mode vterm-copy-mode)))
+  :bind (:map vterm-mode-map
+         ("C-q" . vterm-send-next-key))
   )
 
 ;; project
