@@ -32,6 +32,26 @@
          ("<C-S-left>" . buf-move-left)
          ("<C-S-right>" . buf-move-right)))
 
+;; ace-window
+(use-package ace-window
+  :init
+  (setq aw-background t
+        aw-scope 'frame
+        aw-dispatch-always t
+        ;; aw-ignored-buffers
+        aw-minibuffer-flag nil)
+  :bind ("M-o" . ace-window)
+  )
+
+;; avy
+(use-package avy
+  :init
+  (setq avy-style 'at
+        avy-timeout-seconds 0.8)
+  :bind (("M-g w" . avy-goto-word-1)
+         ("M-g c" . avy-goto-char-timer))
+  )
+
 ;; restart-emacs
 (use-package restart-emacs)
 

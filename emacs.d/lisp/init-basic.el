@@ -52,7 +52,7 @@
 (setq recentf-auto-cleanup 120)
 (advice-add 'recentf-cleanup :around #'(lambda (function)
                                          (let ((inhibit-message  t))
-                                           (funcall function)))    
+                                           (funcall function)))
             )
 
 ;; savelist
@@ -252,7 +252,7 @@
 
 ;; epa
 (setq epa-file-encrypt-to nil
-      epa-file-select-keys nil) 
+      epa-file-select-keys nil)
 (setq epa-file-inhibit-auto-save t
       epa-file-cache-passphrase-for-symmetric-encryption t)
 (setq epa-pinentry-mode 'loopback)
@@ -284,7 +284,6 @@
 (midnight-mode 1)
 (file-name-shadow-mode 1) ;; @see https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer-File.html
 (auto-compression-mode 1)
-(pixel-scroll-precision-mode 1)
 
 ;; init-basic end ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-basic)
