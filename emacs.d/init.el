@@ -34,6 +34,8 @@
       ring-bell-function 'ignore
       use-dialog-box nil
       load-prefer-newer nil
+      confirm-kill-processes nil
+      inhibit-compacting-font-caches t
       create-lockfiles nil)
 
 (setq delete-by-moving-to-trash  ON-MAC

@@ -94,5 +94,46 @@
                                   )
         ))
 
+;; key freq
+(use-package keyfreq
+  :init
+  (setq keyfreq-excluded-commands '(self-insert-command
+                                    forward-char
+                                    backward-char
+                                    previous-line
+                                    next-line))
+  :custom
+  (keyfreq-file "~/.emacs.d/keyfreq")
+  (keyfreq-file-lock "~/.emacs.d/keyfreq.lock")
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+  )
+
+;; crux
+(use-package crux
+  :config (prog (crux-with-region-or-buffer indent-region)
+                ((crux-reopen-as-root-mode)))
+  :bind (("C-c o" . crux-open-with)
+         ("S-<return>" . crux-smart-open-line)
+         ("C-S-<return>" . smart-open-line-above)
+         ("C-c k" . crux-kill-other-buffers)
+         ("C-c z" . crux-indent-defun)
+         ("C-c i" . crux-ispell-word-then-abbrev)
+         ("C-c r" . crux-rename-file-and-buffer)
+         ("C-c E" . crux-sudo-edit)
+         ("C-c D" . crux-delete-file-and-buffer)
+         ([remap move-beginning-of-line] . crux-move-beginning-of-line)
+         ([remap kill-whole-line] . crux-kill-whole-line) ;; C-S-<backspace>
+         )
+  )
+
+;; easy-kill
+(use-package easy-kill
+  :ensure t
+  :bind (([remap kill-ring-save] . easy-kill)
+         ([remap mark-sexp] . easy-mark))
+  )
+
 
 (provide 'init-misc)

@@ -156,7 +156,7 @@
         org-appear-autoentities t
         org-appear-autokeywords t
         org-appear-inside-latex t)
-  :hook (org-mode-hook . org-appear-mode)
+  :hook (org-mode . org-appear-mode)
   )
 
 ;; deft

@@ -90,7 +90,7 @@
 
 ;; completion
 (setq completion-ignore-case t
-      completion-cycle-threshold 5 ;;or t
+      completion-cycle-threshold 3 ;;or t
       tab-always-indent 'complete
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
@@ -238,6 +238,7 @@
 
 ;; prog-mode
 (setq require-final-newline t)
+(setq display-line-numbers-width-start t)
 (add-hook 'prog-mode-hook
           #'(lambda ()
               (elide-head-mode 1) ;; emacs 29
@@ -248,7 +249,10 @@
 
 ;; whitespace
 (setq show-trailing-whitespace t)
-(add-hook 'before-save-hook #'delete-trailing-whitespace 0 t)
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+(add-hook 'before-save-hook #'(lambda ()
+                                (delete-trailing-whitespace)
+                                (whitespace-cleanup)))
 
 ;; epa
 (setq epa-file-encrypt-to nil

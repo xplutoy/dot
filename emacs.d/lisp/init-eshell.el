@@ -144,6 +144,6 @@ more-helpful local prompt."
       (quit-window)
     (eshell))
   )
-(global-set-key (kbd "C-,") #'eshell/yx-eshell-toggle)
+(global-set-key (kbd "C-'") #'eshell/yx-eshell-toggle)
 
 (provide 'init-eshell)

@@ -53,7 +53,7 @@
                              (t . (variable-pitch))))
   (mapc #'disable-theme custom-enabled-themes)
   (setq ef-themes-to-toggle '(ef-duo-light ef-winter))
-  
+
   :config
   (ef-themes-select 'ef-winter)
   ;;no need mode line.
@@ -79,6 +79,10 @@
     (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
     (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
     ))
+
+;; all-the-icons
+(use-package all-the-icons
+  :if (display-graphic-p))
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)

@@ -11,7 +11,7 @@
 
 (use-package yasnippet-snippets)
 (use-package yasnippet
-  :hook (prog-mode-hook . yas-minor-mode)
+  :hook (prog-mode . yas-minor-mode)
   )
 
 ;; vterm ;;;;;;;;;;;;;;;
@@ -29,9 +29,38 @@
   :bind (:map vterm-mode-map
          ("C-q" . vterm-send-next-key))
   )
+(use-package vterm-toggle
+  :after vterm
+  :init
+  (setq vterm-toggle-hide-method nil)
+  :bind ("C-;" . vterm-toggle-cd)
+  )
 
 ;; project
 (with-eval-after-load "project"
-    (define-key project-prefix-map "m" 'magit))
+  (define-key project-prefix-map "m" 'magit))
+
+;; diff-hl
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-dired-mode)
+  )
+
+;; rainbow-delimiters
+(use-package rainbow-delimiters
+  :hook ((prog-mode emacs-lisp-mode) . rainbow-delimiters-mode)
+  )
+
+;; aggressive-indent
+(use-package aggressive-indent
+  :hook ((emacs-lisp-mode c-mode python-mode) . aggressive-indent-mode)
+  )
+
+;; magit
+(use-package magit
+  :defer t
+  )
+
 
 (provide 'init-ide)

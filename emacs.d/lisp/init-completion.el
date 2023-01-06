@@ -36,6 +36,7 @@
 (use-package embark
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
+  (setq embark-help-key "?")
     ;; which-key style indicator
   (defun embark-which-key-indicator ()
     (lambda (&optional keymap targets prefix)
@@ -75,14 +76,16 @@
                  nil
                  (window-parameters (mode-line-format . none))))
 
-  :bind (("C-'" . embark-act)
-         ("C-;" . embark-dwim)
+  :bind (("C-." . embark-act)
+         ("C-," . embark-dwim)
          ("C-h B" . embark-bindings)
          :map embark-symbol-map
          ("D" . sdcv-search-pointer+))
   )
 
 (use-package embark-consult
+  :after (embark consult)
+  :demand t
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -171,8 +174,9 @@
         corfu-cycle t
         corfu-quit-at-boundary nil
         corfu-quit-no-match 'separator
-        corfu-auto-delay 0.1
+        corfu-auto-delay 0
         corfu-auto-prefix 1
+        corfu-preselect 'prompt
         corfu-echo-documentation nil)
   :config
   (add-hook 'eshell-mode-hook #'(lambda ()
@@ -187,6 +191,8 @@
   (corfu-echo-mode 1)
   (corfu-indexed-mode 1)
   :bind (:map corfu-map
+              ("TAB" . corfu-next)
+              ("S-TAB" . corfu-previous)
               ("SPC" . corfu-insert-separator)
               ("M-q" . corfu-quick-complete)
               ("C-q" . corfu-quick-insert))
@@ -203,7 +209,7 @@
 ;; cape
 (use-package cape
   :init
-  (setq cape-dabbrev-min-length 3)
+  (setq cape-dabbrev-min-length 2)
   (add-to-list 'completion-at-point-functions #'cape-abbrev)
   (add-to-list 'completion-at-point-functions #'cape-symbol)
   (add-to-list 'completion-at-point-functions #'cape-file)

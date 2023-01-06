@@ -9,6 +9,7 @@
 (dolist (var '(default-frame-alist initial-frame-alist))
   (add-to-list var '(menu-bar-lines . 0))
   (add-to-list var '(tool-bar-lines . 0))
+  (add-to-list var '(alpha-background . 0))
   (add-to-list var '(vertical-scroll-bars))
   (add-to-list var '(horizontal-scroll-bars))
   (add-to-list var '(undecorated-round . t))
