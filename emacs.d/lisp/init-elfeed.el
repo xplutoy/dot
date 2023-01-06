@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (use-package elfeed
   :init
-  ;; (setq elfeed-db-directory (concat yx-share-data-path "/elfeed-db"))
+  (setq elfeed-db-directory (concat user-emacs-directory  "elfeed-db"))
   (setq-default elfeed-search-filter "@1-year-ago +unread")
   (setq elfeed-feeds
         '(

@@ -44,7 +44,7 @@
         org-pretty-entities t
         org-use-sub-superscripts "{}"
         ;; org-odd-levels-only t
-        org-hide-block-startup t
+        org-hide-block-startup nil
         ;; org-auto-align-tags nil
         org-list-description-max-indent 4
         org-fontify-done-headline t
@@ -119,10 +119,10 @@
                 (propertize "${tags:10}" 'face 'org-tag)))
   (setq org-roam-dailies-directory "daily/")
   (setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %^{desc}\n%?"
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+TITLE: %<%Y-%m-%d>\n"))))
+        '(("d" "default" entry
+           "* %^{desc}\n%?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+TITLE: %<%Y-%m-%d>\n"))))
   (add-to-list 'display-buffer-alist
                '("\\*org-roam\\*"
                  (display-buffer-in-direction)
@@ -134,7 +134,7 @@
   (org-roam-db-autosync-mode)
 
   :bind (("C-c n c" . org-roam-capture)
-         ("C-c n f" . org-roam-node-find)
+         ("C-c n n" . org-roam-node-find)
          ("C-c n d" . org-roam-dailies-capture-date)
          :map org-mode-map
          ("C-c n l" . org-roam-buffer-toggle)
@@ -145,6 +145,23 @@
          ("C-c n R" . org-roam-ref-remove)
          ("C-c n a" . org-roam-alias-add)
          ("C-c n A" . org-roam-alias-remove))
+  )
+
+(use-package consult-org-roam
+  :after (consult org-roam)
+  :custom
+  (consult-org-roam-grep-func #'consult-ripgrep)
+  (consult-org-roam-buffer-narrow-key ?r)
+  (consult-org-roam-buffer-after-buffers t)
+  :config
+  (consult-customize
+   consult-org-roam-forward-links
+   :preview-key (kbd "SPC"))
+  (consult-org-roam-mode 1)
+  :bind (("C-c n e" . consult-org-roam-file-find)  ;; some bug?
+         ("C-c n b" . consult-org-roam-backlinks)
+         ("C-c n f" . consult-org-roam-forward-links)
+         ("C-c n s" . consult-org-roam-search))
   )
 
 (use-package org-appear

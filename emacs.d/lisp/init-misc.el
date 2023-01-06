@@ -59,6 +59,7 @@
 (use-package posframe)  ;; sdcv dep
 (use-package sdcv
   :ensure nil
+  :demand t
   :load-path "nonelpa/sdcv"
   :init
   (setq sdcv-dictionary-simple-list (list "朗道英汉字典5.0")
@@ -112,8 +113,8 @@
 
 ;; crux
 (use-package crux
-  :config (prog (crux-with-region-or-buffer indent-region)
-                ((crux-reopen-as-root-mode)))
+  :config (progn (crux-with-region-or-buffer indent-region)
+                 (crux-reopen-as-root-mode))
   :bind (("C-c o" . crux-open-with)
          ("S-<return>" . crux-smart-open-line)
          ("C-S-<return>" . smart-open-line-above)
