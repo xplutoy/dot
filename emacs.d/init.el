@@ -74,6 +74,7 @@
 (require 'init-ui)
 (require 'init-basic)
 (require 'init-completion)
+(require 'init-evil)
 (add-hook 'emacs-startup-hook  #'(lambda ()
                                    (require 'init-misc)
                                    (require 'init-eshell)
