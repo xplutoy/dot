@@ -6,6 +6,15 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package diminish
+  :config
+  (diminish 'eldoc-mode)
+  (diminish 'abbrev-mode)
+  (diminish 'subword-mode)
+  (with-eval-after-load 'hideshow
+    (diminish 'hs-minor-mode))
+  )
+
 ;; ibuffer-vc
 (use-package ibuffer-vc
   :init
@@ -16,6 +25,7 @@
                 (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package which-key
+  :diminish
   :init
   (setq which-key-idle-delay 1.0
         which-key-idle-secondary-delay 0.05)
@@ -135,6 +145,10 @@
   :bind (([remap kill-ring-save] . easy-kill)
          ([remap mark-sexp] . easy-mark))
   )
+
+;; all-the-icons
+(use-package all-the-icons
+  :if (display-graphic-p))
 
 
 (provide 'init-misc)

@@ -1,10 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (use-package evil
+  :custom
+  (evil-undo-system 'undo-redo)
   :init
   (setq evil-default-state 'emacs
         evil-search-module 'evil-search
         evil-respect-visual-line-mode t
-        evil-undo-system 'undo-redo
         evil-want-C-u-scroll t
         evil-want-C-w-delete t
         evil-want-Y-yank-to-eol t
@@ -23,6 +24,7 @@
   )
 
 (use-package evil-collection
+  :diminish evil-collection-unimpaired-mode
   :after evil
   :init
   (setq evil-collection-mode-list
@@ -192,6 +194,8 @@
     "kk" 'scroll-other-window-up
 
     "hml" 'yx-hide-mode-line
+    "te" 'eshell/yx-eshell-toggle
+    "tv" 'vterm-toggle-cd
     ) ;;}}
 
   ;; {{ Use `;` as leader key, for searching something

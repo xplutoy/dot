@@ -135,7 +135,6 @@
          ("M-s r" . consult-ripgre)
          ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
-         ("M-s o" . consult-multi-occur)
          ("M-s k" . consult-keep-lines)
          ("M-s u" . consult-focus-lines)
          ("M-s e" . consult-isearch-histor)

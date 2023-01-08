@@ -88,9 +88,7 @@ The exact color values are taken from the active Ef theme."
   (add-hook 'ef-themes-post-load-hook #'yx-ef-themes-hl-todo-faces)
   )
 
-;; all-the-icons
-(use-package all-the-icons
-  :if (display-graphic-p))
+;; mode line
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)
