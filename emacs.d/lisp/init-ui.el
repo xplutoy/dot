@@ -47,38 +47,46 @@
   :init
   (setq ef-themes-mixed-fonts t
         ef-themes-variable-pitch-ui t
+        ef-themes-disable-other-themes t
+        ef-themes-region '(intense no-extend neutral)
         ef-themes-headings '((0 . (light variable-pitch 1.5))
                              (1 . (light variable-pitch 1.3))
                              (2 . (variable-pitch 1.1))
                              (t . (variable-pitch))))
   (mapc #'disable-theme custom-enabled-themes)
-  (setq ef-themes-to-toggle '(ef-duo-light ef-winter))
+  (setq ef-themes-to-toggle '(ef-duo-light ef-dark))
 
   :config
-  (ef-themes-select 'ef-winter)
-  ;;no need mode line.
-  (if (not (display-graphic-p))
-      (ef-themes-select 'ef-dark)
-    ;; only graphic work
-    (ef-themes-select 'ef-winter)
-    (defun yx-mode-line-setup ()
-      (let ((bg (face-attribute 'mode-line :background))
-            (ibg (face-attribute 'mode-line-inactive :background)))
-        (set-face-attribute 'mode-line nil
-                            :foreground bg
-                            :height 0.1
-                            :box nil)
-        (set-face-attribute 'mode-line-inactive nil
-                            :foreground ibg
-                            :height 0.1
-                            :box nil
-                            :inherit 'unspecified)
-        )
-      )
-    (yx-mode-line-setup)
-    (add-hook 'ef-themes-toggle #'yx-mode-line-setup)
-    (add-hook 'ef-themes-post-load-hook #'yx-mode-line-setup)
-    ))
+  (ef-themes-select 'ef-dark)
+
+  ;; yx-hide-mode-line
+  (defun yx-hide-mode-line ()
+    (interactive)
+    (ef-themes-with-colors
+      (custom-set-faces
+       `(mode-line ((,c :foreground ,bg-mode-line :height 0.1)))
+       `(mode-line-inactive ((,c :foreground ,bg-alt :height 0.1)))))
+    )
+
+  ;; hl-todo-keyword-faces
+  (defun yx-ef-themes-hl-todo-faces ()
+    "Configure `hl-todo-keyword-faces' with Ef themes colors.
+The exact color values are taken from the active Ef theme."
+    (ef-themes-with-colors
+      (setq hl-todo-keyword-faces
+            `(("HOLD" . ,yellow)
+              ("TODO" . ,red)
+              ("NEXT" . ,blue)
+              ("DONT" . ,yellow-warmer)
+              ("FAIL" . ,red-warmer)
+              ("BUG" . ,red-warmer)
+              ("DONE" . ,green)
+              ("NOTE" . ,blue-warmer)
+              ("HACK" . ,cyan)
+              ("FIXME" . ,red-warmer)))))
+  (yx-ef-themes-hl-todo-faces)
+  (add-hook 'ef-themes-post-load-hook #'yx-ef-themes-hl-todo-faces)
+  )
 
 ;; all-the-icons
 (use-package all-the-icons

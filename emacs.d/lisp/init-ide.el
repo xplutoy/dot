@@ -57,6 +57,18 @@
   :hook ((emacs-lisp-mode c-mode python-mode) . aggressive-indent-mode)
   )
 
+;; hl-todo
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  )
+
+;; indent-guide
+(use-package indent-guide
+  :init
+  (setq indent-guide-recursive nil)
+  :hook ((prog-mode emacs-lisp-mode) . indent-guide-mode)
+  )
+
 ;; magit
 (use-package magit
   :defer t

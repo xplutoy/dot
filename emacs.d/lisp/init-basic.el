@@ -192,9 +192,14 @@
 (dolist (hook '(text-mode-hook org-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 
-;; dabbrev
-(global-set-key (kbd "M-/") #'dabbrev-completion)
-(global-set-key (kbd "C-M-/") #'dabbrev-expand)
+;; hippie-expand
+(setq hippie-expand-verbose nil
+      hippie-expand-max-buffers 10
+      hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-complete-file-name-partially
+                                         try-complete-file-name))
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; ctrl-x-x-map emacs 28
 (let ((map ctl-x-x-map))              ; Emacs 28
@@ -253,6 +258,7 @@
 (add-hook 'before-save-hook #'(lambda ()
                                 (delete-trailing-whitespace)
                                 (whitespace-cleanup)))
+(setq backward-delete-char-untabify-method 'hungry)
 
 ;; epa
 (setq epa-file-encrypt-to nil
