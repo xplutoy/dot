@@ -17,6 +17,17 @@
   :config
   (evil-mode 1)
 
+  ;; mode with normal states
+  (defvar my-initial-evil-state-setup
+    '((messages-buffer-mode . normal)
+      (prog-mode . normal)
+      (emacs-lisp-mode . normal)
+      (org-mode . normal)
+      (text-mode . normal))
+    "Default evil state per major mode.")
+  (dolist (p my-initial-evil-state-setup)
+    (evil-set-initial-state (car p) (cdr p)))
+
   ;; evil re-assign "M-." to `evil-repeat-pop-next' which I don't use actually.
   ;; Restore "M-." to original binding command
   (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions)
@@ -78,7 +89,6 @@
 (use-package evil-nerd-commenter
   :config
   (evilnc-default-hotkeys nil t)
-  :bind ("C-;" . evilnc-comment-or-uncomment-lines)
   )
 
 (use-package general

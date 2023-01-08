@@ -11,6 +11,7 @@
   (diminish 'eldoc-mode)
   (diminish 'abbrev-mode)
   (diminish 'subword-mode)
+  (diminish 'superword-mode)
   (with-eval-after-load 'hideshow
     (diminish 'hs-minor-mode))
   )
