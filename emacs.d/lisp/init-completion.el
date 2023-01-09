@@ -197,6 +197,12 @@
               ("C-q" . corfu-quick-insert))
   )
 
+(use-package corfu-terminal
+  :unless (display-graphic-p)
+  :after corfu
+  :config
+  (corfu-terminal-mode +1))
+
 ;; kind-icon
 (use-package kind-icon
   :after corfu

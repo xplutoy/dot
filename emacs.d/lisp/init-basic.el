@@ -90,6 +90,9 @@
 
 ;; completion
 (setq completion-ignore-case t
+      completions-max-height 30
+      completion-auto-select 'second-tab
+      completion-auto-help 'visible
       completion-cycle-threshold 3 ;;or t
       tab-always-indent 'complete
       read-buffer-completion-ignore-case t
@@ -294,6 +297,7 @@
 (midnight-mode 1)
 (file-name-shadow-mode 1) ;; @see https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer-File.html
 (auto-compression-mode 1)
+
 
 ;; init-basic end ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-basic)
