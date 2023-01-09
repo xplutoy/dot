@@ -72,17 +72,6 @@
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize))
 
-;; diminish
-(use-package diminish
-  :config
-  (diminish 'eldoc-mode)
-  (diminish 'abbrev-mode)
-  (diminish 'subword-mode)
-  (diminish 'superword-mode)
-  (with-eval-after-load 'hideshow
-    (diminish 'hs-minor-mode))
-  )
-
 ;;helpful
 (use-package helpful
   :bind
@@ -101,7 +90,6 @@
                 (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package which-key
-  :diminish
   :init
   (setq which-key-idle-delay 1.0
         which-key-idle-secondary-delay 0.05)
@@ -121,16 +109,17 @@
 ;; ace-window
 (use-package ace-window
   :init
-  (setq aw-background t
+  (setq aw-background nil
         aw-scope 'frame
         aw-dispatch-always t
         ;; aw-ignored-buffers
         aw-minibuffer-flag nil)
   :bind ("M-o" . ace-window)
   :general
-  (yx-space-leader-def    "aw" 'ace-swap-window
-                          "af" 'ace-maximize-window
-                          "xo" 'ace-window))
+  (yx-space-leader-def
+    "aw" 'ace-swap-window
+    "af" 'ace-maximize-window
+    "xo" 'ace-window))
 
 ;; avy
 (use-package avy

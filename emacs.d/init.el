@@ -11,13 +11,8 @@
 (defconst ON-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 
 ;; custom.el
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-(prefer-coding-system 'utf-8)
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 ;; elpa-init
 (require 'package)
@@ -35,13 +30,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;;help function
-(defun yx-add-to-load-path-r (dir)
-  (let ((default-directory  dir))
-    (normal-top-level-add-to-load-path '("."))
-    (normal-top-level-add-subdirs-to-load-path))
-  )
-(yx-add-to-load-path-r (concat user-emacs-directory "lisp"))
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'init-ui)
 (require 'init-basic)

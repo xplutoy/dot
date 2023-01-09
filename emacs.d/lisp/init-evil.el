@@ -47,7 +47,6 @@
   )
 
 (use-package evil-collection
-  :diminish evil-collection-unimpaired-mode
   :after evil
   :init
   (setq evil-collection-mode-list '(vertico diff-hl))

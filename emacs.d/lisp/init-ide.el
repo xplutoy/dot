@@ -11,7 +11,6 @@
 
 (use-package yasnippet-snippets)
 (use-package yasnippet
-  :diminish yas-minor-mode
   :hook (prog-mode . yas-minor-mode)
   )
 
@@ -54,7 +53,6 @@
 
 ;; aggressive-indent
 (use-package aggressive-indent
-  :diminish
   :hook ((emacs-lisp-mode c-mode python-mode) . aggressive-indent-mode)
   )
 
@@ -69,7 +67,6 @@
 
 ;; indent-guide
 (use-package indent-guide
-  :diminish
   :init
   (setq indent-guide-recursive nil)
   :hook ((prog-mode emacs-lisp-mode) . indent-guide-mode)

@@ -1,4 +1,14 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+(prefer-coding-system 'utf-8)
+
+(when ON-MAC
+  (setq mac-command-modifier       'super   ;; s: super(Command/Win)
+        mac-control-modifier       'control ;; C: Ctrl
+        mac-option-modifier        'meta    ;; M: Meta (Option/Alt)
+        mac-right-command-modifier 'hyper   ;; H: hyper (reachable for thumb)
+        mac-right-option-modifier  'none    ;; Leave Option to macOS
+        mac-right-control-modifier 'control ;; C: Ctrl
+        ))
 
 (setq-default major-mode 'fundamental-mode
               fill-column 78
@@ -8,7 +18,7 @@
               abbrev-mode t)
 
 (setq use-short-answers t
-      echo-keystrokes 0.25
+      echo-keystrokes 0.2
       visible-bell t
       ring-bell-function 'ignore
       use-dialog-box nil
@@ -108,6 +118,8 @@
 ;; completion
 (setq completion-ignore-case t
       completion-show-help nil
+      completion-show-inline-help nil
+      completions-detailed t
       completions-header-format nil
       completions-max-height 20
       completion-auto-select 'second-tab
@@ -303,6 +315,8 @@
       use-package-expand-minimally t
       use-package-compute-statistics t
       use-package-verbose t)
+(when (daemonp)
+  (setq use-package-always-demand t))
 
 ;; eldoc
 (setq eldoc-echo-area-use-multiline-p nil)
