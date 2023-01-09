@@ -15,12 +15,20 @@
   (add-to-list var '(undecorated-round . t))
   (add-to-list var '(fullscreen . maximized)))
 
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-compacting-font-caches t
+      frame-title-format '("%b")
+      frame-resize-pixelwise t
+      frame-inhibit-implied-resize t
+      use-file-dialog nil
+      use-dialog-box nil)
+
 (setq package-enable-at-startup nil)
 
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
-(add-hook 'emacs-startup-hook #'(lambda ()
-				                  (setq gc-cons-threshold (* 20 1024 1024)
-				                        gc-cons-percentage 0.1)
-                                                  ))
-
+(add-hook 'after-init-hook #'(lambda ()
+		               (setq gc-cons-threshold (* 20 1024 1024)
+		                     gc-cons-percentage 0.1)
+                               ))

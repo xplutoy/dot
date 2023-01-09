@@ -1,11 +1,13 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 ;; exec-path-from-shell
 (use-package exec-path-from-shell
-  :if (or (memq window-system '(mac ns)) (daemonp))
-  :ensure t
+  :if ON-MAC
+  :demand t
   :config
+  (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize))
 
+;; diminish
 (use-package diminish
   :config
   (diminish 'eldoc-mode)
@@ -15,6 +17,14 @@
   (with-eval-after-load 'hideshow
     (diminish 'hs-minor-mode))
   )
+
+;;helpful
+(use-package helpful
+  :bind
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key] . helpful-key))
 
 ;; ibuffer-vc
 (use-package ibuffer-vc
@@ -142,7 +152,7 @@
 
 ;; easy-kill
 (use-package easy-kill
-  :ensure t
+  :demand t
   :bind (([remap kill-ring-save] . easy-kill)
          ([remap mark-sexp] . easy-mark))
   )

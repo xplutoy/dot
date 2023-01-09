@@ -3,8 +3,7 @@
 ;; minibuffer enhance
 ;; vertico ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package vertico
-  :ensure t
-  :defer nil
+  :demand t
   :init
   (setq vertico-cycle t
         vertico-scroll-margin 1
@@ -26,6 +25,7 @@
 (use-package orderless
   :init
   (setq completion-styles '(basic orderless)
+        completion-category-defaults nil
 	completion-category-overrides '((file (styles . (basic partial-completion orderless)))
                                         (imenu (styles . (basic substring orderless)))
                                         (kill-ring (styles . (basic substring orderless)))
@@ -167,7 +167,7 @@
 
 ;; corfu ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package corfu
-  :defer nil
+  :demand t
   :init
   (setq corfu-auto t  ;; set befor global-corfu-mode
         corfu-cycle t
@@ -184,7 +184,7 @@
   (add-hook 'minibuffer-setup-hook #'(lambda ()
                                        (unless (bound-and-true-p vertico--input)
                                          (corfu-mode 1))))
-  (global-corfu-mode 1)
+  ;; (global-corfu-mode 1)
   ;; corfu plugin
   (corfu-popupinfo-mode 1)
   (corfu-echo-mode 1)
@@ -195,6 +195,7 @@
               ("SPC" . corfu-insert-separator)
               ("M-q" . corfu-quick-complete)
               ("C-q" . corfu-quick-insert))
+  :hook ((emacs-lisp-mode prog-mode) . corfu-mode)
   )
 
 (use-package corfu-terminal

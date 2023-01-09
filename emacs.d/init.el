@@ -19,34 +19,6 @@
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(setq inhibit-splash-screen t
-      inhibit-startup-message t
-      ;; initial-scratch-message nil
-      inhibit-compacting-font-caches t
-      frame-title-format '("%b")
-      frame-resize-pixelwise t
-      frame-inhibit-implied-resize t)
-;; (setq native-comp-async-report-warnings-errors 'silent)
-
-(setq use-short-answers t
-      echo-keystrokes 0.25
-      visible-bell t
-      ring-bell-function 'ignore
-      use-dialog-box nil
-      load-prefer-newer nil
-      confirm-kill-processes nil
-      inhibit-compacting-font-caches t
-      create-lockfiles nil)
-
-(setq delete-by-moving-to-trash  ON-MAC
-      kill-do-not-save-duplicates t)
-
-;; mouse support in terminal
-(unless (display-graphic-p)
-  (if ON-LINUX
-    (gpm-mouse-mode 1)
-  (xterm-mouse-mode 1)))
-
 ;; elpa-init
 (require 'package)
 (setq package-archives
@@ -58,11 +30,10 @@
         ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/stable-melpa/")
         ))
-(setq package-quickstart t)
+(setq package-quickstart nil)
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(add-hook 'kill-emacs-hook 'package-quickstart-refresh)
 
 ;;help function
 (defun yx-add-to-load-path-r (dir)

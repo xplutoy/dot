@@ -42,17 +42,17 @@
 
 ;; theme
 ;; 1, monokai-theme
-;; 2, ef-themes
+;; 2, ef-themes (:dark ef-cherie ef-winter ef-dark) (:light ef-duo-light)
 (use-package ef-themes
   :init
   (setq ef-themes-mixed-fonts t
         ef-themes-variable-pitch-ui t
         ef-themes-disable-other-themes t
         ef-themes-region '(intense no-extend neutral)
-        ef-themes-headings '((0 . (light variable-pitch 1.5))
-                             (1 . (light variable-pitch 1.3))
+        ef-themes-headings '((0 . (variable-pitch 1.5))
+                             (1 . (variable-pitch 1.3))
                              (2 . (variable-pitch 1.1))
-                             (t . (variable-pitch))))
+                             (t . (variable-pitch 1.0))))
   (mapc #'disable-theme custom-enabled-themes)
   (setq ef-themes-to-toggle '(ef-duo-light ef-dark))
 
@@ -89,6 +89,7 @@ The exact color values are taken from the active Ef theme."
   )
 
 ;; mode line
+(setq column-number-mode t)
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)

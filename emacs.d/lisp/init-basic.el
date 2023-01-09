@@ -7,6 +7,24 @@
               cursor-type 'box
               abbrev-mode t)
 
+(setq use-short-answers t
+      echo-keystrokes 0.25
+      visible-bell t
+      ring-bell-function 'ignore
+      use-dialog-box nil
+      load-prefer-newer nil
+      confirm-kill-processes nil
+      inhibit-compacting-font-caches t
+      create-lockfiles nil)
+(setq delete-by-moving-to-trash  ON-MAC
+      kill-do-not-save-duplicates t)
+
+;; mouse support in terminal
+(unless (display-graphic-p)
+  (if ON-LINUX
+      (gpm-mouse-mode 1)
+    (xterm-mouse-mode 1)))
+
 ;; windows & buffer
 (global-set-key (kbd "C-S-w") 'kill-buffer-and-window)
 (setq switch-to-buffer-obey-display-actions t
@@ -30,10 +48,10 @@
 
 (setq window-sides-slots '(3 3 3 3))
 (add-to-list 'display-buffer-alist
-             `(,(rx (| "*Help*" "*Dictionary*" "*SDCV*"))
-               display-buffer-in-side-window
-               (side . right)
-               (window-width . 60)))
+             `(,(rx bos (| "*Help*" "*Dictionary*" "*SDCV*" "*helpful" "*info*" "*Summary*") (0+ not-newline))
+               (display-buffer-reuse-mode-window display-buffer-below-selected)
+               (window-height . 0.4)
+               (mode apropos-mode help-mode helpful-mode Info-mode Man-mode)))
 
 ;; winmove
 (setq windmove-wrap-around t)
@@ -52,8 +70,7 @@
 (setq recentf-auto-cleanup 120)
 (advice-add 'recentf-cleanup :around #'(lambda (function)
                                          (let ((inhibit-message  t))
-                                           (funcall function)))
-            )
+                                           (funcall function))))
 
 ;; savelist
 (setq history-delete-duplicates t)
@@ -90,7 +107,9 @@
 
 ;; completion
 (setq completion-ignore-case t
-      completions-max-height 30
+      completion-show-help nil
+      completions-header-format nil
+      completions-max-height 20
       completion-auto-select 'second-tab
       completion-auto-help 'visible
       completion-cycle-threshold 3 ;;or t
@@ -282,7 +301,11 @@
 (setq use-package-always-ensure t
       use-package-always-defer nil
       use-package-expand-minimally t
+      use-package-compute-statistics t
       use-package-verbose t)
+
+;; eldoc
+(setq eldoc-echo-area-use-multiline-p nil)
 
 ;; misc global minor mode
 (global-tab-line-mode -1)

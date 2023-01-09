@@ -9,7 +9,8 @@
         evil-want-C-u-scroll t
         evil-want-C-w-delete t
         evil-want-Y-yank-to-eol t
-        evil-move-cursor-back t)
+        evil-move-cursor-back t
+        evil-lookup-func #'helpful-at-point)
   ;; necessary for evil-collection
   (setq evil-want-integration t
         evil-want-keybinding nil)
