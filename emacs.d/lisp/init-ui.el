@@ -88,8 +88,6 @@ The exact color values are taken from the active Ef theme."
   (add-hook 'ef-themes-post-load-hook #'yx-ef-themes-hl-todo-faces)
   )
 
-;; mode line
-(setq column-number-mode t)
 
 ;; end init-ui ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init-ui)

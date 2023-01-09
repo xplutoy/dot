@@ -8,60 +8,61 @@
   ;; use leaderkey `,' for programing and `SPC' for other
   (general-create-definer yx-comma-leader-def
     :prefix ","
-    :states '(normal visual emacs))
+    :states '(normal visual))
 
   (yx-comma-leader-def
-   "mf" 'mark-defun
-   "bf" 'beginning-of-defun
-   "bu" 'backward-up-list
-   "ef" 'end-of-defun
-   "eb" 'eval-buffer
-   "ee" 'eval-expression
-   "hf" 'find-function
+    "mf" 'mark-defun
+    "bf" 'beginning-of-defun
+    "bu" 'backward-up-list
+    "ef" 'end-of-defun
+    "eb" 'eval-buffer
+    "ee" 'eval-expression
+    "hf" 'find-function
 
-   "fe" 'flyspell-goto-next-error
-   "fa" 'flyspell-auto-correct-word
+    "fe" 'flyspell-goto-next-error
+    "fa" 'flyspell-auto-correct-word
 
-   "ar" 'align-regexp
-   "xv" 'vc-next-action
-   "vg" 'vc-annotate
-   "vm" 'vc-msg-show
-   )
+    "ar" 'align-regexp
+    "xv" 'vc-next-action
+    "vg" 'vc-annotate
+    "vm" 'vc-msg-show
+    )
 
   (general-create-definer yx-space-leader-def
     :prefix "SPC"
-    :states '(normal visual emacs))
+    :non-normal-prefix "M-SPC"
+    :states '(normal insert emacs))
 
   (yx-space-leader-def
-   "ff" 'find-file
-   "fo" 'find-file-other-window
-   "dj" 'dired-jump
-   "bk" 'kill-buffer-and-window
+    "ff" 'find-file
+    "fo" 'find-file-other-window
+    "dj" 'dired-jump
+    "bk" 'kill-buffer-and-window
 
-   "x0" 'delete-window
-   "x1" 'delete-other-windows
-   "x2" 'split-window-vertically
-   "x3" 'split-window-horizontally
-   "xa" 'split-window-vertically
-   "xd" 'split-window-horizontally
-   "s0" 'delete-window
-   "s1" 'delete-other-windows
-   "s2" 'split-window-vertically
-   "s3" 'split-window-horizontally
-   "sq" 'delete-window
-   "sa" 'split-window-vertically
-   "sd" 'split-window-horizontally
-   "oo" 'delete-other-windows
+    "x0" 'delete-window
+    "x1" 'delete-other-windows
+    "x2" 'split-window-vertically
+    "x3" 'split-window-horizontally
+    "xa" 'split-window-vertically
+    "xd" 'split-window-horizontally
+    "s0" 'delete-window
+    "s1" 'delete-other-windows
+    "s2" 'split-window-vertically
+    "s3" 'split-window-horizontally
+    "sq" 'delete-window
+    "sa" 'split-window-vertically
+    "sd" 'split-window-horizontally
+    "oo" 'delete-other-windows
 
-   "tff" 'toggle-frame-fullscreen
-   "tfm" 'toggle-frame-maximized
-   "mh" 'mark-whole-buffer
-   "sc" 'shell-command
-   "jj" 'scroll-other-window
-   "kk" 'scroll-other-window-up
-   "hml" 'yx-hide-mode-line
-   "te" 'eshell/yx-eshell-toggle
-   ))
+    "tff" 'toggle-frame-fullscreen
+    "tfm" 'toggle-frame-maximized
+    "mh" 'mark-whole-buffer
+    "sc" 'shell-command
+    "jj" 'scroll-other-window
+    "kk" 'scroll-other-window-up
+    "hml" 'yx-hide-mode-line
+    "te" 'eshell/yx-eshell-toggle
+    ))
 
 ;; exec-path-from-shell
 (use-package exec-path-from-shell

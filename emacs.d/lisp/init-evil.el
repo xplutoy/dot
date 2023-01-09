@@ -50,16 +50,7 @@
   :diminish evil-collection-unimpaired-mode
   :after evil
   :init
-  (setq evil-collection-mode-list
-        '(corfu vertico vterm
-                consult bookmark diff-hl
-                dired eglot ediff
-                doc-view eldoc elfeed
-                elisp-mode embark emoji
-                eshell flymake gnus ibuffer
-                imenu info lua-mode org
-                org-roam python simple w3m
-                which-key women xref))
+  (setq evil-collection-mode-list '(vertico diff-hl))
   :config
   (evil-collection-init))
 
@@ -73,7 +64,7 @@
     (when (memq major-mode '(sh-mode))
       (push '(?$ . ("${" . "}")) evil-surround-pairs-alist))
     (when (memq major-mode '(org-mode))
-      (push '(?\[ . ("[[" . "]]")) evil-surround-pairs-alist) ; [
+      (push '(?\[ . ("[[" . "]]")) evil-surround-pairs-alist)
       (push '(?= . ("=" . "=")) evil-surround-pairs-alist))
     (when (memq major-mode '(emacs-lisp-mode))
       (push '(?\( . ("( " . ")")) evil-surround-pairs-alist)

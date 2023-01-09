@@ -1,10 +1,10 @@
 ;; (setq gnus-verbose 10)
 (setq gnus-check-new-newsgroups nil
       gnus-save-killed-list nil
-      gnus-save-newsrc-file nil
-      gnus-read-newsrc-file nil
       gnus-always-read-dribble-file t
       gnus-inhibit-startup-message t)
+
+(setq gnus-asynchronous t)
 
 (setq gnus-select-method '(nnnil ""))
 (setq gnus-secondary-select-methods
