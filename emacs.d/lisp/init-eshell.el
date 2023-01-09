@@ -83,7 +83,7 @@ more-helpful local prompt."
          (parent (car directory))
          (name   (cadr directory))
          (branch (curr-dir-git-branch-string pwd))
-         
+
          (dark-env (eq 'dark (frame-parameter nil 'background-mode)))
          (for-bars                 `(:weight bold))
          (for-parent  (if dark-env `(:foreground "dark orange") `(:foreground "blue")))

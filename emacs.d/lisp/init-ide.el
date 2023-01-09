@@ -34,7 +34,8 @@
   :after vterm
   :init
   (setq vterm-toggle-hide-method nil)
-  )
+  :general
+  (yx-space-leader-def "tv" 'vterm-toggle-cd))
 
 ;; project
 (with-eval-after-load "project"
@@ -44,8 +45,7 @@
 (use-package diff-hl
   :config
   (global-diff-hl-mode)
-  (diff-hl-dired-mode)
-  )
+  (diff-hl-dired-mode))
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
@@ -61,7 +61,11 @@
 ;; hl-todo
 (use-package hl-todo
   :hook (prog-mode . hl-todo-mode)
-  )
+  :general
+  (yx-space-leader-def "tdp" 'hl-todo-previous
+                       "tdn" 'hl-todo-next
+                       "tdo" 'hl-todo-occur
+                       "tdi" 'hl-todo-insert))
 
 ;; indent-guide
 (use-package indent-guide

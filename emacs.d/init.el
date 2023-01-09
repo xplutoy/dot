@@ -45,9 +45,9 @@
 
 (require 'init-ui)
 (require 'init-basic)
+(require 'init-misc)
 (require 'init-completion)
 (require 'init-evil)
-(require 'init-misc)
 (require 'init-eshell)
 (require 'init-org)
 (require 'init-mail)

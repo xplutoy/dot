@@ -129,7 +129,7 @@
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
          ("M-s f" . consult-find)  ;; M-s bindings (search-map)
-         ("M-s D" . consult-locate)
+         ("M-s d" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgre)
