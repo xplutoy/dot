@@ -47,11 +47,12 @@
         org-hide-block-startup nil
         ;; org-auto-align-tags nil
         org-list-description-max-indent 4
-        org-fontify-done-headline t
+        org-fontify-done-headline nil
+        org-fontify-todo-headline nil
+        org-fontify-whole-heading-line nil
         org-src-fontify-natively t
-        org-src-preserve-indentation t
         org-fontify-quote-and-verse-blocks t
-        org-fontify-whole-heading-line t
+        org-src-preserve-indentation t
         org-priority-faces '((?a . error) (?b . warning) (?c . success))
         org-startup-with-inline-images t
         org-image-actual-width '(600))
@@ -67,6 +68,12 @@
   (setq org-return-follows-link t)
   (setq org-reverse-note-order t)
   (setq-default org-enforce-todo-dependencies t)
+
+  ;; @see https://www.n16f.net/blog/org-mode-headline-tips/
+  (setq org-insert-heading-respect-content t)
+  (setq org-goto-interface 'outline-path-completion)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-goto-max-level 2)
 
   (setq org-agenda-custom-commands
         '(("x" agenda)
