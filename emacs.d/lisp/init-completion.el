@@ -178,12 +178,6 @@
         corfu-preselect 'prompt
         corfu-echo-documentation nil)
   :config
-  (add-hook 'eshell-mode-hook #'(lambda ()
-                                  (setq-local corfu-auto nil)
-                                  (corfu-mode)))
-  (add-hook 'minibuffer-setup-hook #'(lambda ()
-                                       (unless (bound-and-true-p vertico--input)
-                                         (corfu-mode 1))))
   ;; (global-corfu-mode 1)
   ;; corfu plugin
   (corfu-popupinfo-mode 1)
